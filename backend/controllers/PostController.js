@@ -133,13 +133,15 @@ exports.deletePost = async(req,res) => {
 
 exports.getPostofFollowing = async(req,res) => {
     try {
-        const user = await User.findById(req.user._id);     // get loggedin user ID
+        // get loggedin user ID
 
-        const posts = await Post.find({
-            owner : {
-                $in : user.following,
-            },
-        })
+        // following populate means spread all and  find data of specific ID and  get all posts as well
+        const user = await User.findById(req.user._id).populate("following", "posts");
+        
+        return res.status(200).json({
+            success : true,
+            following : user.following
+        });
 
     } catch (error) {
         res.status(500).json({
