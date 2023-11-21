@@ -4,6 +4,7 @@ const User = require('../models//User.js');
 
 exports.CreatePost = async (req,res) => {
     try {
+        console.log(' Create post-');
         const newPostData = {
             caption : req.body.caption,
             image: {
@@ -12,8 +13,15 @@ exports.CreatePost = async (req,res) => {
             },
             owner : req.user._id,
         }
-
         const post = await Post.create(newPostData);        // create post with above data
+
+        if(!post){
+            return res.status(500).json({
+                success: false,
+                message : " Post Doesn't Exist "
+            })
+        }
+        
         const user = await User.findById(req.user._id);     // find  user  in 
 
         user.posts.push(post._id)   // post pushed to specific logged user account
@@ -116,5 +124,26 @@ exports.deletePost = async(req,res) => {
             success : false,
             message : error.message
         }) 
+    }
+}
+
+
+//get Specific User's Following
+
+exports.getPostofFollowing = async(req,res) => {
+    try {
+        const user = await User.findById(req.user._id);     // get loggedin user ID
+
+        const posts = await Post.find({
+            owner : {
+                $in : user.following,
+            },
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success :   false,
+            message :   error.message
+        })
     }
 }

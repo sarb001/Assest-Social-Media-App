@@ -85,8 +85,6 @@ exports.FollowUser = async(req,res) => {
         // two cases can be there - 1) - May be user is  already followed then unfolow it
         // 2 )- if not Followed then Follow it normally 
 
-
-
         // 1) case - check if user is already followed
         if(loggedInUser.following.includes(userToFollow._id)){
             // checked in following 
