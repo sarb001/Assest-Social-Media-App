@@ -52,7 +52,7 @@ exports.LikeandUnlikePost = async(req,res) =>{
             const index = post.likes.indexOf(req.user._id);     // find specific index of that place 
 
             post.likes.splice(index,1);                 // remove it from that place 
-
+            await post.save();
             return res.status(200).json({
                 success  :true,
                 message : "Post Unliked",
@@ -73,5 +73,48 @@ exports.LikeandUnlikePost = async(req,res) =>{
              success  :false,
              message : error.message
         })
+    }
+}
+
+
+exports.deletePost = async(req,res) => {
+    try {
+        // find post of specific id 
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({
+                success : false,
+                message :" Post not Found "
+            })
+        }
+
+        //check if post by deleted  by owner ( the one who create it )
+        // if not then show Unathu..
+        if(post.owner.toString() !== req.user._id.toString()){
+            return res.status(401).json({
+                success : false,
+                message : "UnAuthorized"
+            })
+        }
+        await post.remove();        // post removed now 
+
+        // post has been deleted now but 
+        // remove it from Specific user's post Array where it still exists
+
+        const user  = await User.findById(req.user._id);    // find specific user's post 
+        const index = user.posts.indexOf(req.params.id);    // find Index of that post 
+        // and remove it or splice it
+        user.posts.splice(index,1);
+
+        await user.save();
+        res.status(200).json({
+            success : true,
+            message : " Post Deleted ",
+        });
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : error.message
+        }) 
     }
 }
