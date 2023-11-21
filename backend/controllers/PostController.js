@@ -89,6 +89,7 @@ exports.deletePost = async(req,res) => {
     try {
         // find post of specific id 
         const post = await Post.findById(req.params.id);
+        console.log('post in del -',post);
         if(!post){
             return res.status(404).json({
                 success : false,
@@ -104,7 +105,7 @@ exports.deletePost = async(req,res) => {
                 message : "UnAuthorized"
             })
         }
-        await post.remove();        // post removed now 
+        await post.deleteOne();        // post removed now 
 
         // post has been deleted now but 
         // remove it from Specific user's post Array where it still exists
