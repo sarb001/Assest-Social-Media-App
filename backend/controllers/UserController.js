@@ -67,6 +67,92 @@ exports.Login = async(req,res) => {
     }
 }
 
+exports.Logout = async(req,res) => {
+    try {
+        res.status(200).cookie("token",null, {
+            expires : new Date(Date.now()),
+            httpOnly :true
+        }).json({
+            success : false,
+            message  : " Logged Out "
+        });
+    } catch (error) {
+        res.status(500).json({
+            success :false,
+            message : error.message,
+        })
+    }
+}
+
+exports.updateProfile = async(req,res) => {
+    try {
+        const { name ,email }= req.body;
+        if(!name || !email){
+            return res.status(400).json({
+                success : false,
+                message : " Provide Name | Email "
+            })
+        }
+
+        const user = await User.findById(req.user._id);
+        if(name){
+            user.name = name;
+        }
+        if(email){
+            user.email = email;
+        }
+        await user.save();
+            res.status(200).json({
+                success : true,
+                message: " Profile Updated "
+            })
+
+    } catch (error) {
+        return res.status(500).json({
+            success  : false,
+            message  : error.message
+        })
+    }
+}
+
+exports.updatePassword = async(req,res) => {
+    try {
+        const user = await User.findById(req.user._id).select("+password");
+        
+        const { oldPassword , newPassword } = req.body;
+        console.log('update pass-',oldPassword,newPassword);
+
+        if(!oldPassword || !newPassword){
+            return res.status(400).json({
+                success : false,
+                message : " Write Old | New Password "
+            })
+        }
+
+        const isMatch = await user.matchPassword(oldPassword);
+        console.log('update ismatch -',isMatch);
+        if(!isMatch){
+            return res.status(400).json({
+                success : false,
+                message : "  Old Password is Incorrect "
+            });
+        }
+         user.password = newPassword;
+         await user.save();
+
+         res.status(200).json({
+            success : true,
+            message: " Password Updated ",
+         })
+
+    } catch (error) {
+        return res.status(500).json({
+            success  :false,
+            message : error.message
+        })
+    }
+}
+
 //Follow User 
 exports.FollowUser = async(req,res) => {
     try {
