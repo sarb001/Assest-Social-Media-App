@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { CreatePost, LikeandUnlikePost, deletePost, getPostofFollowing, updateCaption } = require('../controllers/PostController.js');
+const { CreatePost, LikeandUnlikePost, deletePost, getPostofFollowing, updateCaption, commentonPost } = require('../controllers/PostController.js');
 const { isAuthenticated } = require('../middlewares/auth.js');
 
 const router = express.Router();
@@ -16,6 +16,8 @@ router.route('/post/:id').delete(isAuthenticated,deletePost);
 router.route('/post/:id').put(isAuthenticated,updateCaption);
 
 router.route('/followpost').get(isAuthenticated,getPostofFollowing);
+
+router.route('/posts/comment/:id').put(isAuthenticated,commentonPost);
 
 
 module.exports = router;

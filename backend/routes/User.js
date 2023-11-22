@@ -10,7 +10,7 @@ router.route('/login').post(Login);
 
 router.route('/logout').get(Logout);
 
-router.route('update/profile').put(isAuthenticated,updateProfile);
+router.route('/update/profile').put(isAuthenticated,updateProfile);
 
 router.route('/update/password').put(isAuthenticated,updatePassword);
 

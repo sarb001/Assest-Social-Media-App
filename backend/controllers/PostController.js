@@ -183,3 +183,33 @@ exports.updateCaption = async(req,res) => {
        }) 
     }
 }
+
+exports.commentonPost = async(req,res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        if(!post){
+            return res.status(404).json({
+                 success : false,
+                 message : " Post not Found "
+            })
+        }
+
+        post.comments.push({
+            user    : req.user._id,
+            comment : req.body.comment
+        });
+
+        await post.save();
+        return res.status(200).json({
+            success :true,
+            message : " Comment Added ",
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+         success :false,
+         message :error.message
+        })
+    }
+}
