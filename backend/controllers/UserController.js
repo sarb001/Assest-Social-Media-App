@@ -183,6 +183,23 @@ exports.deleteMyProfile = async(req,res) => {
    } 
 }
 
+exports.MyProfile = async(req,res) => {
+    
+    try {
+        const user = await User.findById(req.user._id).populate("posts");
+        res.status(200).json({
+            success : true,
+            user,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success : false,
+            message : error.message
+         })
+    }
+}
+
 //Follow User 
 exports.FollowUser = async(req,res) => {
     try {
