@@ -184,6 +184,7 @@ exports.updateCaption = async(req,res) => {
     }
 }
 
+//only comment on post available not Edit
 exports.commentonPost = async(req,res) => {
     try {
         const post = await Post.findById(req.params.id);
@@ -210,6 +211,51 @@ exports.commentonPost = async(req,res) => {
         return res.status(500).json({
          success :false,
          message :error.message
+        })
+    }
+}
+
+
+exports.deleteComment = async(req,res) => {
+    try {
+        const  post = await Post.findById(req.params.id);
+
+        if(!post){
+            return res.status(404).json({
+                success : false,
+                message : " Post not Found "
+            })
+        }
+        // if owner wants to Delete the post
+        // ownerid === logged user
+        if(post.owner.toString() === req.user._id.toString()){
+            if(req.body.commentId == undefined){
+                return res.status(400).json({
+                success :false,
+                message : " Comment ID is Required ",
+                })
+            }
+        }
+
+        // For Every Comment check postid ( /:id ) in url === commentid 
+        // if yes then remove that Specific One 
+        post.comments.forEach((item,index) => {
+            if(item._id.toString() === req.body.commentId.toString()){
+                return post.comments.splice(index,1);
+            }
+        });
+
+        await post.save();
+
+        return res.status(500).json({
+            success : true,
+            message : "Selected Comment has Deleted",
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+        success :false,
+        message : error.message
         })
     }
 }
