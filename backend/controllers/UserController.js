@@ -1,6 +1,8 @@
 
 
 const User = require("../models/User");
+const Post = require('../models/Post');
+
 
 exports.Register = async  (req,res) => {
     try {
@@ -118,7 +120,7 @@ exports.updateProfile = async(req,res) => {
 exports.updatePassword = async(req,res) => {
     try {
         const user = await User.findById(req.user._id).select("+password");
-        
+
         const { oldPassword , newPassword } = req.body;
         console.log('update pass-',oldPassword,newPassword);
 
@@ -151,6 +153,34 @@ exports.updatePassword = async(req,res) => {
             message : error.message
         })
     }
+}
+// Delete My Profile  and all Posts as well
+exports.deleteMyProfile = async(req,res) => {
+   try {
+    const user = await User.findById(req.user._id);
+    const posts  = user.posts;
+    await user.deleteOne();
+
+    res.cookie("token", null , {
+        expires : new Date(Date.now()),
+        httpOnly : true,
+    });
+
+    for(let i = 0; i < posts.length;i++){
+        const post  = await Post.findById(posts[i]);
+        await post.deleteOne();
+    }
+    res.status(200).json({
+      success :true,
+      message: " Profile Deleted ",
+    })
+
+   } catch (error) {
+     return res.status(500).json({
+        success : false,
+        message : error.message
+     })
+   } 
 }
 
 //Follow User 
