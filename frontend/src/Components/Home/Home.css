@@ -5,10 +5,15 @@
     height: 80vh;
 }
 .homeleft{
-  background-color: rgb(0, 173, 32);
+  background-color: rgb(190, 190, 190);
 }
 .homeright{
     overflow-y: scroll;
     display: grid;
     grid-template-columns: 1fr;
+}
+.post-container{
+  background-color: rgb(115, 117, 114);
+  margin: 0% 25%;
+  padding: 2%;  
 }
