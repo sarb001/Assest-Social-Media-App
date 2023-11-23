@@ -1,0 +1,13 @@
+.home{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 6fr 2fr;
+}
+.homeleft{
+  background-color: rgb(0, 173, 32);
+  width: 70%;
+}
+.homeright{
+    background-color: rgb(237, 9, 9);
+    width: 30%;
+}

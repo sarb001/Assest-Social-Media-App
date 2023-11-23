@@ -9,6 +9,8 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import './Header.css' ;
+
 
 const Header = () => {
     const [tab,setTab] = useState(window.location.pathname);
@@ -16,19 +18,19 @@ const Header = () => {
   return (
         <div className='header'>
             <Link to = "/" onClick={() => setTab('/')}> 
-            {tab === '/'     ?   <HomeIcon style = {{color:'black'}} /> :  <HomeOutlinedIcon />}
+             {tab === '/'     ?   <HomeIcon style = {{color:'black'}} /> :  <HomeOutlinedIcon />}
             </Link>
+
             <Link to = "/newpost" onClick={() => setTab('/newpost')}>
-            {tab === '/newpost' ?  <AddCircleOutlinedIcon style = {{color:'black'}}  /> :  <AddIcon />}
-                
+               {tab === '/newpost' ?  <AddCircleOutlinedIcon style = {{color:'black'}}  /> :  <AddIcon />}   
             </Link>
+
             <Link to = "/search" onClick={() => setTab('/search')}> 
-            {tab === '/search' ?  <SearchIcon style = {{color:'black'}}  /> :  <SearchOutlinedIcon />}
-            
+              {tab === '/search' ?  <SearchIcon style = {{color:'black'}}  /> :  <SearchOutlinedIcon />} 
             </Link>
+
             <Link to = "/account" onClick={() => setTab('/account')}> 
-            {tab === '/account' ?  <AccountCircleIcon style = {{color:'black'}}  /> :  <AccountCircleOutlinedIcon />}
-            
+             {tab === '/account' ?  <AccountCircleIcon style = {{color:'black'}}  /> :  <AccountCircleOutlinedIcon />}
             </Link>
         </div>
   )

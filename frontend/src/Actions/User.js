@@ -5,7 +5,8 @@ export const loginUser = (email,password) => async(dispatch) => {
          dispatch({type:"LoginRequest"});
 
         const {data} = await  axios.post('/api/v1/login', {email,password},
-        { headers : {
+        { headers : 
+              {
                 "Content-Type" : 'application/json'
                 }
         })
@@ -15,5 +16,17 @@ export const loginUser = (email,password) => async(dispatch) => {
     } catch (error) {
         console.log('error in fail -',error);
         dispatch({type:"LoginFailure",payload: error})
+    }
+}
+
+export const loaduser = () => async(dispatch) => {
+    try {
+         dispatch({type:"LoadUserRequest"});
+
+         const { data } = await  axios.get('/api/v1/myprofile');
+
+         dispatch({type:"LoadUserSuccess",payload : data.user})
+    } catch (error) {
+        dispatch({type:"LoadUserFailure" , payload : error})
     }
 }
