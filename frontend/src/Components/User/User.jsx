@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './User.css' ;
 
 const User = ({ userId,name,avatar }) => {
   return (
-    <Link to = {`/user/${userId}`} className='homeUser'>
-        <img src = {avatar}  alt= {name} />
+    <div className='homeUser'>
+    <Link to = {`/user/${userId}`} >
+        <img src = {avatar}  alt= {name}  style = {{width:'10%',borderRadius:'50px'}} />
         <span> {name} </span>
     </Link>
+    </div>
   )
 }
 

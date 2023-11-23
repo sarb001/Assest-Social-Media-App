@@ -2,12 +2,13 @@
     width: 100%;
     display: grid;
     grid-template-columns: 6fr 2fr;
+    height: 80vh;
 }
 .homeleft{
   background-color: rgb(0, 173, 32);
-  width: 70%;
 }
 .homeright{
-    background-color: rgb(237, 9, 9);
-    width: 30%;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: 1fr;
 }
