@@ -14,23 +14,23 @@ const Header = () => {
     const [tab,setTab] = useState(window.location.pathname);
 
   return (
-    <div className='header'>
-        <Link to = "/" onClick={() => setTab('/')}> 
-          {tab === '/'     ?   <HomeIcon style = {{color:'black'}} /> :  <HomeOutlinedIcon />}
-         </Link>
-        <Link to = "/newpost" onClick={() => setTab('/newpost')}>
-          {tab === '/newpost' ?  <AddCircleOutlinedIcon style = {{color:'black'}}  /> :  <AddIcon />}
+        <div className='header'>
+            <Link to = "/" onClick={() => setTab('/')}> 
+            {tab === '/'     ?   <HomeIcon style = {{color:'black'}} /> :  <HomeOutlinedIcon />}
+            </Link>
+            <Link to = "/newpost" onClick={() => setTab('/newpost')}>
+            {tab === '/newpost' ?  <AddCircleOutlinedIcon style = {{color:'black'}}  /> :  <AddIcon />}
+                
+            </Link>
+            <Link to = "/search" onClick={() => setTab('/search')}> 
+            {tab === '/search' ?  <SearchIcon style = {{color:'black'}}  /> :  <SearchOutlinedIcon />}
             
-        </Link>
-        <Link to = "/search" onClick={() => setTab('/search')}> 
-          {tab === '/search' ?  <SearchIcon style = {{color:'black'}}  /> :  <SearchOutlinedIcon />}
-        
-        </Link>
-        <Link to = "/account" onClick={() => setTab('/account')}> 
-          {tab === '/account' ?  <AccountCircleIcon style = {{color:'black'}}  /> :  <AccountCircleOutlinedIcon />}
-          
-        </Link>
-    </div>
+            </Link>
+            <Link to = "/account" onClick={() => setTab('/account')}> 
+            {tab === '/account' ?  <AccountCircleIcon style = {{color:'black'}}  /> :  <AccountCircleOutlinedIcon />}
+            
+            </Link>
+        </div>
   )
 }
 
