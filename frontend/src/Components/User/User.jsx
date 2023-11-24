@@ -6,7 +6,7 @@ const User = ({ userId,name,avatar }) => {
   return (
     <div className='homeUser'>
     <Link to = {`/user/${userId}`} >
-        <img src = {avatar}  alt= {name}  style = {{width:'10%',borderRadius:'50px'}} />
+        <img src = {avatar}  alt= "userimage"  style = {{width:'10%',borderRadius:'50px'}} />
         <span> {name} </span>
     </Link>
     </div>

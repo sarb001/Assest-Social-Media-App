@@ -63,3 +63,20 @@ export const getPostofFollowing = createReducer(initialState , {
         state.isAuthenticated = false;
     }
 })
+
+
+export const getAllUsers = createReducer(initialState , {
+    GetgetAllUsersRequest: (state) => {
+        state.loading = true;
+    },
+    GetgetAllUsersSuccess: (state,action) => {
+        state.loading = false;
+        state.users  = action.payload;
+        state.isAuthenticated = true;
+    },
+    GetgetAllUsersFailure: (state,action) => {
+        state.loading = false;
+        state.error = action.payload; 
+        state.isAuthenticated = false;
+    }
+})

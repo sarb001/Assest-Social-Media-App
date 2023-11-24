@@ -3,7 +3,7 @@ import User from '../User/User'
 import './Home.css' ;
 import Post from '../Post/Post';
 import { useDispatch, useSelector } from 'react-redux' ;
-import { GetFollowingPostRequest } from '../../Actions/User';
+import { GetAllUsers, GetFollowingPostRequest } from '../../Actions/User';
 import Loader from '../Loader/Loader';
 
 const Home = () => {
@@ -11,10 +11,12 @@ const Home = () => {
 
     const { loading ,error ,posts  } = useSelector((state) =>  state.postofFollowing);
 
-    console.log('fullstaterr -',loading ,error ,posts );
+    const { users } = useSelector((state) => state.allusers);
+    console.log('all users -',users);
 
    useEffect(() => {
         dispatch(GetFollowingPostRequest());
+        dispatch(GetAllUsers());
    },[])
 
   return (
@@ -37,11 +39,16 @@ const Home = () => {
         </div>
 
         <div className='homeright'> 
-            <User 
-              userId = {"user._id"}
-              name   = {"SarbSingh11"}
-              avatar = {"https://images.unsplash.com/photo-1694439977533-e047e5c56c67?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTd8fHxlbnwwfHx8fHw%3D"} 
-            />
+        {users && users?.length > 0 ? (
+          users.map((item) => 
+          <User 
+            key = {item._id}
+            userId = {item._id}
+            name   = {item.name}
+            avatar = {item.avatar.url} 
+          />
+          )
+        ) : "No Users Present"}
         </div>
 
       </div>
