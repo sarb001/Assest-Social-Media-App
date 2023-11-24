@@ -3,3 +3,9 @@
     grid-template-columns: repeat(3,1fr);
     margin: 3% 0%;
   }
+  .DialogBox{
+    min-width: 400px;
+    height: 80vh;
+    background-color: rgb(127, 128, 130);
+    padding: 4%;
+  }

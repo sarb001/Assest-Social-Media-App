@@ -1,4 +1,4 @@
-import { Avatar, Button, Typography } from '@mui/material'
+import { Avatar, Button, Dialog, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -9,6 +9,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFollowingPostRequest, GetlikePost } from '../../Actions/User';
+import User from '../User/User';
 
 const Post = ({postImage,
     postId,
@@ -23,6 +24,8 @@ const Post = ({postImage,
 }) => {
     const dispatch = useDispatch();
     const [liked,setLiked] = useState(false);
+    const [likeuser,setlikeuser] = useState(false);
+
     const {  user } = useSelector((state) => state.user)
 
     const handleLike = async() => {
@@ -55,8 +58,11 @@ const Post = ({postImage,
                     <Link to = {`/user/${ownerId}`}> {ownerName} </Link>
                     <Typography>  {caption} </Typography>
                 </div>
-                <button   style = {{border:'none'}}> 
-                <Typography > 5 Likes </Typography> </button>
+                <button  style = {{border:'none'}}
+                 onClick = {() => setlikeuser(!likeuser)}
+                 disabled={likes.length === 0 ? true : false}
+                 > 
+                <Typography > {likes.length} Likes </Typography> </button>
                     
                     <div className="postFooter">
                         <Button onClick={handleLike}>
@@ -65,12 +71,22 @@ const Post = ({postImage,
                         <Button>
                             <ChatBubbleOutlineIcon />
                         </Button>
-                        {isDelete ?  
-                        <Button>
-                            <DeleteOutlineIcon />
-                        </Button>
-                            : ""}
+                        {isDelete ? <Button> <DeleteOutlineIcon />  </Button> : ""}
                     </div>
+
+                <Dialog open = {likeuser} onClose={() => setlikeuser(!likeuser)}>  
+                    <div className='DialogBox'>
+                            <Typography variant='h4'> Liked By </Typography>
+                            {likes.map((like) => (
+                                <User 
+                                key    = {like._id}
+                                userId = {like._id}
+                                name = {like.name}
+                                avatar={like.avatar.url}
+                                />
+                            ))}
+                    </div>
+                </Dialog>               
 
             </div>
     </div>
