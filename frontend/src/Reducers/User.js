@@ -80,3 +80,17 @@ export const getAllUsers = createReducer(initialState , {
         state.isAuthenticated = false;
     }
 })
+
+export const likePost = createReducer(initialState, {
+    LikeRequest: (state) => {
+        state.loading = true;
+    },
+    LikeSuccess: (state,action) => {
+        state.loading  = false;
+        state.message  = action.payload;
+    },
+    LikeFailure: (state,action) => {
+        state.loading = false;
+        state.error = action.payload; 
+    }
+})

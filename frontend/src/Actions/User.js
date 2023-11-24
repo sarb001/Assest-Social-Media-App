@@ -56,3 +56,15 @@ export const GetAllUsers = () => async(dispatch) => {
         dispatch({type:"GetgetAllUsersFailure"})
     }
 }
+
+export const GetlikePost = (id) => async(dispatch) => {
+    try {
+        dispatch({type:"LikeRequest"});
+        
+        const {data} = await axios.get(`/api/v1/post/${id}`)
+
+        dispatch({type:"LikeSuccess",payload : data.message })
+    } catch (error) {
+        dispatch({type:"LikeFailure"})
+    }
+}

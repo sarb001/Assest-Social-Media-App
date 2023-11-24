@@ -4,7 +4,7 @@ import './Home.css' ;
 import Post from '../Post/Post';
 import { useDispatch, useSelector } from 'react-redux' ;
 import { GetAllUsers, GetFollowingPostRequest } from '../../Actions/User';
-import Loader from '../Loader/Loader';
+
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -12,7 +12,6 @@ const Home = () => {
     const { loading ,error ,posts  } = useSelector((state) =>  state.postofFollowing);
 
     const { users } = useSelector((state) => state.allusers);
-    console.log('all users -',users);
 
    useEffect(() => {
         dispatch(GetFollowingPostRequest());
