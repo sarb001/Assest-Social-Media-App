@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userReducer } from './Reducers/User';
+import { getPostofFollowing, userReducer } from './Reducers/User';
 
 const store = configureStore({
-    reducer : userReducer
+    reducer : {
+        user: userReducer,
+        postofFollowing :getPostofFollowing
+    }
 })
 
 export default store 

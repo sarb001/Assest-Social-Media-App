@@ -25,8 +25,21 @@ export const loaduser = () => async(dispatch) => {
 
          const { data } = await  axios.get('/api/v1/myprofile');
 
-         dispatch({type:"LoadUserSuccess",payload : data.user})
+         dispatch({type:"LoadUserSuccess", payload : data.user})
     } catch (error) {
         dispatch({type:"LoadUserFailure" , payload : error})
+    }
+}
+// get Posts of User that Follow logged User 
+
+export const GetFollowingPostRequest = () => async(dispatch) => {
+    try {
+        dispatch({type:"GetFollowingPostRequest"});
+        
+        const { data } = await axios.get('/api/v1/followpost');
+        dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
+
+    } catch (error) {
+         dispatch({type:"GetFollowingPostFailure",payload: error})
     }
 }

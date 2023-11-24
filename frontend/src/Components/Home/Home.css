@@ -6,6 +6,7 @@
 }
 .homeleft{
   background-color: rgb(190, 190, 190);
+  overflow-y: scroll;
 }
 .homeright{
     overflow-y: scroll;
@@ -14,6 +15,6 @@
 }
 .post-container{
   background-color: rgb(115, 117, 114);
-  margin: 0% 25%;
+  margin: 3% 25%;
   padding: 2%;  
 }

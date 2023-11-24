@@ -3,7 +3,7 @@ import { BrowserRouter  as Router, Routes , Route } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import Login from './Components/Login/Login';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loaduser } from './Actions/User';
 import Home from './Components/Home/home';
 import './App.css';

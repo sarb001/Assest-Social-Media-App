@@ -9,7 +9,7 @@ exports.CreatePost = async (req,res) => {
             caption : req.body.caption,
             image: {
                 public_id : "req.body.public_id",
-                url : "req.body.url",
+                url : req.body.url,
             },
             owner : req.user._id,
         }
@@ -135,14 +135,22 @@ exports.getPostofFollowing = async(req,res) => {
     try {
         // get loggedin user ID
 
-        // following populate means spread all and  find data of specific ID and  get all posts as well
-        const user = await User.findById(req.user._id).populate("following", "posts");
-        
+        const user = await User.findById(req.user._id);         // get  logged User
+
+        // in whole user's following's post array  get id of post and match it with owner 
+        // after matching find the posts in Post
+
+        const posts = await Post.find({
+            owner : {
+                $in : user.following,
+            }
+        }).populate("owner likes comments.user")
+
+        console.log('user --',user);
         return res.status(200).json({
             success : true,
-            following : user.following
+            posts,
         });
-
     } catch (error) {
         res.status(500).json({
             success :   false,
