@@ -94,3 +94,17 @@ export const likePost = createReducer(initialState, {
         state.error = action.payload; 
     }
 })
+
+export const CommentPost = createReducer(initialState , {
+    CommentRequest: (state) => {
+        state.loading = true;
+    },
+    CommentSuccess: (state,action) => {
+        state.loading  = false;
+        state.message  = action.payload;
+    },
+    CommentFailure: (state,action) => {
+        state.loading = false;
+        state.error = action.payload; 
+    }
+})

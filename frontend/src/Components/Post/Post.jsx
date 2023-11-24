@@ -8,7 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetFollowingPostRequest, GetlikePost } from '../../Actions/User';
+import { GetComments, GetFollowingPostRequest, GetlikePost } from '../../Actions/User';
 import User from '../User/User';
 
 const Post = ({postImage,
@@ -38,8 +38,9 @@ const Post = ({postImage,
         dispatch(GetFollowingPostRequest());
     }
 
-    const addCommentHandler = () => {
-        console.log('commented');
+    const addCommentHandler = async(e) => {
+        e.preventDefault();
+        await dispatch(GetComments(postId,commentvalue));
     }
 
 
