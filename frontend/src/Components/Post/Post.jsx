@@ -10,6 +10,7 @@ import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetComments, GetFollowingPostRequest, GetlikePost } from '../../Actions/User';
 import User from '../User/User';
+import CommentCard from '../CommentCard/CommentCard';
 
 const Post = ({postImage,
     postId,
@@ -114,6 +115,23 @@ const Post = ({postImage,
                                 />
                                 <Button type = "submit" variant='contained'> Add </Button>
                             </form>
+
+                        {/*  All Comments  */}
+                            {comments.length > 0 ? (
+                                comments.map((item) => (
+                                    <CommentCard 
+                                    key = {item._id}
+                                    userId = {item.user._id}        // logged user id 
+                                    commentId = {item._id}  
+                                    name = {item.user.name}
+                                    avatar={item.user.avatar.url}
+                                    comment={item.comment}
+                                    isAccount = {isAccount}
+                                    postId={postId}
+                                    />
+                            ))) : (
+                                <Typography> No Comments Yet </Typography>
+                            )}
                     </div>
                 </Dialog> 
 
