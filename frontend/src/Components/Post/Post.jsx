@@ -24,7 +24,11 @@ const Post = ({postImage,
 }) => {
     const dispatch = useDispatch();
     const [liked,setLiked] = useState(false);
-    const [likeuser,setlikeuser] = useState(false);
+    const [likeuser,setlikeuser] = useState(false);     // For Dialog Box 
+    const [commentvalue,setcommentvalue] = useState('');     // for Form value
+
+    const [commentToggle,setcommentToggle] = useState(false);     // for Form value
+
 
     const {  user } = useSelector((state) => state.user)
 
@@ -33,6 +37,11 @@ const Post = ({postImage,
         await dispatch(GetlikePost(postId));
         dispatch(GetFollowingPostRequest());
     }
+
+    const addCommentHandler = () => {
+        console.log('commented');
+    }
+
 
     // For checking logged liked user === logged user
     // So 
@@ -58,22 +67,24 @@ const Post = ({postImage,
                     <Link to = {`/user/${ownerId}`}> {ownerName} </Link>
                     <Typography>  {caption} </Typography>
                 </div>
+
                 <button  style = {{border:'none'}}
-                 onClick = {() => setlikeuser(!likeuser)}
-                 disabled={likes.length === 0 ? true : false}
-                 > 
+                    onClick = {() => setlikeuser(!likeuser)}
+                    disabled={likes.length === 0 ? true : false}> 
                 <Typography > {likes.length} Likes </Typography> </button>
                     
                     <div className="postFooter">
-                        <Button onClick={handleLike}>
+                        <Button onClick = {handleLike}>
                             {liked ? <FavoriteIcon style = {{color:'red'}} /> :<FavoriteBorderIcon /> }
                         </Button>
-                        <Button>
+                        <Button onClick = {() => setcommentToggle(!commentToggle)}>
                             <ChatBubbleOutlineIcon />
                         </Button>
                         {isDelete ? <Button> <DeleteOutlineIcon />  </Button> : ""}
                     </div>
 
+
+                {/*  Dialog Box for Like Post  */}
                 <Dialog open = {likeuser} onClose={() => setlikeuser(!likeuser)}>  
                     <div className='DialogBox'>
                             <Typography variant='h4'> Liked By </Typography>
@@ -87,6 +98,23 @@ const Post = ({postImage,
                             ))}
                     </div>
                 </Dialog>               
+
+                {/*  Dialog Box for Comment Section */}
+                <Dialog open = {commentToggle} onClose={() => setcommentToggle(!commentToggle)}>  
+                    <div className='DialogBox'>
+                            <Typography variant='h4'>  Comments </Typography>
+                            <form className='commentForm' onSubmit={addCommentHandler}>
+                                <input 
+                                    type = "text"
+                                    value = {commentvalue}
+                                    onChange={(e) => setcommentvalue(e.target.value)}
+                                    placeholder='Comment Here....'
+                                    required
+                                />
+                                <Button type = "submit" variant='contained'> Add </Button>
+                            </form>
+                    </div>
+                </Dialog> 
 
             </div>
     </div>
