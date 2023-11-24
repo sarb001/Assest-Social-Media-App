@@ -1,5 +1,5 @@
 import { Avatar, Button, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -7,8 +7,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
-import { useDispatch } from 'react-redux';
-import { GetlikePost } from '../../Actions/User';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetFollowingPostRequest, GetlikePost } from '../../Actions/User';
 
 const Post = ({postImage,
     postId,
@@ -23,11 +23,24 @@ const Post = ({postImage,
 }) => {
     const dispatch = useDispatch();
     const [liked,setLiked] = useState(false);
+    const {  user } = useSelector((state) => state.user)
 
-    const handleLike = () => {
+    const handleLike = async() => {
         setLiked(!liked);
-        dispatch(GetlikePost(postId));
+        await dispatch(GetlikePost(postId));
+        dispatch(GetFollowingPostRequest());
     }
+
+    // For checking logged liked user === logged user
+    // So 
+    useEffect(() => {
+        likes.forEach((item) => {
+            if(item._id === user?._id){
+                setLiked(true);
+            }
+        })
+    },[likes,user._id])
+
 
   return (
     <div className="post-container">
