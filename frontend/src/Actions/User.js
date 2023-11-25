@@ -69,6 +69,19 @@ export const GetlikePost = (id) => async(dispatch) => {
     }
 }
 
+export const GetMyPost = () => async(dispatch) => {
+    try {
+        dispatch({type: "GetPostRequest"});
+
+        const { data } = await axios.get('/api/v1/my/posts')
+
+        dispatch({type: "GetPostSuccess",payload : data.posts})
+    } catch (error) {
+        dispatch({type: "GetPostFailure"})
+    }
+}
+
+
 export const GetComments = (id,comment) => async(dispatch) => {
     try {
         dispatch({type:"CommentRequest"}) 

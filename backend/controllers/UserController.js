@@ -327,3 +327,29 @@ exports.FollowUser = async(req,res) => {
         })  
     }
 }
+
+exports.GetMyPosts  = async(req,res) => {
+    try {
+        const user = await User.findById(req.user._id);
+       
+        const posts = [];
+
+        for(let i = 0; i < user.posts.length ; i++){
+            const post = await Post.findById(user.posts[i]).populate(
+                "likes comments.user owner"
+            );
+            posts.push(post);
+        }
+
+        res.status(200).json({
+            success : true,
+            posts,
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : error.message
+        })
+    }
+}

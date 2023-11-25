@@ -1,5 +1,5 @@
 const express = require('express');
-const { Register, Login, FollowUser, Logout, updateProfile, updatePassword, deleteMyProfile, MyProfile, getAllUsers, getUserProfile } = require('../controllers/UserController');
+const { Register, Login, FollowUser, Logout, updateProfile, updatePassword, deleteMyProfile, MyProfile, getAllUsers, getUserProfile, GetMyPosts } = require('../controllers/UserController');
 const { isAuthenticated } = require('../middlewares/auth');
 
 const router = express.Router();
@@ -18,7 +18,11 @@ router.route('/follow/:id').get(isAuthenticated,FollowUser);
 
 router.route('/delete/me').delete(isAuthenticated,deleteMyProfile);
 
+
 router.route('/myprofile').get(isAuthenticated,MyProfile);
+
+// Get All Posts of  Logged User's 
+router.route('/my/posts').get(isAuthenticated,GetMyPosts);
 
 router.route('/user/:id').get(isAuthenticated,getUserProfile);
 

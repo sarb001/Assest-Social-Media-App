@@ -122,3 +122,19 @@ export const DeleteComment = createReducer(initialState, {
         state.error = action.payload; 
     }
 })
+
+export const GetAllMyPost = createReducer(initialState , {
+    GetPostRequest: (state) => {
+        state.loading = true;
+    },
+    GetPostSuccess: (state,action) => {
+        state.loading  = false;
+        state.posts  = action.payload;
+        state.isAuthenticated = true;
+    },
+    GetPostFailure: (state,action) => {
+        state.loading = false;
+        state.error = action.payload; 
+        state.isAuthenticated = false;
+    }
+})
