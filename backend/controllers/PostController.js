@@ -234,12 +234,20 @@ exports.deleteComment = async(req,res) => {
                 message : " Post not Found "
             })
         }
+
+
         // if owner wants to Delete the post
         // ownerid === logged user
-        if(post.owner.toString() === req.user._id.toString()){
+
+         const ownerId  = post.owner;
+
+         const requserId  = req.user._id;
+
+
+        if(ownerId?.toString() === req.user._id.toString()){
             if(req.body.commentId == undefined){
                 return res.status(400).json({
-                success :false,
+                success : false,
                 message : " Comment ID is Required ",
                 })
             }
@@ -248,6 +256,7 @@ exports.deleteComment = async(req,res) => {
         // For Every Comment check postid ( /:id ) in url === commentid 
         // if yes then remove that Specific One 
         post.comments.forEach((item,index) => {
+       
             if(item._id.toString() === req.body.commentId.toString()){
                 return post.comments.splice(index,1);
             }

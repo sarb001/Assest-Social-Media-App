@@ -108,3 +108,17 @@ export const CommentPost = createReducer(initialState , {
         state.error = action.payload; 
     }
 })
+
+export const DeleteComment = createReducer(initialState, {
+    DeleteCommentRequest: (state) => {
+        state.loading = true;
+    },
+    DeleteCommentSuccess: (state,action) => {
+        state.loading  = false;
+        state.message  = action.payload;
+    },
+    DeleteCommentFailure: (state,action) => {
+        state.loading = false;
+        state.error = action.payload; 
+    }
+})

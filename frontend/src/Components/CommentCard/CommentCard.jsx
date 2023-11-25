@@ -2,7 +2,8 @@ import { Button, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetDeleteComment } from '../../Actions/User';
 ;
 // userId    - loggeduser id
 // commentId -  commentId  
@@ -10,6 +11,11 @@ import { useSelector } from 'react-redux';
 const CommentCard = ({userId,commentId,name,avatar,comment,postId,isAccount}) => {
     
     const { user } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const DeleteHandler   = () => {
+        dispatch(GetDeleteComment(postId,commentId));
+    }
 
   return (  
     <div className='commentUser'>  
@@ -26,9 +32,11 @@ const CommentCard = ({userId,commentId,name,avatar,comment,postId,isAccount}) =>
 
         {/* If userId(logged User) ===  user in state    ( means logged user is deleting then show icon else null )   */}
         {isAccount ? (
-            <Button> <DeleteIcon /> </Button>
+            <Button onClick = {DeleteHandler}>
+                 <DeleteIcon /> 
+            </Button>
         ) : userId === user._id ? (
-            <Button> <DeleteIcon /> </Button>
+            <Button onClick = {DeleteHandler}> <DeleteIcon /> </Button>
         ) : null
         }
     </div>

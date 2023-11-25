@@ -84,3 +84,17 @@ export const GetComments = (id,comment) => async(dispatch) => {
         dispatch({type:"CommentFailure"}) 
     }
 }
+
+export const GetDeleteComment = (id,commentId) => async(dispatch) => {
+    try {
+        dispatch({type:"DeleteCommentRequest"})
+
+        const { data } = await axios.delete(`/api/v1/posts/comment/${id}` , {
+            data : { commentId },
+        });
+        dispatch({type:"DeleteCommentSuccess",payload:data.message});
+    } catch (error) {
+
+        dispatch({type:"DeleteCommentFailure"}) 
+    }
+}
