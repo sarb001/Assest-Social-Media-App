@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Post from '../Post/Post'
 import { Avatar, Button, Dialog, Typography } from '@mui/material'
-import { GetMyPost } from '../../Actions/User'
+import { GetMyPost, LogoutUser } from '../../Actions/User'
 import { useDispatch, useSelector } from 'react-redux'
 import './Account.css';
 import User from '../User/User'
@@ -13,12 +13,13 @@ const Account = () => {
     const { posts  , loading , error } = useSelector((state) => state.myposts);
 
     const { user , loading : userLoading } = useSelector((state) => state.user);
-
-     const [FollowerToggle,setFollowerToggle] = useState(false);
-
+     const [FollowerToggle,setFollowerToggle]   = useState(false);
      const [FollowingToggle,setFollowingToggle] = useState(false);
 
-     const logoutHandler = () => {};
+     const logoutHandler = async() => {
+       await dispatch(LogoutUser());
+     };
+
      const deleteProfileHandler = () => {}
 
      useEffect(() => {

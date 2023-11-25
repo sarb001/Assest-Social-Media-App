@@ -10,7 +10,6 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const { loading ,error ,posts  } = useSelector((state) =>  state.postofFollowing);
-
     const { users } = useSelector((state) => state.allusers);
 
    useEffect(() => {

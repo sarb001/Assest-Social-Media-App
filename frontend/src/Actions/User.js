@@ -113,3 +113,16 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
         dispatch({type:"DeleteCommentFailure"}) 
     }
 }
+
+
+export const LogoutUser = () => async(dispatch) => {
+    try {
+        dispatch({type:"LogOutRequest"});
+        
+        await axios.get('/api/v1/logout');
+
+        dispatch({type:"LogOutSuccess"})
+    } catch (error) {
+        dispatch({type:"LogOutFailure"})
+    }
+}

@@ -23,7 +23,6 @@ function App() {
     <Router>
       {isAuthenticated && <Header /> }
         <Routes>
-           <Route path = "/" element = {<Home />} />
           <Route path = "/" element = {isAuthenticated ? <Home  /> : <Login />} />
           <Route path = "/account" element = {isAuthenticated ? <Account  /> : <Login />} />
         </Routes>
