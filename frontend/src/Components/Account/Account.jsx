@@ -3,6 +3,7 @@ import Post from '../Post/Post'
 import { Typography } from '@mui/material'
 import { GetMyPost } from '../../Actions/User'
 import { useDispatch, useSelector } from 'react-redux'
+import './Account.css';
 
 const Account = () => {
 
