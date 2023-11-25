@@ -227,7 +227,8 @@ exports.commentonPost = async(req,res) => {
 exports.deleteComment = async(req,res) => {
     try {
         const  post = await Post.findById(req.params.id);
-
+        console.log('post del comment -',post);
+        
         if(!post){
             return res.status(404).json({
                 success : false,
@@ -235,40 +236,44 @@ exports.deleteComment = async(req,res) => {
             })
         }
 
+         console.log('postowner -',post.owner);
+         console.log('req user id -',req.user._id);
 
-        // if owner wants to Delete the post
-        // ownerid === logged user
+            if(post.owner === req.user._id){          // logged user is doing some action 
+                if(req.body.commentId == undefined){            // if commentId is not Given
+                    return res.status(400).json({
+                        success : false,
+                        message : " Comment ID is Required ",
+                    })
+                }
 
-         const ownerId  = post.owner;
+                post.comments.forEach((item,index) => {
+                    console.log('item user- ',item._id);
+                    console.log(' comment Body - ',req.body.commentId);
+                    if(item?._id.toString() === req.body.commentId.toString()){
+                        return post.comments.splice(index,1);
+                    }
+                });
 
-         const requserId  = req.user._id;
-
-
-        if(ownerId?.toString() === req.user._id.toString()){
-            if(req.body.commentId == undefined){
-                return res.status(400).json({
-                success : false,
-                message : " Comment ID is Required ",
+                await post.save();
+                return res.status(200).json({
+                    success : true,
+                    message : "Selected Comment has Deleted",
                 })
-            }
+            }else{
+            post.comments.forEach((item, index) => {
+                if (item.user.toString() === req.user._id.toString()) {
+                  return post.comments.splice(index, 1);
+                }
+              });
+        
+              await post.save();
+        
+              return res.status(200).json({
+                success: true,
+                message: "Your Comment has deleted",
+              });
         }
-
-        // For Every Comment check postid ( /:id ) in url === commentid 
-        // if yes then remove that Specific One 
-        post.comments.forEach((item,index) => {
-       
-            if(item._id.toString() === req.body.commentId.toString()){
-                return post.comments.splice(index,1);
-            }
-        });
-
-        await post.save();
-
-        return res.status(500).json({
-            success : true,
-            message : "Selected Comment has Deleted",
-        });
-
     } catch (error) {
         return res.status(500).json({
         success :false,

@@ -3,8 +3,9 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetDeleteComment } from '../../Actions/User';
-;
+import { GetDeleteComment, GetFollowingPostRequest } from '../../Actions/User';
+import RemoveIcon from '@mui/icons-material/Remove';
+
 // userId    - loggeduser id
 // commentId -  commentId  
 
@@ -13,8 +14,9 @@ const CommentCard = ({userId,commentId,name,avatar,comment,postId,isAccount}) =>
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const DeleteHandler   = () => {
-        dispatch(GetDeleteComment(postId,commentId));
+    const DeleteHandler   = async() => {
+        await dispatch(GetDeleteComment(postId,commentId));
+         dispatch(GetFollowingPostRequest());         // for getting updated Data 
     }
 
   return (  
@@ -31,14 +33,22 @@ const CommentCard = ({userId,commentId,name,avatar,comment,postId,isAccount}) =>
         <Typography> {comment} </Typography>
 
         {/* If userId(logged User) ===  user in state    ( means logged user is deleting then show icon else null )   */}
-        {isAccount ? (
+        {/* {isAccount ? (
             <Button onClick = {DeleteHandler}>
                  <DeleteIcon /> 
             </Button>
         ) : userId === user._id ? (
             <Button onClick = {DeleteHandler}> <DeleteIcon /> </Button>
         ) : null
-        }
+        } */}
+
+        {userId === user._id ? (
+               <Button onClick = {DeleteHandler}> <DeleteIcon />  </Button>
+            ) : (
+                <Button> <RemoveIcon /> </Button>
+        )}
+
+
     </div>
   )
 }

@@ -42,6 +42,8 @@ const Post = ({postImage,
     const addCommentHandler = async(e) => {
         e.preventDefault();
         await dispatch(GetComments(postId,commentvalue));
+        setcommentvalue('');
+        dispatch(GetFollowingPostRequest());            // update all Data 
     }
 
 
@@ -53,7 +55,7 @@ const Post = ({postImage,
                 setLiked(true);
             }
         })
-    },[likes,user._id])
+    },[likes,user?._id])
 
 
   return (

@@ -92,9 +92,11 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
         const { data } = await axios.delete(`/api/v1/posts/comment/${id}` , {
             data : { commentId },
         });
+        
+        console.log('data in del -',{data});
         dispatch({type:"DeleteCommentSuccess",payload:data.message});
     } catch (error) {
-
+        console.log('error in  del -',error);
         dispatch({type:"DeleteCommentFailure"}) 
     }
 }
