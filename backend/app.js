@@ -10,6 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
 
+app.use(express.json({
+    limit : '50mb'
+}))
+
 // importing Routes
 const post = require('./routes/Post.js');
 const user = require('./routes/User.js');

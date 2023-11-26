@@ -59,6 +59,20 @@ export const userReducer = createReducer(initialState, {
         state.error = action.payload; 
         state.isAuthenticated = true;
     },
+
+    NewPostRequest: (state) => {
+        state.loading = true;
+    },
+    NewPostSuccess: (state,action) => {
+        state.loading = false;
+        state.message  = action.payload;
+        state.isAuthenticated = false;
+    },
+    NewPostFailure: (state,action) => {
+        state.loading = false;
+        state.error   = action.payload; 
+        state.isAuthenticated = true;
+    },
 }) 
 
 
@@ -152,3 +166,4 @@ export const GetAllMyPost = createReducer(initialState , {
         state.isAuthenticated = false;
     }
 })
+

@@ -126,3 +126,24 @@ export const LogoutUser = () => async(dispatch) => {
         dispatch({type:"LogOutFailure"})
     }
 }
+
+
+export const CreateNewPost = (caption,image) => async(dispatch) => {
+    try {
+          dispatch({type:"NewPostRequest"});
+            const { data } = await axios.post(`/api/v1/post/upload`, 
+            {
+                caption , image,
+            },
+            {
+                headers : {
+                    "Content-Type" : "application/json",
+                }
+            })
+
+          dispatch({type:"NewPostSuccess",payload : data.message });
+          
+        } catch (error) {   
+            dispatch({type:"NewPostFailure"});
+    }
+}
