@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { CreateNewPost } from '../../Actions/User';
+import { CreateNewPost, loaduser } from '../../Actions/User';
 
 const NewPost = () => {
 
@@ -25,19 +25,22 @@ const NewPost = () => {
     const submitHandler = async(e) => {
         e.preventDefault();
         await dispatch(CreateNewPost(caption,image));
+        alert(' New Post Created ');
+        dispatch(loaduser());
     }
     
     return (
     <div className='newPost'>
         <form className='newPostForm' onSubmit={submitHandler}>
              <Typography variant='h3'> New Post </Typography>
-             {image && <img src = {image}  alt = 'post' />}
+             <span style = {{width:'50%',height:'10vh'}}> {image && <img src = {image}  alt = 'post' />} </span>
              <input type = "file"  accept='image/*' onChange = {handleImageChange} />
              <input type = "text"  placeholder='Caption...' 
               value = {caption}
               onChange={(e) => setCaption(e.target.value)}
              />
-             <Button type = 'submit' variant='contained'> Post </Button>
+             <Button   disabled = {loading}  
+             type = 'submit' variant='contained'> Post </Button>
         </form>
     </div>
   )

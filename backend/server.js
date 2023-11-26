@@ -6,11 +6,11 @@ const cloudinary = require('cloudinary');
 
 connectDatabase();
 
-// cloudinary.config({
-//     cloud_name : 'damnzg3hr',
-//     api_key    : '837344688223248',
-//     api_secret : 'IM3NqVRlPox_P1lQ38SVfoss_68',
-// })
+cloudinary.config({
+    cloud_name : 'damnzg3hr',
+    api_key    : '837344688223248',
+    api_secret : 'IM3NqVRlPox_P1lQ38SVfoss_68',
+})
 
 
 // const PORT = process.env.PORT;  
