@@ -147,3 +147,22 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
             dispatch({type:"NewPostFailure"});
     }
 }
+
+export const UpdateCaption = (caption,id) => async(dispatch) => {
+    try {
+            dispatch({type:"UpdateCaptionRequest"});
+
+            const { data } = await axios.put(`/api/v1/post/${id}` , {
+                caption
+            },{
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            })
+
+            dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
+            
+        }catch (error) {
+        dispatch({type:"UpdateCaptionFailure"});
+    }
+}

@@ -8,7 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetComments, GetFollowingPostRequest, GetlikePost } from '../../Actions/User';
+import { GetComments, GetFollowingPostRequest, GetMyPost, GetlikePost, UpdateCaption } from '../../Actions/User';
 import User from '../User/User';
 import CommentCard from '../CommentCard/CommentCard';
 
@@ -20,23 +20,29 @@ const Post = ({postImage,
     comments = [],
     ownerImage,
     ownerId,
-    isAccount = false,
-    isDelete = false
+    isAccount = true,
+    isDelete = true
 }) => {
+
     const dispatch = useDispatch();
     const [liked,setLiked] = useState(false);
     const [likeuser,setlikeuser] = useState(false);     // For Dialog Box 
     const [commentvalue,setcommentvalue] = useState('');     // for Form value
-
     const [commentToggle,setcommentToggle] = useState(false);     // for Form value
+   
+    const [captionvalue,setcaptionvalue] = useState(caption);     // for Form value
+    const [captionToggle,setcaptionToggle] = useState(false);     // for Form value
 
-
-    const {  user } = useSelector((state) => state.user)
+    const {  user , message ,error } = useSelector((state) => state.user)
 
     const handleLike = async() => {
         setLiked(!liked);
         await dispatch(GetlikePost(postId));
-        dispatch(GetFollowingPostRequest());
+        if(isAccount){
+            dispatch(GetMyPost());
+        }else{
+            dispatch(GetFollowingPostRequest());
+        }
     }
 
     const addCommentHandler = async(e) => {
@@ -44,6 +50,11 @@ const Post = ({postImage,
         await dispatch(GetComments(postId,commentvalue));
         setcommentvalue('');
         dispatch(GetFollowingPostRequest());            // update all Data 
+    }
+
+    const updateCaptionHandler = async(e) => {
+        e.preventDefault();
+        dispatch(UpdateCaption(captionvalue,postId))
     }
 
 
@@ -60,7 +71,27 @@ const Post = ({postImage,
 
   return (
     <div className="post-container">
-            {isAccount ? <MoreVertIcon /> : ""}
+            {isAccount ? <MoreVertIcon  onClick = {() => setcaptionToggle(!captionToggle)} /> : ""}
+
+            {/* Update Caption */}
+
+       <Dialog open = {captionToggle} onClose = {() => setcaptionToggle(!captionToggle)}>  
+                    <div className='DialogBox'>
+                            <Typography variant='h4'> Captions </Typography>
+                            <form className='commentForm' onSubmit={updateCaptionHandler}>
+                                <input 
+                                    type = "text"
+                                    value = {captionvalue}
+                                    onChange={(e) => setcaptionvalue(e.target.value)}
+                                    placeholder='Caption Here....'
+                                    required
+                                />
+                                <Button type = "submit" variant='contained'> Update </Button>
+                            </form>
+
+                    </div>
+                </Dialog> 
+
             <div className="post-header">
                 <span style = {{width:'50%',height:'100%'}}>
                     <img src = {postImage}  alt = "Post"  

@@ -73,6 +73,20 @@ export const userReducer = createReducer(initialState, {
         state.error   = action.payload; 
         state.isAuthenticated = true;
     },
+
+    UpdateCaptionRequest: (state) => {
+        state.loading = true;
+    },
+    UpdateCaptionSuccess: (state,action) => {
+        state.loading = false;
+        state.message  = action.payload;
+        state.isAuthenticated = false;
+    },
+    UpdateCaptionFailure: (state,action) => {
+        state.loading = false;
+        state.error   = action.payload; 
+        state.isAuthenticated = true;
+    },
 }) 
 
 

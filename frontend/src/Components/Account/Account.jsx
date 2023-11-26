@@ -81,21 +81,21 @@ const Account = () => {
 
                         {/* Followers Toggle  */}
                 <Dialog
-            open={FollowerToggle}
-            onClose={() => setFollowerToggle(!FollowerToggle)}
-            >
-            <div className="DialogBox">
-                <Typography variant="h4">Followers</Typography>
+                    open={FollowerToggle}
+                    onClose={() => setFollowerToggle(!FollowerToggle)}
+                    >
+                    <div className="DialogBox">
+                        <Typography variant="h4">Followers</Typography>
 
-                {user && user.followers.length > 0 ? (
-                user.followers.map((follower) => (
-                    <User
-                    key={follower._id}
-                    userId={follower._id}
-                    name={follower.name}
-                    avatar={follower.avatar.url}
-                    />
-                ))
+                        {user && user.followers.length > 0 ? (
+                        user.followers.map((follower) => (
+                            <User
+                            key={follower._id}
+                            userId={follower._id}
+                            name={follower.name}
+                            avatar={follower.avatar.url}
+                            />
+                        ))
                 ) : (
                 <Typography style={{ margin: "2vmax" }}>
                     You have no followers
@@ -118,7 +118,7 @@ const Account = () => {
                         key={follow._id}
                         userId={follow._id}
                         name={follow.name}
-                        avatar={follow.avatar.url}
+                        avatar={follow?.avatar?.url}
                         />
                     ))
                     ) : (

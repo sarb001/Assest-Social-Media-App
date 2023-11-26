@@ -31,6 +31,8 @@ const Home = () => {
                 ownerName = {post.owner.name}
                 ownerImage = {post.owner.avatar.url}
                 ownerId= {post.owner._id}
+                isAccount = {false}
+                isDelete = {false}
               />
               ))
           ) : " No Posts Yet "}
