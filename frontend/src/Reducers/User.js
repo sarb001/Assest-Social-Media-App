@@ -4,6 +4,8 @@ const initialState = {
     isAuthenticated: false,
 }
 
+// user, post , message 
+
 export const userReducer = createReducer(initialState, {
     
     LoginRequest: (state) => {
@@ -118,6 +120,20 @@ export const userReducer = createReducer(initialState, {
         state.error   = action.payload; 
         state.isAuthenticated = true;
     },
+
+    DeleteProfileRequest : () => {
+        state.loading = true;
+    },
+    DeleteProfileSuccess : (state,action) => {
+        state.loading  = false;
+        state.message  = action.payload;
+        state.isAuthenticated = true;
+    },
+    DeleteProfileFailure : (state,action) => {
+        state.loading = false;
+        state.error   = action.payload; 
+        state.isAuthenticated = false;
+    },
 }) 
 
 
@@ -203,12 +219,10 @@ export const GetAllMyPost = createReducer(initialState , {
     GetPostSuccess: (state,action) => {
         state.loading  = false;
         state.posts  = action.payload;
-        state.isAuthenticated = true;
     },
     GetPostFailure: (state,action) => {
         state.loading = false;
         state.error = action.payload; 
-        state.isAuthenticated = false;
     }
 })
 

@@ -136,7 +136,6 @@ exports.deletePost = async(req,res) => {
     }
 }
 
-
 //get Specific User's Following
 
 exports.getPostofFollowing = async(req,res) => {

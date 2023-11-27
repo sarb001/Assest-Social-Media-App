@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Post from '../Post/Post'
 import { Avatar, Button, Dialog, Typography } from '@mui/material'
-import { GetMyPost, LogoutUser } from '../../Actions/User'
+import { DeleteProfile, GetMyPost, LogoutUser } from '../../Actions/User'
 import { useDispatch, useSelector } from 'react-redux'
 import './Account.css';
 import User from '../User/User'
@@ -10,17 +10,22 @@ import { Link } from 'react-router-dom'
 const Account = () => {
 
     const dispatch = useDispatch();
-    const { posts  , loading , error } = useSelector((state) => state.myposts);
+
+    const  { posts } =useSelector((state) => state.myposts);
 
     const { user , loading : userLoading } = useSelector((state) => state.user);
      const [FollowerToggle,setFollowerToggle]   = useState(false);
      const [FollowingToggle,setFollowingToggle] = useState(false);
 
      const logoutHandler = async() => {
-       await dispatch(LogoutUser());
+        await dispatch(LogoutUser());
+        alert('Logged Out Successfully');
      };
 
-     const deleteProfileHandler = () => {}
+     const deleteProfileHandler = async() => {
+         await dispatch(DeleteProfile());
+         dispatch(LogoutUser());
+     }
 
      useEffect(() => {
         dispatch(GetMyPost());
@@ -29,7 +34,7 @@ const Account = () => {
   return (
     <div className="account-container">
         <div className="accountleft">
-            {posts  && posts.length  > 0  ? (
+            {posts  && posts?.length  > 0  ? (
                 posts.map((post) => (
                     <Post
                     key = {post._id}

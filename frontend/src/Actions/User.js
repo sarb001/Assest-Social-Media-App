@@ -220,3 +220,17 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
         dispatch({type:"updateProfileFailure"});
     }
 }
+
+
+export const DeleteProfile = () => async(dispatch) => {
+    try {
+        dispatch({type:"DeleteProfileRequest"});
+
+        const {data} = await axios.delete('/api/v1/delete/me');
+
+        dispatch({type:"DeleteProfileSuccess",payload: data.message });
+
+    } catch (error) {
+        dispatch({type:"DeleteProfileRequest"});
+    }
+}

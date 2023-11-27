@@ -168,6 +168,7 @@ exports.updatePassword = async(req,res) => {
         })
     }
 }
+
 // Delete My Profile  and all Posts as well
 exports.deleteMyProfile = async(req,res) => {
    try {
@@ -176,12 +177,14 @@ exports.deleteMyProfile = async(req,res) => {
     const userId = user._id;                // logged user Id
     const followers = user.followers;       // LOGGED User Followers 
     const following = user.following;
-    await user.deleteOne();
 
-    res.cookie("token", null , {
-        expires : new Date(Date.now()),
-        httpOnly : true,
-    });
+        await  cloudinary.v2.uploader.destroy(user.avatar.public_id);
+        
+        await user.deleteOne();
+        res.cookie("token", null , {
+            expires : new Date(Date.now()),
+            httpOnly : true,
+        });
 
     for(let i = 0; i < posts.length;i++){
         const post  = await Post.findById(posts[i]);
