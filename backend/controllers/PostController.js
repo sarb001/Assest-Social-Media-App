@@ -110,6 +110,9 @@ exports.deletePost = async(req,res) => {
                 message : "UnAuthorized"
             })
         }
+
+        await cloudinary.v2.uploader.destroy(post.image.public_id);
+
         await post.deleteOne();        // post removed now 
 
         // post has been deleted now but 

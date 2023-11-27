@@ -161,8 +161,21 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
             })
 
             dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
-            
+
         }catch (error) {
         dispatch({type:"UpdateCaptionFailure"});
+    }
+}
+
+export const DeletePost = (id) => async(dispatch) => {
+    try {
+        dispatch({type:"DeletePostRequest"});
+        
+        const { data } = await axios.delete(`/api/v1/post/${id}`)
+
+        dispatch({type:"DeletePostSuccess" , payload : data.message });
+    } catch (error) {
+        
+        dispatch({type:"DeletePostFailure"})
     }
 }

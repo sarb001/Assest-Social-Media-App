@@ -331,7 +331,6 @@ exports.FollowUser = async(req,res) => {
 exports.GetMyPosts  = async(req,res) => {
     try {
         const user = await User.findById(req.user._id);
-       
         const posts = [];
 
         for(let i = 0; i < user.posts.length ; i++){

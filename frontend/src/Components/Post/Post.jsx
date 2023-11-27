@@ -8,7 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetComments, GetFollowingPostRequest, GetMyPost, GetlikePost, UpdateCaption } from '../../Actions/User';
+import { DeletePost, GetComments, GetFollowingPostRequest, GetMyPost, GetlikePost, UpdateCaption } from '../../Actions/User';
 import User from '../User/User';
 import CommentCard from '../CommentCard/CommentCard';
 
@@ -55,6 +55,13 @@ const Post = ({postImage,
     const updateCaptionHandler = async(e) => {
         e.preventDefault();
         dispatch(UpdateCaption(captionvalue,postId))
+        dispatch(GetMyPost())
+    }
+
+    const DeleteHandler =  async() => {
+        await dispatch(DeletePost(postId));
+        console.log('moved now ');
+         dispatch(GetMyPost());
     }
 
 
@@ -75,7 +82,7 @@ const Post = ({postImage,
 
             {/* Update Caption */}
 
-       <Dialog open = {captionToggle} onClose = {() => setcaptionToggle(!captionToggle)}>  
+                 <Dialog open = {captionToggle} onClose = {() => setcaptionToggle(!captionToggle)}>  
                     <div className='DialogBox'>
                             <Typography variant='h4'> Captions </Typography>
                             <form className='commentForm' onSubmit={updateCaptionHandler}>
@@ -90,7 +97,7 @@ const Post = ({postImage,
                             </form>
 
                     </div>
-                </Dialog> 
+                 </Dialog> 
 
             <div className="post-header">
                 <span style = {{width:'50%',height:'100%'}}>
@@ -115,7 +122,7 @@ const Post = ({postImage,
                         <Button onClick = {() => setcommentToggle(!commentToggle)}>
                             <ChatBubbleOutlineIcon />
                         </Button>
-                        {isDelete ? <Button> <DeleteOutlineIcon />  </Button> : ""}
+                        {isDelete ? <Button onClick={DeleteHandler}> <DeleteOutlineIcon />  </Button> : ""}
                     </div>
 
 
