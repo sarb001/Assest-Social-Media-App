@@ -131,7 +131,43 @@ export const userReducer = createReducer(initialState, {
         state.loading = false;
         state.error   = action.payload; 
     },
+
 }) 
+
+// Get User Profile 
+
+export const getUserProfile = createReducer(initialState ,{
+    // user Profile
+    GetUserProfileRequest : (state) =>  {
+        state.loading = true;
+    },
+    GetUserProfileSuccess : (state,action) =>  {
+        state.loading = false;
+        state.user = action.payload;
+    },
+    GetUserProfileFailure : (state,action) =>  {
+        state.loading = false;
+        state.error = action.payload;
+    },
+})
+
+// Get User Posts 
+
+export const getUserPosts = createReducer(initialState , {
+ //  User Posts 
+    GetUserPostRequest : (state) =>  {
+        state.loading = true;
+    },
+    GetUserPostSuccess : (state,action) =>  {
+        state.loading = false;
+        state.posts = action.payload;
+    },
+    GetUserPostFailure : (state,action) =>  {
+        state.loading = false;
+        state.error = action.payload;
+    }
+})
+
 
 export const getPostofFollowing = createReducer(initialState , {
     GetFollowingPostRequest: (state) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const { Register, Login, FollowUser, Logout, updateProfile, updatePassword, deleteMyProfile, MyProfile, getAllUsers, getUserProfile, GetMyPosts } = require('../controllers/UserController');
+const { Register, Login, FollowUser, Logout, updateProfile, updatePassword, deleteMyProfile, MyProfile, getAllUsers, getUserProfile, GetMyPosts, GetUserPosts } = require('../controllers/UserController');
 const { isAuthenticated } = require('../middlewares/auth');
 
 const router = express.Router();
@@ -24,7 +24,13 @@ router.route('/myprofile').get(isAuthenticated,MyProfile);
 // Get All Posts of  Logged User's 
 router.route('/my/posts').get(isAuthenticated,GetMyPosts);
 
+
+// get Any User's Posts as well here 
+router.route('/userposts/:id').get(isAuthenticated,GetUserPosts);
+
+// get Any User Profile by req.params.id 
 router.route('/user/:id').get(isAuthenticated,getUserProfile);
+
 
 router.route('/users').get(isAuthenticated,getAllUsers);
 

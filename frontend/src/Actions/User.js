@@ -234,3 +234,28 @@ export const DeleteProfile = () => async(dispatch) => {
         dispatch({type:"DeleteProfileRequest"});
     }
 }
+
+
+
+export const GetUserProfile = (id) => async(dispatch) => {
+    try {
+         dispatch({type:"GetUserProfileRequest"});
+         const {data} = await axios.get(`/api/v1/user/${id}`)
+
+         dispatch({type:"GetUserProfileSuccess" , payload : data.user});
+        } catch (error) {
+        dispatch({type:"GetUserProfileFailure"});
+    }
+}
+
+export const GetUserPost = (id) =>  async(dispatch) => {
+    try {
+        dispatch({type:"GetUserPostRequest"});
+        const {data} = await axios.get(`/api/v1/userposts/${id}`)
+
+        dispatch({type:"GetUserPostSuccess" , payload : data.posts});
+       } catch (error) {
+
+       dispatch({type:"GetUserPostFailure"});
+   }
+}

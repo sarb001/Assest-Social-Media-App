@@ -6,12 +6,17 @@ import { useParams } from 'react-router-dom';
 import User from '../User/User';
 import '../Account/Account.css';
 import { useDispatch } from 'react-redux';
-import { GetMyPost } from '../../Actions/User';
+import { GetMyPost, GetUserPost, GetUserProfile } from '../../Actions/User';
 
 const UserProfile = () => {
     
-     const { posts } = useSelector((state) => state.myposts);
-     const { user }  = useSelector((state) => state.user);
+     const { posts }  = useSelector((state) => state.userposts);        // user specific post 
+     
+        console.log('get userposts -', {posts});
+
+     const { user : me  }   = useSelector((state) => state.user);         // user for matching url 
+     
+     const { user ,error , loading }   = useSelector((state) => state.userprofile);       // user for getting  user profile 
 
      const params   = useParams();
      const dispatch = useDispatch();
@@ -28,11 +33,13 @@ const UserProfile = () => {
      }
 
      useEffect(() => {
-        dispatch(GetMyPost());
-        if(user?._id === params.id){        // if id from url === logged User means myProfile is showing 
+         dispatch(GetUserPost(params.id));
+         dispatch(GetUserProfile(params.id));
+
+        if(me?._id === params.id){        // if id from url === logged User means myProfile is showing 
             setmyProfile(true);
         }
-     },[dispatch,user._id,params.id])
+     },[dispatch,me._id,params.id])
 
   return (
     <div className="account-container">
@@ -57,7 +64,11 @@ const UserProfile = () => {
             )}
         </div>
 
+                
         <div className="accountright">
+            {
+                user && (
+                    <>
             <Avatar src = {user.avatar.url} />
             <Typography variant='h5'> {user.name} </Typography>
             
@@ -79,7 +90,6 @@ const UserProfile = () => {
                 <Typography> Posts </Typography>
                 <Typography> {user.posts.length} </Typography>
             </div>
-
                 {myProfile ? null : (
                     <Button 
                     variant ="contained"
@@ -88,6 +98,10 @@ const UserProfile = () => {
                         {following ? "UnFollow"  : "Follow" } 
                     </Button>  
                 )}
+                    </>
+            )
+            }
+
 
 
                         {/* Followers Toggle  */}

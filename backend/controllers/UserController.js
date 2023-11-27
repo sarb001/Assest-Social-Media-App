@@ -209,6 +209,38 @@ exports.deleteMyProfile = async(req,res) => {
         await follows.save();
     }
 
+    // Remove userid from All Comments 
+
+    const allPosts = await Post.find();
+    
+    for(let i = 0 ;i <allPosts.length ;i++){
+        const post = await allPosts.findById(allPosts[i]._id);   // Get specifc post with id 
+
+        // check inside each post specifically 
+        for (let j = 0; j < post.comments.length; j++) {
+            // const element = array[j];
+            if(post.comments[j].user ===  userId){
+                post.comments.splice(j,1);
+            }
+            await post.save();
+        }
+    }
+
+    // Remove userid from All Likes 
+
+    for(let i = 0 ;i < allPosts.length ;i++){
+        const post = await allPosts.findById(allPosts[i]._id);   // Get specifc post with id 
+
+        // check inside each post specifically 
+        for (let j = 0; j < post.likes.length; j++) {
+            // const element = array[j];
+            if(post.likes[j] ===  userId){
+                post.likes.splice(j,1);
+            }
+            await post.save();
+        }
+    }
+
     res.status(200).json({
       success :true,
       message: " Profile Deleted ",
@@ -264,6 +296,33 @@ exports.getUserProfile = async(req,res) => {
         }) 
     }
 }
+
+// Get that User's Posts as well 
+exports.GetUserPosts = async(req,res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const posts = [];
+
+        for(let i = 0; i < user.posts.length ; i++){
+            const post = await Post.findById(user.posts[i]).populate(
+                "likes comments.user owner"
+            );
+            posts.push(post);
+        }
+
+        res.status(200).json({
+            success : true,
+            posts,
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            success : false,
+            message : error.message
+        })
+    }
+}
+
 
 // get All Users
 exports.getAllUsers = async(req,res) => {
@@ -369,3 +428,4 @@ exports.GetMyPosts  = async(req,res) => {
         })
     }
 }
+
