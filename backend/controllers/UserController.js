@@ -2,11 +2,11 @@
 
 const User = require("../models/User");
 const Post = require('../models/Post');
+const cloudinary = require('cloudinary');
 
-
-exports.Register = async  (req,res) => {
+exports.Register = async(req,res) => {
     try {
-        const {name,email,password} = req.body;
+        const {name,email,password,avatar} = req.body;
 
         let user = await User.findOne({email})
         if(user){
@@ -15,11 +15,14 @@ exports.Register = async  (req,res) => {
                 message : " User Already Exists "
             })
         }
+
+        const mycloud = await cloudinary.v2.uploader.upload(avatar);
+
         user = await User.create({
             name,
             email,
             password,
-            avatar : { public_id : "hello" , url : "sampleurl" },
+            avatar : { public_id : mycloud.public_id , url : mycloud.secure_url },
         });
         res.status(201).json({ success : true , user });
     } catch (error) {

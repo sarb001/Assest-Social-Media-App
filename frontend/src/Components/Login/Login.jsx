@@ -14,8 +14,8 @@ const Login = () => {
     dispatch(loginUser(email,password));
    }
 
-  return (
-   <div className="login">
+  return ( 
+   <div className="login">       
      <form className='loginForm' onSubmit={handleform}>
       <h3> Social App </h3>
        

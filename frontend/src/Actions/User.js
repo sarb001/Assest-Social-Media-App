@@ -1,10 +1,31 @@
 import axios from "axios"
 
+export const userRegister = (name,email,password,avatar) => async(dispatch) => {
+    try {
+        dispatch({type:"RegisterRequest"});
+        
+        const {data} = await axios.post('/api/v1/register' , 
+        { name,email,password , avatar },
+        {
+            headers : {
+                'Content-Type' :'application/json',
+            }
+        })
+
+        dispatch({type:"RegisterSuccess" ,payload : data.user});
+
+    } catch (error) {
+        dispatch({type:"RegisterFailure"})
+    }
+}
+
+
+
 export const loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
 
-        const {data} = await  axios.post('/api/v1/login', {email,password},
+        const { data } = await  axios.post('/api/v1/login', {email,password},
         { headers : 
               {
                 "Content-Type" : 'application/json'
@@ -18,6 +39,7 @@ export const loginUser = (email,password) => async(dispatch) => {
         dispatch({type:"LoginFailure",payload: error})
     }
 }
+
 
 export const loaduser = () => async(dispatch) => {
     try {
