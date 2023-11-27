@@ -8,7 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeletePost, GetComments, GetFollowingPostRequest, GetMyPost, GetlikePost, UpdateCaption } from '../../Actions/User';
+import { DeletePost, GetComments, GetFollowingPostRequest, GetMyPost, GetlikePost, UpdateCaption, loaduser } from '../../Actions/User';
 import User from '../User/User';
 import CommentCard from '../CommentCard/CommentCard';
 
@@ -61,7 +61,8 @@ const Post = ({postImage,
     const DeleteHandler =  async() => {
         await dispatch(DeletePost(postId));
         console.log('moved now ');
-         dispatch(GetMyPost());
+        dispatch(loaduser());
+        //  dispatch(GetMyPost());
     }
 
 

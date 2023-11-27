@@ -342,7 +342,7 @@ exports.GetMyPosts  = async(req,res) => {
 
         res.status(200).json({
             success : true,
-            posts,
+            posts : posts.reverse()
         })
 
     } catch (error) {

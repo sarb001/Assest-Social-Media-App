@@ -33,7 +33,9 @@ const NewPost = () => {
     <div className='newPost'>
         <form className='newPostForm' onSubmit={submitHandler}>
              <Typography variant='h3'> New Post </Typography>
-             <span style = {{width:'50%',height:'10vh'}}> {image && <img src = {image}  alt = 'post' />} </span>
+             <span style = {{width:'50%',height:'10vh'}}> 
+             {image && <img src = {image}  alt = 'post' style = {{width:'20%'}} />}
+             </span>
              <input type = "file"  accept='image/*' onChange = {handleImageChange} />
              <input type = "text"  placeholder='Caption...' 
               value = {caption}
