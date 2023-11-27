@@ -133,7 +133,6 @@ export const userReducer = createReducer(initialState, {
     },
 }) 
 
-
 export const getPostofFollowing = createReducer(initialState , {
     GetFollowingPostRequest: (state) => {
         state.loading = true;
@@ -149,7 +148,6 @@ export const getPostofFollowing = createReducer(initialState , {
         state.isAuthenticated = false;
     }
 })
-
 
 export const getAllUsers = createReducer(initialState , {
     GetgetAllUsersRequest: (state) => {

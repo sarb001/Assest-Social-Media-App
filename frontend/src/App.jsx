@@ -11,6 +11,7 @@ import Account from './Components/Account/Account';
 import NewPost from './Components/NewPost/NewPost';
 import Register from './Components/Register/Register';
 import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ function App() {
           <Route path = "/newpost"  element = {isAuthenticated ? <NewPost  /> : <Login />} />
          
           <Route path = "/update/profile"  element = {isAuthenticated ? <UpdateProfile  /> : <Login />} />
+        
+          <Route path = "/user/:id"  element = {isAuthenticated ? <UserProfile  /> : <Login />} />
         </Routes>
     </Router>
      </div>

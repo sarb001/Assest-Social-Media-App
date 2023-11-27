@@ -1,42 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import Post from '../Post/Post'
-import { Avatar, Button, Dialog, Typography } from '@mui/material'
-import { DeleteProfile, GetMyPost, LogoutUser } from '../../Actions/User'
-import { useDispatch, useSelector } from 'react-redux'
-import './Account.css';
-import User from '../User/User'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Avatar, Button, Dialog, Typography } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import User from '../User/User';
+import '../Account/Account.css';
+import { useDispatch } from 'react-redux';
+import { GetMyPost } from '../../Actions/User';
 
-const Account = () => {
+const UserProfile = () => {
+    
+     const { posts } = useSelector((state) => state.myposts);
+     const { user }  = useSelector((state) => state.user);
 
-    const dispatch = useDispatch();
-
-    const  { posts } =useSelector((state) => state.myposts);
-
-    const { user , loading : userLoading } = useSelector((state) => state.user);
-
+     const params   = useParams();
+     const dispatch = useDispatch();
      const [FollowerToggle,setFollowerToggle]   = useState(false);
      const [FollowingToggle,setFollowingToggle] = useState(false);
+     const [following,setfollowing] = useState(false);
+     const [myProfile,setmyProfile] = useState(false);
 
-     const logoutHandler = async() => {
-        await dispatch(LogoutUser());
-        alert('Logged Out Successfully');
-     };
+     const logoutHandler = () => {};
+     const deleteProfileHandler = () => {}
 
-     const deleteProfileHandler = async() => {
-         await dispatch(DeleteProfile());
-         alert(' Profile Deleted ');
-         dispatch(LogoutUser());
+     const FollowHandler = () => {
+        setfollowing(!following);
      }
 
      useEffect(() => {
         dispatch(GetMyPost());
-     },[dispatch])
+        if(user?._id === params.id){        // if id from url === logged User means myProfile is showing 
+            setmyProfile(true);
+        }
+     },[dispatch,user._id,params.id])
 
   return (
     <div className="account-container">
-      
-        <div className="accountleft">
+         
+         <div className="accountleft">
             {posts  && posts?.length  > 0  ? (
                 posts.map((post) => (
                     <Post
@@ -79,13 +80,15 @@ const Account = () => {
                 <Typography> {user.posts.length} </Typography>
             </div>
 
-              <Button variant='contained' onClick={logoutHandler}> Logout </Button>  
+                {myProfile ? null : (
+                    <Button 
+                    variant ="contained"
+                    style={{ background: following ? "red" : "" }}
+                    onClick={FollowHandler}> 
+                        {following ? "UnFollow"  : "Follow" } 
+                    </Button>  
+                )}
 
-                <Link to = "/update/profile"> Edit Profile </Link>
-
-                <Button  variant="text"
-                style={{ color: "red", margin: "2vmax",backgroundColor:'lightgrey' }}
-                onClick={deleteProfileHandler}> Delete My Profile </Button>
 
                         {/* Followers Toggle  */}
                 <Dialog
@@ -138,9 +141,8 @@ const Account = () => {
                 </Dialog>
 
         </div>
-
     </div>
   )
 }
 
-export default Account
+export default UserProfile
