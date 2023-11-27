@@ -99,12 +99,10 @@ export const userReducer = createReducer(initialState, {
     DeletePostSuccess: (state,action) => {
         state.loading = false;
         state.message  = action.payload;
-        state.isAuthenticated = false;
     },
     DeletePostFailure: (state,action) => {
         state.loading = false;
         state.error   = action.payload; 
-        state.isAuthenticated = true;
     },
 
     updateProfileRequest: (state) => {
@@ -121,18 +119,17 @@ export const userReducer = createReducer(initialState, {
         state.isAuthenticated = true;
     },
 
-    DeleteProfileRequest : () => {
+    DeleteProfileRequest : (state) => {
         state.loading = true;
     },
+
     DeleteProfileSuccess : (state,action) => {
         state.loading  = false;
         state.message  = action.payload;
-        state.isAuthenticated = true;
     },
     DeleteProfileFailure : (state,action) => {
         state.loading = false;
         state.error   = action.payload; 
-        state.isAuthenticated = false;
     },
 }) 
 

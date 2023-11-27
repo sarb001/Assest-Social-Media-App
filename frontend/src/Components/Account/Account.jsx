@@ -24,6 +24,7 @@ const Account = () => {
 
      const deleteProfileHandler = async() => {
          await dispatch(DeleteProfile());
+         alert(' Profile Deleted ');
          dispatch(LogoutUser());
      }
 
@@ -33,6 +34,7 @@ const Account = () => {
 
   return (
     <div className="account-container">
+      
         <div className="accountleft">
             {posts  && posts?.length  > 0  ? (
                 posts.map((post) => (
