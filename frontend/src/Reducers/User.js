@@ -104,6 +104,20 @@ export const userReducer = createReducer(initialState, {
         state.error   = action.payload; 
         state.isAuthenticated = true;
     },
+
+    updateProfileRequest: (state) => {
+        state.loading = true;
+    },
+    updateProfileSuccess : (state,action) => {
+        state.loading = false;
+        state.message  = action.payload;
+        state.isAuthenticated = false;
+    },
+    updateProfileFailure : (state,action) => {
+        state.loading = false;
+        state.error   = action.payload; 
+        state.isAuthenticated = true;
+    },
 }) 
 
 

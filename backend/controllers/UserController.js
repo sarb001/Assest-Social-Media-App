@@ -91,11 +91,11 @@ exports.Logout = async(req,res) => {
 
 exports.updateProfile = async(req,res) => {
     try {
-        const { name ,email }= req.body;
+        const { name ,email ,avatar } = req.body;
         if(!name || !email){
             return res.status(400).json({
                 success : false,
-                message : " Provide Name | Email "
+                message : " Provide Name | Email | avatar "
             })
         }
 
@@ -106,7 +106,18 @@ exports.updateProfile = async(req,res) => {
         if(email){
             user.email = email;
         }
-        await user.save();
+
+        if(avatar){
+            await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+            const mycloud = await cloudinary.v2.uploader.upload(avatar , {
+                folder : "avatars",
+            });
+            user.avatar.public_id = mycloud.public_id;
+            user.avatar.url = mycloud.secure_url;
+        }    
+
+          await user.save();
+
             res.status(200).json({
                 success : true,
                 message: " Profile Updated "
