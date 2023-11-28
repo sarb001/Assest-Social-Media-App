@@ -32,7 +32,7 @@ const UserProfile = () => {
      }
 
      useEffect(() => {
-         dispatch(GetUserPost(params.id));
+         dispatch(GetUserPost(params.id));   
          dispatch(GetUserProfile(params.id));
 
         if(me?._id === params.id){        // if id from url === logged User means myProfile is showing 

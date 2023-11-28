@@ -327,12 +327,16 @@ exports.GetUserPosts = async(req,res) => {
 // get All Users
 exports.getAllUsers = async(req,res) => {
     try {
-        const users = await User.find({});
+        const users = await User.find({ 
+            name  :  { $regex : req.query.name , $options : "i" }
+        });
         console.log('users getall- ',users);
+
         res.status(200).json({
             success :true,
             users 
         });
+
     } catch (error) {
         return res.status(500).json({
             success : false,

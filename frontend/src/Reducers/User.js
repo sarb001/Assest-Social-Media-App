@@ -131,10 +131,6 @@ export const userReducer = createReducer(initialState, {
         state.loading = false;
         state.error   = action.payload; 
     },
-
-
-
-
 }) 
 
 // Get User Profile 
@@ -188,6 +184,7 @@ export const getPostofFollowing = createReducer(initialState , {
     }
 })
 
+
 export const getAllUsers = createReducer(initialState , {
     GetgetAllUsersRequest: (state) => {
         state.loading = true;
@@ -203,6 +200,7 @@ export const getAllUsers = createReducer(initialState , {
         state.isAuthenticated = false;
     }
 })
+
 
 export const likePost = createReducer(initialState, {
     LikeRequest: (state) => {

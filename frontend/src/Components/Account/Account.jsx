@@ -101,7 +101,7 @@ const Account = () => {
                             key={follower._id}
                             userId={follower._id}
                             name={follower.name}
-                            avatar={follower.avatar.url}
+                            avatar={follower.avatar?.url}
                             />
                         ))
                 ) : (

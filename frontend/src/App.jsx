@@ -12,6 +12,7 @@ import NewPost from './Components/NewPost/NewPost';
 import Register from './Components/Register/Register';
 import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
 import UserProfile from './Components/UserProfile/UserProfile';
+import Search from './Components/Search/Search';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,8 @@ function App() {
           <Route path = "/update/profile"  element = {isAuthenticated ? <UpdateProfile  /> : <Login />} />
         
           <Route path = "/user/:id"  element = {isAuthenticated ? <UserProfile  /> : <Login />} />
+
+          <Route path = "search"  element = {isAuthenticated ? <Search  /> : <Login />} />
         </Routes>
     </Router>
      </div>
