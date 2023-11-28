@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { GetAllMyPost, getAllUsers, getPostofFollowing, 
+import { FollowandUnfollow, GetAllMyPost, getAllUsers, getPostofFollowing, 
 getUserPosts, getUserProfile, likePost, userReducer } from './Reducers/User';
 
 const store = configureStore({
@@ -11,6 +11,7 @@ const store = configureStore({
         myposts : GetAllMyPost,
         userposts : getUserPosts,
         userprofile :getUserProfile,
+        followandunfollow :FollowandUnfollow
     }
 })
 

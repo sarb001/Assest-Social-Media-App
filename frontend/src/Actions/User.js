@@ -20,7 +20,6 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
 }
 
 
-
 export const loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
@@ -236,7 +235,6 @@ export const DeleteProfile = () => async(dispatch) => {
 }
 
 
-
 export const GetUserProfile = (id) => async(dispatch) => {
     try {
          dispatch({type:"GetUserProfileRequest"});
@@ -257,5 +255,17 @@ export const GetUserPost = (id) =>  async(dispatch) => {
        } catch (error) {
 
        dispatch({type:"GetUserPostFailure"});
+   }
+}
+
+export const FollowandUnfollowUser = (id) =>  async(dispatch) => {
+    try {
+        dispatch({type:"FollowandUnfollowRequest"});
+        const {data} = await axios.get(`/api/v1/follow/${id}`)
+
+        dispatch({type:"FollowandUnfollowSuccess" , payload : data.message});
+       } catch (error) {
+
+       dispatch({type:"FollowandUnfollowFailure"});
    }
 }

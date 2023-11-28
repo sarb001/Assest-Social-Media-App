@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import User from '../User/User';
 import '../Account/Account.css';
 import { useDispatch } from 'react-redux';
-import { GetMyPost, GetUserPost, GetUserProfile } from '../../Actions/User';
+import { FollowandUnfollowUser, GetMyPost, GetUserPost, GetUserProfile } from '../../Actions/User';
 
 const UserProfile = () => {
     
@@ -25,11 +25,10 @@ const UserProfile = () => {
      const [following,setfollowing] = useState(false);
      const [myProfile,setmyProfile] = useState(false);
 
-     const logoutHandler = () => {};
-     const deleteProfileHandler = () => {}
-
-     const FollowHandler = () => {
+     const FollowHandler = async() => {
         setfollowing(!following);
+       await  dispatch(FollowandUnfollowUser(user._id));
+        dispatch(GetUserProfile(params.id));
      }
 
      useEffect(() => {
@@ -38,6 +37,20 @@ const UserProfile = () => {
 
         if(me?._id === params.id){        // if id from url === logged User means myProfile is showing 
             setmyProfile(true);
+        }
+        if(user){
+            // in userfollowers if (userid) ===  url id 
+
+                // if id is already present in followers === id in url it means already 
+
+            user.followers.forEach((item) => {          
+                if(item._id === me._id){
+                    setfollowing(true);
+                }else{
+                    setfollowing(false);
+                }
+            }
+         );
         }
      },[dispatch,me._id,params.id])
 
@@ -66,43 +79,42 @@ const UserProfile = () => {
 
                 
         <div className="accountright">
-            {
-                user && (
-                    <>
-            <Avatar src = {user.avatar.url} />
-            <Typography variant='h5'> {user.name} </Typography>
-            
-            <div>
-                <button onClick={() => setFollowerToggle(!FollowerToggle)}> 
-                    <Typography> Followers </Typography>
-                </button>
-                    <Typography> {user.followers.length} </Typography>
-            </div>
+                {
+                    user && (
+                        <>
+                <Avatar src = {user.avatar.url} />
+                <Typography variant='h5'> {user.name} </Typography>
+                
+                <div>
+                    <button onClick={() => setFollowerToggle(!FollowerToggle)}> 
+                        <Typography> Followers </Typography>
+                    </button>
+                        <Typography> {user.followers.length} </Typography>
+                </div>
 
-            <div>
-                <button onClick={() => setFollowingToggle(!FollowingToggle)}> 
-                    <Typography> Following </Typography>
-                </button>
-                    <Typography> {user.following.length} </Typography>
-            </div>
+                <div>
+                    <button onClick={() => setFollowingToggle(!FollowingToggle)}> 
+                        <Typography> Following </Typography>
+                    </button>
+                        <Typography> {user.following.length} </Typography>
+                </div>
 
-            <div>
-                <Typography> Posts </Typography>
-                <Typography> {user.posts.length} </Typography>
-            </div>
-                {myProfile ? null : (
-                    <Button 
-                    variant ="contained"
-                    style={{ background: following ? "red" : "" }}
-                    onClick={FollowHandler}> 
-                        {following ? "UnFollow"  : "Follow" } 
-                    </Button>  
+                <div>
+                    <Typography> Posts </Typography>
+                    <Typography> {user.posts.length} </Typography>
+                </div>
+                    {myProfile ? null : (
+                        <Button 
+                        variant ="contained"
+                        style={{ background: following ? "red" : "" }}
+                        onClick={FollowHandler}
+                        disabled  = {loading}
+                        > 
+                            {following ? "UnFollow"  : "Follow" } 
+                        </Button>  
+                    )}
+                        </>
                 )}
-                    </>
-            )
-            }
-
-
 
                         {/* Followers Toggle  */}
                 <Dialog

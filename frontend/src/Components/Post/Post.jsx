@@ -20,8 +20,8 @@ const Post = ({postImage,
     comments = [],
     ownerImage,
     ownerId,
-    isAccount = true,
-    isDelete = true
+    isAccount = false,
+    isDelete = false,
 }) => {
 
     const dispatch = useDispatch();

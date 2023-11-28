@@ -16,6 +16,7 @@ router.route('/update/password').put(isAuthenticated,updatePassword);
 
 router.route('/follow/:id').get(isAuthenticated,FollowUser);
 
+
 router.route('/delete/me').delete(isAuthenticated,deleteMyProfile);
 
 

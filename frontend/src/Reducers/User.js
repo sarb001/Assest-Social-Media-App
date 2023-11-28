@@ -132,6 +132,9 @@ export const userReducer = createReducer(initialState, {
         state.error   = action.payload; 
     },
 
+
+
+
 }) 
 
 // Get User Profile 
@@ -256,4 +259,18 @@ export const GetAllMyPost = createReducer(initialState , {
         state.error = action.payload; 
     }
 })
+
+export const FollowandUnfollow = createReducer(initialState, {
+     FollowandUnfollowRequest: (state) => {
+        state.loading = true;
+    },
+    FollowandUnfollowSuccess: (state,action) => {
+        state.loading  = false;
+        state.message  = action.payload;
+    },
+    FollowandUnfollowFailure: (state,action) => {
+        state.loading = false;
+        state.error = action.payload; 
+    }
+ })
 
