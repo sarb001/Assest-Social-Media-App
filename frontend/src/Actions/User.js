@@ -30,11 +30,9 @@ export const loginUser = (email,password) => async(dispatch) => {
                 "Content-Type" : 'application/json'
                 }
         })
-        console.log('data in Login -',{data});
         dispatch({type:"LoginSuccess",payload: data.user})
 
     } catch (error) {
-        console.log('error in fail -',error);
         dispatch({type:"LoginFailure",payload: error})
     }
 }
@@ -128,10 +126,8 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
             data : { commentId },
         });
         
-        console.log('data in del -',{data});
         dispatch({type:"DeleteCommentSuccess",payload:data.message});
     } catch (error) {
-        console.log('error in  del -',error);
         dispatch({type:"DeleteCommentFailure"}) 
     }
 }

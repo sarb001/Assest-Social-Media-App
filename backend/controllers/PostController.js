@@ -9,7 +9,6 @@ exports.CreatePost = async (req,res) => {
         const mycloud = await cloudinary.v2.uploader.upload(req.body.image ,{
             folder : "posts"
         });
-        console.log(' Create post-');
         const newPostData = {
             caption : req.body.caption,
             image: {
@@ -94,7 +93,6 @@ exports.deletePost = async(req,res) => {
     try {
         // find post of specific id 
         const post = await Post.findById(req.params.id);
-        console.log('post in del -',post);
         if(!post){
             return res.status(404).json({
                 success : false,
@@ -153,7 +151,6 @@ exports.getPostofFollowing = async(req,res) => {
             }
         }).populate("owner likes comments.user")
 
-        console.log('user --',user);
         return res.status(200).json({
             success : true,
             posts : posts.reverse()
@@ -234,7 +231,6 @@ exports.commentonPost = async(req,res) => {
 exports.deleteComment = async(req,res) => {
     try {
         const  post = await Post.findById(req.params.id);
-        console.log('post del comment -',post);
         
         if(!post){
             return res.status(404).json({
@@ -243,8 +239,6 @@ exports.deleteComment = async(req,res) => {
             })
         }
 
-         console.log('postowner -',post.owner);
-         console.log('req user id -',req.user._id);
 
             if(post.owner === req.user._id){          // logged user is doing some action 
                 if(req.body.commentId == undefined){            // if commentId is not Given
@@ -255,8 +249,6 @@ exports.deleteComment = async(req,res) => {
                 }
 
                 post.comments.forEach((item,index) => {
-                    console.log('item user- ',item._id);
-                    console.log(' comment Body - ',req.body.commentId);
                     if(item?._id.toString() === req.body.commentId.toString()){
                         return post.comments.splice(index,1);
                     }

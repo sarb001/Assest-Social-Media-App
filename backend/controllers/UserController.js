@@ -136,7 +136,6 @@ exports.updatePassword = async(req,res) => {
         const user = await User.findById(req.user._id).select("+password");
 
         const { oldPassword , newPassword } = req.body;
-        console.log('update pass-',oldPassword,newPassword);
 
         if(!oldPassword || !newPassword){
             return res.status(400).json({
@@ -146,7 +145,6 @@ exports.updatePassword = async(req,res) => {
         }
 
         const isMatch = await user.matchPassword(oldPassword);
-        console.log('update ismatch -',isMatch);
         if(!isMatch){
             return res.status(400).json({
                 success : false,
@@ -330,7 +328,6 @@ exports.getAllUsers = async(req,res) => {
         const users = await User.find({ 
             name  :  { $regex : req.query.name , $options : "i" }
         });
-        console.log('users getall- ',users);
 
         res.status(200).json({
             success :true,

@@ -19,7 +19,6 @@ router.route('/follow/:id').get(isAuthenticated,FollowUser);
 
 router.route('/delete/me').delete(isAuthenticated,deleteMyProfile);
 
-
 router.route('/myprofile').get(isAuthenticated,MyProfile);
 
 // Get All Posts of  Logged User's 

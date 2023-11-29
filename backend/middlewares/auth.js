@@ -13,7 +13,6 @@ exports.isAuthenticated = async(req,res,next) => {
     }
     const decoded = await jwt.verify(token,'sarbSECRET@123');
 
-    console.log('decoded  middleware',decoded);
     req.user = await  User.findById(decoded._id);
     next();
 
