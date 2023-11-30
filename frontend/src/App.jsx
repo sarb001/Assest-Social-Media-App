@@ -33,7 +33,6 @@ function App() {
           <Route path = "/account"  element = {isAuthenticated ? <Account  /> : <Login />} />
           <Route path = "/register" element = {isAuthenticated ? <Account  /> : <Register />} />
           <Route path = "/newpost"  element = {isAuthenticated ? <NewPost  /> : <Login />} />
-         
           <Route path = "/update/profile"  element = {isAuthenticated ? <UpdateProfile  /> : <Login />} />
         
           <Route path = "/user/:id"  element = {isAuthenticated ? <UserProfile  /> : <Login />} />
