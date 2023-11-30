@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 
-exports.connectDatabase  = () => {mongoose.connect('mongodb+srv://admin:admin@cluster0.3phzl66.mongodb.net/?retryWrites=true&w=majority' , 
-{
-    dbName : 'socialmediaApp1'
+exports.connectDatabase  = () => {
+    mongoose.connect(process.env.DB_URL, {
+    dbName : process.env.DB_NAME
 })
-    .then((con) => console.log(` Database Connected Finally to ${con.connection.host}`))
+    .then((con) => console.log(` Database Connected Here ${con.connection.host}`))
     .catch((error) => console.log('error -',error))
 }
