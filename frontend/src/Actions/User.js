@@ -20,7 +20,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
 }
 
 
-export const loginUser = (email,password) => async(dispatch) => {
+export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
 
