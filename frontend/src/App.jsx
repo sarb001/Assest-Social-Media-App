@@ -5,7 +5,6 @@ import Login from './Components/Login/Login';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loaduser } from './Actions/User';
-import Home from './Components/Home/home';
 import './App.css';
 import Account from './Components/Account/Account';
 import NewPost from './Components/NewPost/NewPost';
@@ -13,6 +12,7 @@ import Register from './Components/Register/Register';
 import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
 import UserProfile from './Components/UserProfile/UserProfile';
 import Search from './Components/Search/Search';
+
 
 function App() {
   const dispatch = useDispatch();

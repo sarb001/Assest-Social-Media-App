@@ -18,7 +18,7 @@ const Home = () => {
    },[])
 
   return (
-      <div className="home">
+      <div className="Home">
         <div className='homeleft'> 
           {posts && posts?.length > 0 ? ( posts.map((post) =>  (
             <Post 
