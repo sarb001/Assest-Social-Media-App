@@ -33,6 +33,7 @@ export const  loginUser = (email,password) => async(dispatch) => {
         dispatch({type:"LoginSuccess",payload: data.user})
 
     } catch (error) {
+        console.log('error in login -',error);
         dispatch({type:"LoginFailure",payload: error})
     }
 }
