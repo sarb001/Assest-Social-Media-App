@@ -11,6 +11,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
         {
             headers : {
                 'Content-Type' :'application/json',
+                'Origin' : 'https://assest-social-media-app.vercel.app'
             }
         })
 
@@ -31,7 +32,10 @@ export const  loginUser = (email,password) => async(dispatch) => {
         {email,password},
         {
             withCredentials : true,
-            headers : { "Content-Type" : 'application/json' }
+            headers : { 
+                "Content-Type" : 'application/json' ,
+                'Origin' : 'https://assest-social-media-app.vercel.app'
+        }
         });
         
         console.log('data inlogin -',{data});
