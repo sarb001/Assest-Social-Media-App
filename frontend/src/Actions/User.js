@@ -1,8 +1,8 @@
 import axios from "axios"
 
-// const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
+const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
 
-const BACK_URL = 'https://assest-social-media-app.vercel.app'
+// const BACK_URL = 'https://assest-social-media-app.vercel.app'
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
