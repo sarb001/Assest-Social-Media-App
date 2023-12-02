@@ -12,6 +12,7 @@ import Register from './Components/Register/Register';
 import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
 import UserProfile from './Components/UserProfile/UserProfile';
 import Search from './Components/Search/Search';
+import Home from './Components/Home/Home';
 
 
 function App() {

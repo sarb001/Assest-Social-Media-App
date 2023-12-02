@@ -9,8 +9,9 @@ export default defineConfig({
   plugins: [react()],
   server : {
      proxy : {
-      '/apis' : {
+      '/api' : {
         target:"https://social-media-backend-33gv.onrender.com/",
+        // target:"http://localhost:4000",
         changeOrigin : true
       }
      }
