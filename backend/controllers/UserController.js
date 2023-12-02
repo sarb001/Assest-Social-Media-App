@@ -54,8 +54,9 @@ exports.Login = async(req,res) => {
             })
         }
 
+        console.log('user in back -',user);
         const  token = await user.generateToken();
-
+        console.log('token in back -',token);
         res.status(200).cookie("token",token , {
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly : true
@@ -65,6 +66,7 @@ exports.Login = async(req,res) => {
             token       
         });
     } catch (error) {
+        console.log('error inbakend -',error);
         res.status(500).json({
             success : false,
             message : error.message
