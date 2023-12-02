@@ -8,7 +8,9 @@ app.use(express.json({
     limit : '50mb'
 }))
 
-app.use(cors());
+app.use(cors({
+    origin : 'https://assest-social-media-app.vercel.app/'
+}));
 
 // app.use((req,res,next) => {
 //     res.header('Access-Control-Allow-Origin', 'https://social-media-backend-33gv.onrender.com/');
