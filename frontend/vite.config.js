@@ -10,7 +10,7 @@ export default defineConfig({
   server : {
      proxy : {
       '/api' : {
-        target:"https://social-media-backend-33gv.onrender.com/",
+        target:"https://social-media-backend-33gv.onrender.com",
         changeOrigin : true
       }
      }
