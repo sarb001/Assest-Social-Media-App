@@ -25,11 +25,11 @@ export const  loginUser = (email,password) => async(dispatch) => {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
 
-        const { data } = await  axios.post('https://social-media-backend-33gv.onrender.com/api/v1/login', {email,password},
-        { headers : 
-              {
-                "Content-Type" : 'application/json'
-                }
+        const { data } = await  axios.post('https://social-media-backend-33gv.onrender.com/api/v1/login', 
+        {email,password},
+        {
+            withCredentials : true,
+            headers : { "Content-Type" : 'application/json' }
         });
         
         console.log('data inlogin -',{data});
