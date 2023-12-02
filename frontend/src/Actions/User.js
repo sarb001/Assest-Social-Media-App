@@ -1,12 +1,12 @@
 import axios from "axios"
 
-const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
+// const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
         dispatch({type:"RegisterRequest"});
         
-        const {data} = await axios.post(`${BACK_URL}/api/v1/register` , 
+        const {data} = await axios.post(`/api/v1/register` , 
         { name,email,password , avatar },
         {
             headers : {
@@ -27,7 +27,7 @@ export const  loginUser = (email,password) => async(dispatch) => {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
 
-        const { data } = await  axios.post(`${BACK_URL}/api/v1/login`, 
+        const { data } = await  axios.post(`/api/v1/login`, 
         {email,password},
         {
             withCredentials : true,
@@ -48,7 +48,7 @@ export const loaduser = () => async(dispatch) => {
     try {
          dispatch({type:"LoadUserRequest"});
 
-         const { data } = await  axios.get(`${BACK_URL}/api/v1/myprofile`);
+         const { data } = await  axios.get(`/api/v1/myprofile`);
 
          dispatch({type:"LoadUserSuccess", payload : data.user})
     } catch (error) {
@@ -61,7 +61,7 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
     try {
         dispatch({type:"GetFollowingPostRequest"});
         
-        const { data } = await axios.get(`${BACK_URL}/api/v1/followpost`);
+        const { data } = await axios.get(`/api/v1/followpost`);
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
         console.log(' following data -',{data});
 
@@ -76,7 +76,7 @@ export const GetAllUsers = (name = "") => async(dispatch) => {
     try {
         dispatch({type:"GetgetAllUsersRequest"})
 
-        const {data} = await axios.get(`${BACK_URL}/api/v1/users?name=${name}`);
+        const {data} = await axios.get(`/api/v1/users?name=${name}`);
 
         dispatch({type:"GetgetAllUsersSuccess",payload : data.users});
         
@@ -89,7 +89,7 @@ export const GetlikePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"LikeRequest"});
         
-        const {data} = await axios.get(`${BACK_URL}/api/v1/post/${id}`)
+        const {data} = await axios.get(`/api/v1/post/${id}`)
 
         dispatch({type:"LikeSuccess",payload : data.message })
     } catch (error) {
@@ -101,7 +101,7 @@ export const GetMyPost = () => async(dispatch) => {
     try {
         dispatch({type: "GetPostRequest"});
 
-        const { data } = await axios.get(`${BACK_URL}/api/v1/my/posts`)
+        const { data } = await axios.get(`/api/v1/my/posts`)
 
         dispatch({type: "GetPostSuccess",payload : data.posts})
     } catch (error) {
@@ -113,7 +113,7 @@ export const GetMyPost = () => async(dispatch) => {
 export const GetComments = (id,comment) => async(dispatch) => {
     try {
         dispatch({type:"CommentRequest"}) 
-        const  { data } = await axios.put(`${BACK_URL}/api/v1/posts/comment/${id}` , {
+        const  { data } = await axios.put(`/api/v1/posts/comment/${id}` , {
             comment
         },{
             headers : {
@@ -130,7 +130,7 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
         dispatch({type:"DeleteCommentRequest"})
 
-        const { data } = await axios.delete(`${BACK_URL}/api/v1/posts/comment/${id}` , {
+        const { data } = await axios.delete(`/api/v1/posts/comment/${id}` , {
             data : { commentId },
         });
         
@@ -145,7 +145,7 @@ export const LogoutUser = () => async(dispatch) => {
     try {
         dispatch({type:"LogOutRequest"});
         
-        await axios.get(`${BACK_URL}/api/v1/logout`);
+        await axios.get(`/api/v1/logout`);
 
         dispatch({type:"LogOutSuccess"})
     } catch (error) {
@@ -157,7 +157,7 @@ export const LogoutUser = () => async(dispatch) => {
 export const CreateNewPost = (caption,image) => async(dispatch) => {
     try {
           dispatch({type:"NewPostRequest"});
-            const { data } = await axios.post(`${BACK_URL}/api/v1/post/upload`, 
+            const { data } = await axios.post(`/api/v1/post/upload`, 
             {
                 caption , image,
             },
@@ -178,7 +178,7 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
     try {
             dispatch({type:"UpdateCaptionRequest"});
 
-            const { data } = await axios.put(`${BACK_URL}/api/v1/post/${id}` , {
+            const { data } = await axios.put(`/api/v1/post/${id}` , {
                 caption
             },{
                 headers: {
@@ -197,7 +197,7 @@ export const DeletePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"DeletePostRequest"});
         
-        const { data } = await axios.delete(`${BACK_URL}/api/v1/post/${id}`)
+        const { data } = await axios.delete(`/api/v1/post/${id}`)
 
         dispatch({type:"DeletePostSuccess" , payload : data.message });
     } catch (error) {
@@ -211,7 +211,7 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
     try {
         dispatch({type:"updateProfileRequest"});
 
-        const { data } = await axios.put(`${BACK_URL}/api/v1/update/profile` , 
+        const { data } = await axios.put(`/api/v1/update/profile` , 
         { name,email,avatar },
         {
                 headers : {
@@ -230,7 +230,7 @@ export const DeleteProfile = () => async(dispatch) => {
     try {
         dispatch({type:"DeleteProfileRequest"});
 
-        const {data} = await axios.delete(`${BACK_URL}/api/v1/delete/me`);
+        const {data} = await axios.delete(`/api/v1/delete/me`);
 
         dispatch({type:"DeleteProfileSuccess",payload: data.message });
 
@@ -243,7 +243,7 @@ export const DeleteProfile = () => async(dispatch) => {
 export const GetUserProfile = (id) => async(dispatch) => {
     try {
          dispatch({type:"GetUserProfileRequest"});
-         const {data} = await axios.get(`${BACK_URL}/api/v1/user/${id}`)
+         const {data} = await axios.get(`/api/v1/user/${id}`)
 
          dispatch({type:"GetUserProfileSuccess" , payload : data.user});
         } catch (error) {
@@ -254,7 +254,7 @@ export const GetUserProfile = (id) => async(dispatch) => {
 export const GetUserPost = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"GetUserPostRequest"});
-        const {data} = await axios.get(`${BACK_URL}/api/v1/userposts/${id}`)
+        const {data} = await axios.get(`/api/v1/userposts/${id}`)
 
         dispatch({type:"GetUserPostSuccess" , payload : data.posts});
        } catch (error) {
@@ -266,7 +266,7 @@ export const GetUserPost = (id) =>  async(dispatch) => {
 export const FollowandUnfollowUser = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"FollowandUnfollowRequest"});
-        const {data} = await axios.get(`${BACK_URL}/api/v1/follow/${id}`)
+        const {data} = await axios.get(`/api/v1/follow/${id}`)
 
         dispatch({type:"FollowandUnfollowSuccess" , payload : data.message});
        } catch (error) {
