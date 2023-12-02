@@ -9,7 +9,8 @@ app.use(express.json({
 }))
 
 app.use(cors({
-    origin : 'https://assest-social-media-app.vercel.app/'
+    origin : 'https://assest-social-media-app.vercel.app/',
+    credentials : true,
 }));
 
 // app.use((req,res,next) => {
