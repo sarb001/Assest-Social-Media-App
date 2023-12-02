@@ -10,7 +10,9 @@ app.use(express.json({
 
 
 app.use(cors({
+    methods : 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials : true,
+    origin : 'https://assest-social-media-app.vercel.app/'
 }));
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
