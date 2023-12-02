@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BACK_URL = 'https://social-media-backend-33gv.onrender.com/'
+const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
