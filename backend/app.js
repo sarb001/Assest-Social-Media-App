@@ -8,7 +8,13 @@ app.use(express.json({
     limit : '50mb'
 }))
 
-app.use(cors());
+const corsOptions = {
+    origin : 'https://assest-social-media-app.vercel.app/',
+    methods : 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials : true,
+}
+
+app.use(cors(corsOptions()));
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
 

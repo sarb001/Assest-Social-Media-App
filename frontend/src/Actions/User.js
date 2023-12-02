@@ -4,7 +4,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
         dispatch({type:"RegisterRequest"});
         
-        const {data} = await axios.post('https://social-media-backend-33gv.onrender.com/api/v1/register' , 
+        const {data} = await axios.post('/api/v1/register' , 
         { name,email,password , avatar },
         {
             headers : {
@@ -25,7 +25,7 @@ export const  loginUser = (email,password) => async(dispatch) => {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
 
-        const { data } = await  axios.post('https://social-media-backend-33gv.onrender.com/api/v1/login', {email,password},
+        const { data } = await  axios.post('/api/v1/login', {email,password},
         { headers : 
               {
                 "Content-Type" : 'application/json'
@@ -46,7 +46,7 @@ export const loaduser = () => async(dispatch) => {
     try {
          dispatch({type:"LoadUserRequest"});
 
-         const { data } = await  axios.get('https://social-media-backend-33gv.onrender.com/api/v1/myprofile');
+         const { data } = await  axios.get('/api/v1/myprofile');
 
          dispatch({type:"LoadUserSuccess", payload : data.user})
     } catch (error) {
