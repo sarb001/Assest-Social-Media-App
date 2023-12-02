@@ -11,7 +11,6 @@ app.use(express.json({
 app.use(cors());
 
 app.use((req,res,next) => {
-    res.header('Access-Control-Allow-Origin', 'https://assest-social-media-app.vercel.app/');
     res.header('Access-Control-Allow-Credentials', true);
     next();
 })
