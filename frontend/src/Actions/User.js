@@ -61,8 +61,10 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
         
         const { data } = await axios.get('https://social-media-backend-33gv.onrender.com/api/v1/followpost');
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
+        console.log(' following data -',{data});
 
     } catch (error) {
+        console.log(' following posts -',error);
          dispatch({type:"GetFollowingPostFailure",payload: error})
     }
 }
