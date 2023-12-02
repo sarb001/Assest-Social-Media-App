@@ -2,19 +2,18 @@ import axios from "axios"
 
 // const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
 
-
-// const BACK_URL = 'https://assest-social-media-app.vercel.app'
+const BACK_URL = 'https://assest-social-media-app.vercel.app'
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
         dispatch({type:"RegisterRequest"});
         
-        const {data} = await axios.post(`/api/v1/register` , 
+        const {data} = await axios.post(`${BACK_URL}/api/v1/register` , 
         { name,email,password , avatar },
         {
             headers : {
                 'Content-Type' :'application/json',
-                'Origin' : 'https://assest-social-media-app.vercel.app'
+                // 'Origin' : 'https://assest-social-media-app.vercel.app'
             }
         })
 
@@ -31,13 +30,13 @@ export const  loginUser = (email,password) => async(dispatch) => {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
 
-        const { data } = await  axios.post(`/api/v1/login`, 
+        const { data } = await  axios.post(`${BACK_URL}/api/v1/login`, 
         {email,password},
         {
             withCredentials : true,
             headers : { 
                 "Content-Type" : 'application/json' ,
-                'Origin' : 'https://assest-social-media-app.vercel.app'
+                // 'Origin' : 'https://assest-social-media-app.vercel.app'
         }
         });
         
@@ -55,7 +54,7 @@ export const loaduser = () => async(dispatch) => {
     try {
          dispatch({type:"LoadUserRequest"});
 
-         const { data } = await  axios.get(`/api/v1/myprofile`);
+         const { data } = await  axios.get(`${BACK_URL}/api/v1/myprofile`);
 
          dispatch({type:"LoadUserSuccess", payload : data.user})
     } catch (error) {
@@ -68,7 +67,7 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
     try {
         dispatch({type:"GetFollowingPostRequest"});
         
-        const { data } = await axios.get(`/api/v1/followpost`);
+        const { data } = await axios.get(`${BACK_URL}/api/v1/followpost`);
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
         console.log(' following data -',{data});
 
