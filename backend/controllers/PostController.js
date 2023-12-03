@@ -33,13 +33,13 @@ exports.CreatePost = async (req,res) => {
         user.posts.push(post._id)   // post pushed to specific logged user account
         await user.save();
 
-        res.status(201).json({c
+      return res.status(201).json({
             success: true,
             message : "Post Createdd"
         })
     } catch (error) {   
         console.log('error in post -',error);
-        res.status(500).json({
+       return  res.status(500).json({
             success : false,
             message : error.message
         })
