@@ -9,6 +9,8 @@ exports.CreatePost = async (req,res) => {
         const mycloud = await cloudinary.v2.uploader.upload(req.body.image ,{
             folder : "posts"
         });
+        console.log('public id -',mycloud.public_id);
+        console.log('public id type -',typeof(mycloud.public_id));
         const newPostData = {
             caption : req.body.caption,
             image: {
@@ -31,11 +33,12 @@ exports.CreatePost = async (req,res) => {
         user.posts.push(post._id)   // post pushed to specific logged user account
         await user.save();
 
-        res.status(201).json({
+        res.status(201).json({c
             success: true,
             post: post,
         })
     } catch (error) {
+        console.log('error in post -',error);
         res.status(500).json({
             success : false,
             message : error.message
