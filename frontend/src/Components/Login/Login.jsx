@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios' ;
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Actions/User';
 
 const Login = () => {
@@ -9,9 +9,12 @@ const Login = () => {
   const [password,setPassword] = useState('');
   const dispatch = useDispatch();
 
+   const { loading } = useSelector((state) => state.user);
+
    const handleform = async(e) => {
-    e.preventDefault();
-    dispatch(loginUser(email,password));
+      e.preventDefault();
+      dispatch(loginUser(email,password));
+      alert(' Logged In Success ');
    }
 
   return ( 
@@ -29,7 +32,7 @@ const Login = () => {
           onChange = {(e) => setPassword(e.target.value)}
         required />
 
-        <button type='submit'> Login </button>
+        <button type='submit'   disabled = {loading} > Login </button>
       <span>
          <Link to = "/register"> New User </Link>
       </span>

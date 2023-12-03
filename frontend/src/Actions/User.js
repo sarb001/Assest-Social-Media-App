@@ -27,8 +27,6 @@ export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
-        //  credentials : 'include',
-
         const { data } = await  axios.post(`${BACK_URL}/api/v1/login`, 
         {email,password},{
                  withCredentials : true,

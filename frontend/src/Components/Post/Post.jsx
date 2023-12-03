@@ -62,7 +62,6 @@ const Post = ({postImage,
         await dispatch(DeletePost(postId));
         console.log('moved now ');
         dispatch(loaduser());
-        //  dispatch(GetMyPost());
     }
 
 
@@ -100,83 +99,83 @@ const Post = ({postImage,
                     </div>
                  </Dialog> 
 
-            <div className="post-header">
-                <span style = {{width:'50%',height:'100%'}}>
-                    <img src = {postImage}  alt = "Post"  
-                    style = {{width:'30%',height:'100%',objectFit:'cover'}} />
-                </span>
-                <div className="postdetails">
-                    <Avatar  src= {ownerName} alt= "user" />    
-                    <Link to = {`/user/${ownerId}`}> {ownerName} </Link>
-                    <Typography>  {caption} </Typography>
-                </div>
-
-                <button  style = {{border:'none'}}
-                    onClick = {() => setlikeuser(!likeuser)}
-                    disabled={likes.length === 0 ? true : false}> 
-                <Typography > {likes.length} Likes </Typography> </button>
-                    
-                    <div className="postFooter">
-                        <Button onClick = {handleLike}>
-                            {liked ? <FavoriteIcon style = {{color:'red'}} /> :<FavoriteBorderIcon /> }
-                        </Button>
-                        <Button onClick = {() => setcommentToggle(!commentToggle)}>
-                            <ChatBubbleOutlineIcon />
-                        </Button>
-                        {isDelete ? <Button onClick={DeleteHandler}> <DeleteOutlineIcon />  </Button> : ""}
+                <div className="post-header">
+                    <span style = {{width:'50%',height:'100%'}}>
+                        <img src = {postImage}  alt = "Post"  
+                        style = {{width:'30%',height:'100%',objectFit:'cover'}} />
+                    </span>
+                    <div className="postdetails">
+                        <Avatar  src= {ownerName} alt= "user" />    
+                        <Link to = {`/user/${ownerId}`}> {ownerName} </Link>
+                        <Typography>  {caption} </Typography>
                     </div>
 
+                    <button  style = {{border:'none'}}
+                        onClick = {() => setlikeuser(!likeuser)}
+                        disabled={likes.length === 0 ? true : false}> 
+                    <Typography > {likes.length} Likes </Typography> </button>
+                        
+                        <div className="postFooter">
+                            <Button onClick = {handleLike}>
+                                {liked ? <FavoriteIcon style = {{color:'red'}} /> :<FavoriteBorderIcon /> }
+                            </Button>
+                            <Button onClick = {() => setcommentToggle(!commentToggle)}>
+                                <ChatBubbleOutlineIcon />
+                            </Button>
+                            {isDelete ? <Button onClick={DeleteHandler}> <DeleteOutlineIcon />  </Button> : ""}
+                        </div>
 
-                {/*  Dialog Box for Like Post  */}
-                <Dialog open = {likeuser} onClose={() => setlikeuser(!likeuser)}>  
-                    <div className='DialogBox'>
-                            <Typography variant='h4'> Liked By </Typography>
-                            {likes.map((like) => (
-                                <User 
-                                key    = {like._id}
-                                userId = {like._id}
-                                name = {like.name}
-                                avatar={like.avatar.url}
-                                />
-                            ))}
-                    </div>
-                </Dialog>               
 
-                {/*  Dialog Box for Comment Section */}
-                <Dialog open = {commentToggle} onClose={() => setcommentToggle(!commentToggle)}>  
-                    <div className='DialogBox'>
-                            <Typography variant='h4'>  Comments </Typography>
-                            <form className='commentForm' onSubmit={addCommentHandler}>
-                                <input 
-                                    type = "text"
-                                    value = {commentvalue}
-                                    onChange={(e) => setcommentvalue(e.target.value)}
-                                    placeholder='Comment Here....'
-                                    required
-                                />
-                                <Button type = "submit" variant='contained'> Add </Button>
-                            </form>
-
-                        {/*  All Comments  */}
-                            {comments.length > 0 ? (
-                                comments.map((item) => (
-                                    <CommentCard 
-                                    key = {item._id}
-                                    userId = {item.user._id}        // logged user id 
-                                    commentId = {item._id}  
-                                    name = {item.user.name}
-                                    avatar={item.user.avatar.url}
-                                    comment={item.comment}
-                                    isAccount = {isAccount}
-                                    postId={postId}
+                    {/*  Dialog Box for Like Post  */}
+                    <Dialog open = {likeuser} onClose={() => setlikeuser(!likeuser)}>  
+                        <div className='DialogBox'>
+                                <Typography variant='h4'> Liked By </Typography>
+                                {likes.map((like) => (
+                                    <User 
+                                    key    = {like._id}
+                                    userId = {like._id}
+                                    name = {like.name}
+                                    avatar={like.avatar.url}
                                     />
-                            ))) : (
-                                <Typography> No Comments Yet </Typography>
-                            )}
-                    </div>
-                </Dialog> 
+                                ))}
+                        </div>
+                    </Dialog>               
 
-            </div>
+                    {/*  Dialog Box for Comment Section */}
+                    <Dialog open = {commentToggle} onClose={() => setcommentToggle(!commentToggle)}>  
+                        <div className='DialogBox'>
+                                <Typography variant='h4'>  Comments </Typography>
+                                <form className='commentForm' onSubmit={addCommentHandler}>
+                                    <input 
+                                        type = "text"
+                                        value = {commentvalue}
+                                        onChange={(e) => setcommentvalue(e.target.value)}
+                                        placeholder='Comment Here....'
+                                        required
+                                    />
+                                    <Button type = "submit" variant='contained'> Add </Button>
+                                </form>
+
+                            {/*  All Comments  */}
+                                {comments.length > 0 ? (
+                                    comments.map((item) => (
+                                        <CommentCard 
+                                        key = {item._id}
+                                        userId = {item.user._id}        // logged user id 
+                                        commentId = {item._id}  
+                                        name = {item.user.name}
+                                        avatar={item.user.avatar.url}
+                                        comment={item.comment}
+                                        isAccount = {isAccount}
+                                        postId={postId}
+                                        />
+                                ))) : (
+                                    <Typography> No Comments Yet </Typography>
+                                )}
+                        </div>
+                    </Dialog> 
+
+                </div>
     </div>
   )
 }
