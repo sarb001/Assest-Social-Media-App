@@ -179,13 +179,11 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
           dispatch({type:"NewPostRequest"});
             const { data } = await axios.post(`${BACK_URL}/api/v1/post/upload`, 
             {
-                withCredentials : true,
-            },
-            {
                 caption , 
-                image : image.toString()
+                image
             },
             {
+                withCredentials : true,
                 headers : {
                     "Content-Type" : "application/json",
                 }
