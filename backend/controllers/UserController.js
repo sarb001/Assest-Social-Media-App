@@ -58,10 +58,10 @@ exports.Login = async(req,res) => {
         const  token = await user.generateToken();
         console.log('token in back -',token);
         res.status(200).cookie("token",token , {
+            secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly : true,
-            secure  :  true,
-            sameSite : 'None'
+            sameSite : 'none'
         }).json({
             success  :true,
             user,

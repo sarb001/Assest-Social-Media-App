@@ -13,11 +13,6 @@ app.use(cors({
     credentials : true,
 }));
 
-// app.use((req,res,next) => {
-//     res.header('Access-Control-Allow-Origin', 'https://social-media-backend-33gv.onrender.com/');
-//     res.header('Access-Control-Allow-Credentials', true);
-//     next();
-// })
 
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
