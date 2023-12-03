@@ -35,9 +35,9 @@ exports.CreatePost = async (req,res) => {
 
         res.status(201).json({c
             success: true,
-            post: post,
+            message : "Post Createdd"
         })
-    } catch (error) {
+    } catch (error) {   
         console.log('error in post -',error);
         res.status(500).json({
             success : false,
