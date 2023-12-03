@@ -35,7 +35,6 @@ export const  loginUser = (email,password) => async(dispatch) => {
                 headers : { 
                     "Content-Type" : 'application/json' ,
                 }
-            
         });
         
         console.log('data inlogin -',{data});
@@ -65,7 +64,11 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
     try {
         dispatch({type:"GetFollowingPostRequest"});
         
-        const { data } = await axios.get(`${BACK_URL}/api/v1/followpost`);
+        const { data } = await axios.get(`${BACK_URL}/api/v1/followpost`,
+        {
+            withCredentials : true,
+        }
+        );
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
         console.log(' following data -',{data});
 
@@ -92,7 +95,10 @@ export const GetlikePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"LikeRequest"});
         
-        const {data} = await axios.get(`${BACK_URL}/api/v1/post/${id}`)
+        const {data} = await axios.get(`${BACK_URL}/api/v1/post/${id}` , {
+                withCredentials : true
+            
+        })
 
         dispatch({type:"LikeSuccess",payload : data.message })
     } catch (error) {
@@ -104,7 +110,9 @@ export const GetMyPost = () => async(dispatch) => {
     try {
         dispatch({type: "GetPostRequest"});
 
-        const { data } = await axios.get(`${BACK_URL}/api/v1/my/posts`)
+        const { data } = await axios.get(`${BACK_URL}/api/v1/my/posts` , {
+            withCredentials : true,
+        })
 
         dispatch({type: "GetPostSuccess",payload : data.posts})
     } catch (error) {
