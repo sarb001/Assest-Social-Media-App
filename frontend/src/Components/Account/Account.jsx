@@ -81,7 +81,9 @@ const Account = () => {
                         <Typography> {user.posts.length} </Typography>
                     </div>
 
-                    <Button variant='contained' onClick={logoutHandler}> Logout </Button>  
+                    <Button variant='contained' 
+                     disabled = {userLoading}
+                    onClick={logoutHandler}> Logout </Button>  
 
                         <Link to = "/update/profile"> Edit Profile </Link>
 

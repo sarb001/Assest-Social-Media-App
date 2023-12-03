@@ -11,15 +11,13 @@ import { FollowandUnfollowUser, GetMyPost, GetUserPost, GetUserProfile } from '.
 const UserProfile = () => {
     
      const { posts }  = useSelector((state) => state.userposts);        // user specific post 
-     
         console.log('get userposts -', {posts});
-
      const { user : me  }   = useSelector((state) => state.user);         // user for matching url 
      
      const { user ,error , loading }   = useSelector((state) => state.userprofile);       // user for getting  user profile 
 
-     const params   = useParams();
-     const dispatch = useDispatch();
+     const params     = useParams();
+     const dispatch   = useDispatch();
      const [FollowerToggle,setFollowerToggle]   = useState(false);
      const [FollowingToggle,setFollowingToggle] = useState(false);
      const [following,setfollowing] = useState(false);
