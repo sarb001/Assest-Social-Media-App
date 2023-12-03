@@ -42,13 +42,14 @@ const Home = () => {
 
             <div className='homeright'> 
             {users && users?.length > 0 ? (
-              users.map((item) => 
-              <User 
-                key = {item._id}
-                userId = {item._id}
-                name   = {item.name}
-                avatar = {item.avatar.url} 
-              />
+              users.map((item) =>  (
+                <User 
+                  key = {item._id}
+                  userId = {item._id}
+                  name   = {item.name}
+                  avatar = {item.avatar.url} 
+                />
+                )
               )
             ) : "No Users Present"}
             </div>

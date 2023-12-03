@@ -6,8 +6,8 @@
   }
   
   .loadingCircle {
-    width: 200px;
-    height: 200px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 10px solid #ffffff;
     border-top: 10px solid rgb(34, 34, 34);

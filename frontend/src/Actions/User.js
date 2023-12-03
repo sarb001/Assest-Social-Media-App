@@ -49,7 +49,9 @@ export const loaduser = () => async(dispatch) => {
     try {
          dispatch({type:"LoadUserRequest"});
 
-         const { data } = await  axios.get(`${BACK_URL}/api/v1/myprofile`);
+         const { data } = await  axios.get(`${BACK_URL}/api/v1/myprofile` , {
+                withCredentials : true,
+         });
 
          dispatch({type:"LoadUserSuccess", payload : data.user})
     } catch (error) {
@@ -81,7 +83,10 @@ export const GetAllUsers = (name = "") => async(dispatch) => {
     try {
         dispatch({type:"GetgetAllUsersRequest"})
 
-        const {data} = await axios.get(`${BACK_URL}/api/v1/users?name=${name}`);
+        const {data} = await axios.get(`${BACK_URL}/api/v1/users?name=${name}`, 
+        {
+            withCredentials : true,
+        });
 
         dispatch({type:"GetgetAllUsersSuccess",payload : data.users});
     } catch (error) {
@@ -95,7 +100,6 @@ export const GetlikePost = (id) => async(dispatch) => {
         
         const {data} = await axios.get(`${BACK_URL}/api/v1/post/${id}` , {
                 withCredentials : true
-            
         })
 
         dispatch({type:"LikeSuccess",payload : data.message })
@@ -252,8 +256,9 @@ export const DeleteProfile = () => async(dispatch) => {
 export const GetUserProfile = (id) => async(dispatch) => {
     try {
          dispatch({type:"GetUserProfileRequest"});
-         const {data} = await axios.get(`${BACK_URL}/api/v1/user/${id}`)
-
+         const {data} = await axios.get(`${BACK_URL}/api/v1/user/${id}` , {
+            withCredentials : true,
+        })
          dispatch({type:"GetUserProfileSuccess" , payload : data.user});
         } catch (error) {
         dispatch({type:"GetUserProfileFailure"});
@@ -263,7 +268,9 @@ export const GetUserProfile = (id) => async(dispatch) => {
 export const GetUserPost = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"GetUserPostRequest"});
-        const {data} = await axios.get(`${BACK_URL}/api/v1/userposts/${id}`)
+        const {data} = await axios.get(`${BACK_URL}/api/v1/userposts/${id}`, {
+                withCredentials : true,
+        })
 
         dispatch({type:"GetUserPostSuccess" , payload : data.posts});
        } catch (error) {
