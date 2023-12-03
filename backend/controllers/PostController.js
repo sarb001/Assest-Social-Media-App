@@ -6,11 +6,14 @@ const cloudinary = require('cloudinary');
 
 exports.CreatePost = async (req,res) => {
     try {
+        console.log('req body image- ',req.body.image);
+        
         const mycloud = await cloudinary.v2.uploader.upload(req.body.image ,{
             folder : "posts"
         });
         console.log('public id -',mycloud.public_id);
         console.log('public id type -',typeof(mycloud.public_id));
+
         const newPostData = {
             caption : req.body.caption,
             image: {

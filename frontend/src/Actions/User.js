@@ -182,7 +182,8 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
                 withCredentials : true,
             },
             {
-                caption , image
+                caption , 
+                image : image.toString()
             },
             {
                 headers : {
