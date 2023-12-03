@@ -26,6 +26,8 @@ const NewPost = () => {
         e.preventDefault();
         await dispatch(CreateNewPost(caption,image));
         alert(' New Post Created ');
+        setImage('');
+        setCaption('');
         dispatch(loaduser());
     }
     

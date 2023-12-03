@@ -126,7 +126,11 @@ export const GetMyPost = () => async(dispatch) => {
 export const GetComments = (id,comment) => async(dispatch) => {
     try {
         dispatch({type:"CommentRequest"}) 
-        const  { data } = await axios.put(`${BACK_URL}/api/v1/posts/comment/${id}` , {
+        const  { data } = await axios.put(`${BACK_URL}/api/v1/posts/comment/${id}` , 
+        {
+            withCredentials : true,
+        },
+        {
             comment
         },{
             headers : {
@@ -143,7 +147,10 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
         dispatch({type:"DeleteCommentRequest"})
 
-        const { data } = await axios.delete(`${BACK_URL}/api/v1/posts/comment/${id}` , {
+        const { data } = await axios.delete(`${BACK_URL}/api/v1/posts/comment/${id}` ,{
+            withCredentials : true,
+        },
+        {
             data : { commentId },
         });
         
@@ -172,7 +179,10 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
           dispatch({type:"NewPostRequest"});
             const { data } = await axios.post(`${BACK_URL}/api/v1/post/upload`, 
             {
-                caption , image,
+                withCredentials : true,
+            },
+            {
+                caption , image
             },
             {
                 headers : {
@@ -192,6 +202,8 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
             dispatch({type:"UpdateCaptionRequest"});
 
             const { data } = await axios.put(`${BACK_URL}/api/v1/post/${id}` , {
+                withCredentials : true,
+            },{
                 caption
             },{
                 headers: {
@@ -210,7 +222,9 @@ export const DeletePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"DeletePostRequest"});
         
-        const { data } = await axios.delete(`${BACK_URL}/api/v1/post/${id}`)
+        const { data } = await axios.delete(`${BACK_URL}/api/v1/post/${id}` , {
+            withCredentials : true,
+        })
 
         dispatch({type:"DeletePostSuccess" , payload : data.message });
     } catch (error) {
@@ -225,6 +239,9 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
         dispatch({type:"updateProfileRequest"});
 
         const { data } = await axios.put(`${BACK_URL}/api/v1/update/profile` , 
+        {
+            withCredentials : true,
+        },
         { name,email,avatar },
         {
                 headers : {
@@ -243,7 +260,9 @@ export const DeleteProfile = () => async(dispatch) => {
     try {
         dispatch({type:"DeleteProfileRequest"});
 
-        const {data} = await axios.delete(`${BACK_URL}/api/v1/delete/me`);
+        const {data} = await axios.delete(`${BACK_URL}/api/v1/delete/me` , {
+            withCredentials : true,
+        });
 
         dispatch({type:"DeleteProfileSuccess",payload: data.message });
 
@@ -282,7 +301,9 @@ export const GetUserPost = (id) =>  async(dispatch) => {
 export const FollowandUnfollowUser = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"FollowandUnfollowRequest"});
-        const {data} = await axios.get(`${BACK_URL}/api/v1/follow/${id}`)
+        const {data} = await axios.get(`${BACK_URL}/api/v1/follow/${id}` ,{
+            withCredentials : true,
+        })
 
         dispatch({type:"FollowandUnfollowSuccess" , payload : data.message});
        } catch (error) {

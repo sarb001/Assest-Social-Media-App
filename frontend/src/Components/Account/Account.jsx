@@ -11,9 +11,7 @@ import Loader from '../Loader/Loader'
 const Account = () => {
 
     const dispatch = useDispatch();
-
-    const  { posts , loading } =useSelector((state) => state.myposts);
-
+    const  { posts , loading } =  useSelector((state) => state.myposts);
     const { user , loading : userLoading } = useSelector((state) => state.user);
 
      const [FollowerToggle,setFollowerToggle]   = useState(false);
