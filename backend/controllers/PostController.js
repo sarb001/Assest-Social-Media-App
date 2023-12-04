@@ -2,7 +2,7 @@
 const Post = require('../models/Post.js');
 const User = require('../models//User.js');
 const cloudinary = require('cloudinary');
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 
 
 exports.CreatePost = async (req,res) => {
@@ -25,6 +25,8 @@ exports.CreatePost = async (req,res) => {
         }
         const post = await Post.create(newPostData);        // create post with above data
 
+        console.log('post creatd -',post);
+        
         if(!post){
             return res.status(500).json({
                 success: false,
@@ -32,11 +34,15 @@ exports.CreatePost = async (req,res) => {
             })
         }
         
-        if(mongoose.Types.ObjectId.isValid(req.user._id)){     
+        if(mongoose.Types.ObjectId.isValid(req.user._id)){ 
+            
             const user = await User.findById(req.user._id);     // find  user  in 
+            console.log('user created -',user);
             user.posts.push(post._id)   // post pushed to specific logged user account
             await user.save();
+
         }else {
+            console.log('else part ---');
             return res.status(400).json({
                 success: false,
                 message: "Invalid user ID",
