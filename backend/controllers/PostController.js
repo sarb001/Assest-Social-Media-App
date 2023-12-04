@@ -21,7 +21,7 @@ exports.CreatePost = async (req,res) => {
                 public_id : mycloud.public_id,
                 url : mycloud.secure_url,
             },
-            owner : req.user._id.toString(),
+            owner : req.user._id,
         }
         const post = await Post.create(newPostData);        // create post with above data
 
