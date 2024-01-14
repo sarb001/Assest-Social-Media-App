@@ -1,61 +1,75 @@
 import axios from "axios"
 
-const BACK_URL = 'https://social-media-backend-33gv.onrender.com'
+import { toast } from 'react-toastify';
 
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
         dispatch({type:"RegisterRequest"});
         
-        const {data} = await axios.post(`${BACK_URL}/api/v1/register` , 
+        const {data} = await axios.post(`/api/v1/register` , 
         { name,email,password , avatar },
         {
             headers : {
                 'Content-Type' :'application/json',
             }
         })
+            toast.success(' Registered Successfully ');
+            dispatch({type:"RegisterSuccess" ,payload : data.user});
 
-        dispatch({type:"RegisterSuccess" ,payload : data.user});
-
-    } catch (error) {
-        dispatch({type:"RegisterFailure"})
+        } catch (error) {
+            
+            toast.error(' Something Went Wrong ');
+            dispatch({type:"RegisterFailure" , payload : error.response.data.message})
+        }
     }
-}
-
-
-export const  loginUser = (email,password) => async(dispatch) => {
-    try {
-         dispatch({type:"LoginRequest"});
-         console.log('data started  -');
-        const { data } = await  axios.post(`${BACK_URL}/api/v1/login`, 
-        {email,password},{
-                 withCredentials : true,
+    
+    
+export const loginUser = (email,password) => async(dispatch) => {
+        try {
+                dispatch({type:"LoginRequest"});
+            const { data } = await  axios.post(`/api/v1/login`, 
+            {email,password},
+            {
                 headers : { 
                     "Content-Type" : 'application/json' ,
                 }
-        });
-        
-        console.log('data inlogin -',{data});
+            });
+            
+        toast.success(' Logged In Successfully ');
         dispatch({type:"LoginSuccess",payload: data.user})
 
     } catch (error) {
-        console.log('error in login -',error);
-        dispatch({type:"LoginFailure",payload: error})
+        dispatch({type:"LoginFailure",payload: error.response.data.message})
     }
 }
 
+
+export const GetlikePost = (id) => async(dispatch) => {
+    try {
+        dispatch({type:"LikeRequest"});
+        
+        const {data} = await axios.get(`/api/v1/post/${id}` )
+
+        toast.success(data.message);
+        dispatch({type:"LikeSuccess",payload : data.message })
+
+    } catch (error) {
+        dispatccccch({type:"LikeFailure" ,payload: error.response.data.message})
+    }
+}
 
 export const loaduser = () => async(dispatch) => {
     try {
          dispatch({type:"LoadUserRequest"});
 
-         const { data } = await  axios.get(`${BACK_URL}/api/v1/myprofile` , {
-                withCredentials : true,
-         });
+         const { data } = await  axios.get(`/api/v1/myprofile`);
 
-         dispatch({type:"LoadUserSuccess", payload : data.user})
+         dispatch({type:"LoadUserSuccess", payload : data.user});
+
     } catch (error) {
-        dispatch({type:"LoadUserFailure" , payload : error})
+        
+        dispatch({type:"LoadUserFailure"})
     }
 }
 // get Posts of User that Follow logged User 
@@ -64,17 +78,13 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
     try {
         dispatch({type:"GetFollowingPostRequest"});
         
-        const { data } = await axios.get(`${BACK_URL}/api/v1/followpost`,
-        {
-            withCredentials : true,
-        }
-        );
+        const { data } = await axios.get(`/api/v1/followpost`);
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
+
         console.log(' following data -',{data});
 
     } catch (error) {
-        console.log(' following posts -',error);
-         dispatch({type:"GetFollowingPostFailure",payload: error})
+         dispatch({type:"GetFollowingPostFailure",payload: error.response.data.message})
     }
 }
 
@@ -83,42 +93,25 @@ export const GetAllUsers = (name = "") => async(dispatch) => {
     try {
         dispatch({type:"GetgetAllUsersRequest"})
 
-        const {data} = await axios.get(`${BACK_URL}/api/v1/users?name=${name}`, 
-        {
-            withCredentials : true,
-        });
+        const {data} = await axios.get(`/api/v1/users?name=${name}`);
 
         dispatch({type:"GetgetAllUsersSuccess",payload : data.users});
     } catch (error) {
-        dispatch({type:"GetgetAllUsersFailure"})
+        dispatch({type:"GetgetAllUsersFailure" ,payload: error.response.data.message})
     }
 }
 
-export const GetlikePost = (id) => async(dispatch) => {
-    try {
-        dispatch({type:"LikeRequest"});
-        
-        const {data} = await axios.get(`${BACK_URL}/api/v1/post/${id}` , {
-                withCredentials : true
-        })
 
-        dispatch({type:"LikeSuccess",payload : data.message })
-    } catch (error) {
-        dispatch({type:"LikeFailure"})
-    }
-}
 
 export const GetMyPost = () => async(dispatch) => {
     try {
         dispatch({type: "GetPostRequest"});
 
-        const { data } = await axios.get(`${BACK_URL}/api/v1/my/posts` , {
-            withCredentials : true,
-        })
+        const { data } = await axios.get(`/api/v1/my/posts` )
 
         dispatch({type: "GetPostSuccess",payload : data.posts})
     } catch (error) {
-        dispatch({type: "GetPostFailure"})
+        dispatch({type: "GetPostFailure" ,payload: error.response.data.message})
     }
 }
 
@@ -126,10 +119,7 @@ export const GetMyPost = () => async(dispatch) => {
 export const GetComments = (id,comment) => async(dispatch) => {
     try {
         dispatch({type:"CommentRequest"}) 
-        const  { data } = await axios.put(`${BACK_URL}/api/v1/posts/comment/${id}` , 
-        {
-            withCredentials : true,
-        },
+        const  { data } = await axios.put(`/api/v1/posts/comment/${id}`, 
         {
             comment
         },{
@@ -139,7 +129,7 @@ export const GetComments = (id,comment) => async(dispatch) => {
         })
         dispatch({type:"CommentSuccess",payload: data.message}); 
     } catch (error) {
-        dispatch({type:"CommentFailure"}) 
+        dispatch({type:"CommentFailure",payload: error.response.data.message}) 
     }
 }
 
@@ -147,16 +137,15 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
         dispatch({type:"DeleteCommentRequest"})
 
-        const { data } = await axios.delete(`${BACK_URL}/api/v1/posts/comment/${id}` ,{
-            withCredentials : true,
-        },
+        const { data } = await axios.delete(`/api/v1/posts/comment/${id}` ,
         {
             data : { commentId },
         });
         
+        toast.success(' Comment Deleted ');
         dispatch({type:"DeleteCommentSuccess",payload:data.message});
     } catch (error) {
-        dispatch({type:"DeleteCommentFailure"}) 
+        dispatch({type:"DeleteCommentFailure",payload: error.response.data.message}) 
     }
 }
 
@@ -164,12 +153,14 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
 export const LogoutUser = () => async(dispatch) => {
     try {
         dispatch({type:"LogOutRequest"});
-        
-        await axios.get(`${BACK_URL}/api/v1/logout`);
+        await axios.get(`/api/v1/logout`);
 
+        toast.success(' LogOut Successfully ');
         dispatch({type:"LogOutSuccess"})
     } catch (error) {
-        dispatch({type:"LogOutFailure"})
+
+        dispatch({type:"LogOutFailure",payload: error.response.data.message})
+
     }
 }
 
@@ -177,13 +168,14 @@ export const LogoutUser = () => async(dispatch) => {
 export const CreateNewPost = (caption,image) => async(dispatch) => {
     try {
           dispatch({type:"NewPostRequest"});
-            const { data } = await axios.post(`${BACK_URL}/api/v1/post/upload`, 
+          console.log('captionfront -',caption);
+          console.log(' image front -',image);
+            const { data } = await axios.post(`/api/v1/post/upload`, 
             {
                 caption , 
                 image
             },
             {
-                withCredentials : true,
                 headers : {
                     "Content-Type" : "application/json",
                 }
@@ -192,7 +184,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
           dispatch({type:"NewPostSuccess",payload : data.message });
           
         } catch (error) {   
-            dispatch({type:"NewPostFailure"});
+            dispatch({type:"NewPostFailure" ,payload: error.response.data.message });
     }
 }
 
@@ -200,9 +192,7 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
     try {
             dispatch({type:"UpdateCaptionRequest"});
 
-            const { data } = await axios.put(`${BACK_URL}/api/v1/post/${id}` , {
-                withCredentials : true,
-            },{
+            const { data } = await axios.put(`/api/v1/post/${id}` ,{
                 caption
             },{
                 headers: {
@@ -213,7 +203,7 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
             dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
 
         }catch (error) {
-        dispatch({type:"UpdateCaptionFailure"});
+        dispatch({type:"UpdateCaptionFailure",payload: error.response.data.message});
     }
 }
 
@@ -221,14 +211,12 @@ export const DeletePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"DeletePostRequest"});
         
-        const { data } = await axios.delete(`${BACK_URL}/api/v1/post/${id}` , {
-            withCredentials : true,
-        })
+        const { data } = await axios.delete(`/api/v1/post/${id}` )
 
         dispatch({type:"DeletePostSuccess" , payload : data.message });
     } catch (error) {
         
-        dispatch({type:"DeletePostFailure"})
+        dispatch({type:"DeletePostFailure" ,payload: error.response.data.message})
     }
 }
 
@@ -237,10 +225,7 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
     try {
         dispatch({type:"updateProfileRequest"});
 
-        const { data } = await axios.put(`${BACK_URL}/api/v1/update/profile` , 
-        {
-            withCredentials : true,
-        },
+        const { data } = await axios.put(`/api/v1/update/profile` ,
         { name,email,avatar },
         {
                 headers : {
@@ -250,7 +235,7 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
 
         dispatch({type:"updateProfileSuccess" ,payload : data.message });
     } catch (error) {
-        dispatch({type:"updateProfileFailure"});
+        dispatch({type:"updateProfileFailure",payload: error.response.data.message});
     }
 }
 
@@ -259,14 +244,12 @@ export const DeleteProfile = () => async(dispatch) => {
     try {
         dispatch({type:"DeleteProfileRequest"});
 
-        const {data} = await axios.delete(`${BACK_URL}/api/v1/delete/me` , {
-            withCredentials : true,
-        });
+        const {data} = await axios.delete(`/api/v1/delete/me` );
 
         dispatch({type:"DeleteProfileSuccess",payload: data.message });
 
     } catch (error) {
-        dispatch({type:"DeleteProfileRequest"});
+        dispatch({type:"DeleteProfileRequest" ,payload: error.response.data.message});
     }
 }
 
@@ -274,39 +257,35 @@ export const DeleteProfile = () => async(dispatch) => {
 export const GetUserProfile = (id) => async(dispatch) => {
     try {
          dispatch({type:"GetUserProfileRequest"});
-         const {data} = await axios.get(`${BACK_URL}/api/v1/user/${id}` , {
-            withCredentials : true,
-        })
+         const {data} = await axios.get(`/api/v1/user/${id}` , )
+
          dispatch({type:"GetUserProfileSuccess" , payload : data.user});
+
         } catch (error) {
-        dispatch({type:"GetUserProfileFailure"});
+        dispatch({type:"GetUserProfileFailure" ,payload: error.response.data.message});
     }
 }
 
 export const GetUserPost = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"GetUserPostRequest"});
-        const {data} = await axios.get(`${BACK_URL}/api/v1/userposts/${id}`, {
-                withCredentials : true,
-        })
+        const {data} = await axios.get(`/api/v1/userposts/${id}`)
 
         dispatch({type:"GetUserPostSuccess" , payload : data.posts});
        } catch (error) {
 
-       dispatch({type:"GetUserPostFailure"});
+       dispatch({type:"GetUserPostFailure",payload: error.response.data.message});
    }
 }
 
 export const FollowandUnfollowUser = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"FollowandUnfollowRequest"});
-        const {data} = await axios.get(`${BACK_URL}/api/v1/follow/${id}` ,{
-            withCredentials : true,
-        })
+        const {data} = await axios.get(`/api/v1/follow/${id}`)
 
         dispatch({type:"FollowandUnfollowSuccess" , payload : data.message});
        } catch (error) {
 
-       dispatch({type:"FollowandUnfollowFailure"});
+       dispatch({type:"FollowandUnfollowFailure" ,payload: error.response.data.message});
    }
 }

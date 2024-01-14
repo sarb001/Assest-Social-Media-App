@@ -10,7 +10,7 @@ import Loader from '../Loader/Loader';
 const Home = () => {
     const dispatch = useDispatch();
 
-    const { loading ,error ,posts  } = useSelector((state) =>  state.postofFollowing);
+    const { loading ,error ,posts  }         = useSelector((state) =>  state.postofFollowing);
     const { users , loading : usersLoading } = useSelector((state) => state.allusers);
 
    useEffect(() => {
@@ -37,7 +37,7 @@ const Home = () => {
                       isDelete = {false}
                     />
                   ))
-              ) : " No Posts Yet "}
+              ) : " Follow User to Show Post "}
             </div>
 
             <div className='homeright'> 

@@ -15,14 +15,13 @@ const UpdateProfile = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-
             const Reader = new FileReader();
             Reader.readAsDataURL(file);
 
             Reader.onload = () => {
-            if (Reader.readyState === 2) {
-                setAvatar(Reader.result);
-            }
+              if (Reader.readyState === 2) {
+                  setAvatar(Reader.result);
+              }
             };
     };
 

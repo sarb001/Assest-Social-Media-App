@@ -7,6 +7,7 @@ import './Account.css';
 import User from '../User/User'
 import { Link } from 'react-router-dom'
 import Loader from '../Loader/Loader'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Account = () => {
 
@@ -19,7 +20,6 @@ const Account = () => {
 
      const logoutHandler = async() => {
         await dispatch(LogoutUser());
-        alert('Logged Out Successfully');
      };
 
      const deleteProfileHandler = async() => {
@@ -52,12 +52,12 @@ const Account = () => {
                         />
                         ))
                     ) : (
-                        <Typography variant='h6'> You have not made any Posts </Typography>
+                        <Typography variant='h6'> Create Post Now </Typography>
                     )}
                 </div>
 
                 <div className="accountright">
-                    <Avatar src = {user.avatar.url} />
+                    <Avatar src = {user.avatar.url ? user.avatar.url : <AccountCircleIcon />} />
                     <Typography variant='h5'> {user.name} </Typography>
                     
                     <div>

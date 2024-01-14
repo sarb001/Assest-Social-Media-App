@@ -131,6 +131,9 @@ export const userReducer = createReducer(initialState, {
         state.loading = false;
         state.error   = action.payload; 
     },
+    clearErrors : (state) => {
+        state.error = null;
+    }
 }) 
 
 // Get User Profile 

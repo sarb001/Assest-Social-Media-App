@@ -13,6 +13,8 @@ import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
 import UserProfile from './Components/UserProfile/UserProfile';
 import Search from './Components/Search/Search';
 import Home from './Components/Home/Home';
+import { ToastContainer , toast } from 'react-toastify' ;
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
           <Route path = "search"  element = {isAuthenticated ? <Search  /> : <Login />} />
         </Routes>
     </Router>
+    <ToastContainer />
      </div>
   )
 }
