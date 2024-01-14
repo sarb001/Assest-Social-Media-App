@@ -8,10 +8,18 @@ app.use(express.json({
     limit : '50mb'
 }))
 
+<<<<<<< HEAD
 // app.use(cors({
 //     origin : 'https://assest-social-media-app.vercel.app',
 //     credentials : true,
 // }));
+=======
+
+app.use(cors({
+    origin : 'https://assest-social-media-app-sarbsingh34.vercel.app',
+    credentials : true,
+}));
+>>>>>>> 7c7534ba978cb3d847ac08f4f8d9d8e3e99176ed
 
 
 app.use(express.urlencoded({extended : true}));

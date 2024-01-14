@@ -9,7 +9,10 @@ const router = express.Router();
 router.route('/followpost').get(isAuthenticated,getPostofFollowing);
 
 router.route('/post/upload').post(isAuthenticated,CreatePost);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7c7534ba978cb3d847ac08f4f8d9d8e3e99176ed
 // :id -  specific post id should be given 
 router.route('/post/:id').get(isAuthenticated,LikeandUnlikePost);
 

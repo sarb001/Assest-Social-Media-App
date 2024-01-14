@@ -2,7 +2,12 @@
 const Post = require('../models/Post.js');
 const User = require('../models//User.js');
 const cloudinary = require('cloudinary');
+<<<<<<< HEAD
 const mongoose = require('mongoose') ;
+=======
+const mongoose = require('mongoose');
+
+>>>>>>> 7c7534ba978cb3d847ac08f4f8d9d8e3e99176ed
 
 exports.CreatePost = async (req,res) => {
     try {
@@ -38,12 +43,15 @@ exports.CreatePost = async (req,res) => {
       
         console.log('post created -',post);
 
+        console.log('post creatd -',post);
+        
         if(!post){
             return res.status(500).json({
                 success: false,
                 message : " Post Doesn't Exist "
             })
         }
+<<<<<<< HEAD
 
             const user = await User.findById(req.user._id);     // find  user  in 
             user.posts.push(post._id)   // post pushed to specific logged user account
@@ -54,6 +62,28 @@ exports.CreatePost = async (req,res) => {
                 message : "Post Createdd"
             })
 
+=======
+        
+        if(mongoose.Types.ObjectId.isValid(req.user._id)){ 
+            
+            const user = await User.findById(req.user._id);     // find  user  in 
+            console.log('user created -',user);
+            user.posts.push(post._id)   // post pushed to specific logged user account
+            await user.save();
+
+        }else {
+            console.log('else part ---');
+            return res.status(400).json({
+                success: false,
+                message: "Invalid user ID",
+              });
+        }
+      
+         return res.status(201).json({
+            success: true,
+            message : "Post Createdd"
+        })
+>>>>>>> 7c7534ba978cb3d847ac08f4f8d9d8e3e99176ed
     } catch (error) {   
 
        return  res.status(500).json({
