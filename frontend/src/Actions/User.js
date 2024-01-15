@@ -23,28 +23,16 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
             dispatch({type:"RegisterFailure" , payload : error.response.data.message})
         }
     }
-<<<<<<< HEAD
-    
-    
-export const loginUser = (email,password) => async(dispatch) => {
-        try {
-                dispatch({type:"LoginRequest"});
-            const { data } = await  axios.post(`/api/v1/login`, 
-            {email,password},
-            {
-=======
-}
 
 
 export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
-        const { data } = await  axios.post(`${BACK_URL}/api/v1/login`, 
+        const { data } = await  axios.post(`/api/v1/login`, 
         {email,password},
         {
                 withCredentials : true,
->>>>>>> 7c7534ba978cb3d847ac08f4f8d9d8e3e99176ed
                 headers : { 
                     "Content-Type" : 'application/json' ,
                 }
