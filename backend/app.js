@@ -25,10 +25,6 @@ const user = require('./routes/User.js');
 app.use('/api/v1' , post);
 app.use('/api/v1' , user);
 
-app.get('/' ,(req,res)  => {
-    res.send('Helllo Backend Here Working ');
-})
-
 
 
 
