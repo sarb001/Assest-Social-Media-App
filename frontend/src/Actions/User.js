@@ -78,7 +78,14 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
     try {
         dispatch({type:"GetFollowingPostRequest"});
         
-        const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/followpost`);
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+
+        const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/followpost` ,options);
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
 
         console.log(' following data -',{data});
@@ -92,8 +99,14 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
 export const GetAllUsers = (name = "") => async(dispatch) => {
     try {
         dispatch({type:"GetgetAllUsersRequest"})
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
 
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users?name=${name}`);
+        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users?name=${name}`,options);
 
         dispatch({type:"GetgetAllUsersSuccess",payload : data.users});
     } catch (error) {
