@@ -7,14 +7,13 @@ exports.isAuthenticated = async(req,res,next) => {
     try {   
        const { token } = req.cookies;
        console.log('token in cookies -',token);
-        if(!token){
-            res.status(401).json({ message: " No Token Present " });
-            return next();
-        }
-    const decoded =  jwt.verify(token,process.env.SECRET_KEY);
 
-    req.user = await  User.findById(decoded._id);
-    next();
+        if(!token){
+          return res.status(401).json({ message: " No Token Present " });
+        }
+        const decoded =  jwt.verify(token,process.env.SECRET_KEY);
+        req.user = await  User.findById(decoded._id);
+        next();
 
 } catch (error) {
      return res.status(500).json({
