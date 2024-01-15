@@ -68,8 +68,8 @@ export const loaduser = () => async(dispatch) => {
          dispatch({type:"LoadUserSuccess", payload : data.user});
 
     } catch (error) {
-        
-        dispatch({type:"LoadUserFailure"})
+        console.log('error in loading -',error);
+        dispatch({type:"LoadUserFailure",payload: error.response.data.message})
     }
 }
 // get Posts of User that Follow logged User 
