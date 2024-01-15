@@ -1,12 +1,10 @@
 import axios from "axios"
-
 import { toast } from 'react-toastify';
 
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
         dispatch({type:"RegisterRequest"});
-        
         const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/register` , 
         { name,email,password , avatar },
         {
@@ -32,16 +30,16 @@ export const  loginUser = (email,password) => async(dispatch) => {
         const { data } = await  axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/login`, 
         {email,password},
         {
-                withCredentials : true,
                 headers : { 
                     "Content-Type" : 'application/json' ,
                 }
-            });
-            
+        });
+        console.log('data login -',{data});
         toast.success(' Logged In Successfully ');
         dispatch({type:"LoginSuccess",payload: data.user})
 
     } catch (error) {
+        console.log('error login -',error);
         dispatch({type:"LoginFailure",payload: error.response.data.message})
     }
 }
@@ -57,7 +55,7 @@ export const GetlikePost = (id) => async(dispatch) => {
         dispatch({type:"LikeSuccess",payload : data.message })
 
     } catch (error) {
-        dispatccccch({type:"LikeFailure" ,payload: error.response.data.message})
+        dispatch({type:"LikeFailure" ,payload: error.response.data.message})
     }
 }
 
