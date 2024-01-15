@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 exports.isAuthenticated = async(req,res,next) => {
     try {   
+        console.log('cookies req--',req);
        const { token } = req.cookies;
        console.log('token in cookies -',token);
 
