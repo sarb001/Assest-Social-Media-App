@@ -77,7 +77,8 @@ exports.Login = async(req,res) => {
             sameSite : 'none'
         });
         console.log('cookie set ');
-        res.json({
+        res.status(200).json({
+            success : true,
             token,
             user
         })
