@@ -74,7 +74,8 @@ exports.Login = async(req,res) => {
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly : false,
-            sameSite : 'none'
+            sameSite : 'none',
+            Domain : process.env.FRONTEND_URL_ORIGIN
         });
         console.log('cookie set ');
         res.status(200).json({
