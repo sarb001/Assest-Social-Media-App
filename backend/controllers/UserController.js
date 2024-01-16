@@ -71,11 +71,11 @@ exports.Login = async(req,res) => {
 
         const  token = await user.generateToken();
         res.cookie("token",token , {
+            domain :  '.onrender.com',
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-            httpOnly : false,
+            httpOnly : true,
             sameSite : 'none',
-            Domain : process.env.FRONTEND_URL
         });
         console.log('cookie set ');
         res.status(200).json({
