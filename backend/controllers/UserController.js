@@ -71,7 +71,7 @@ exports.Login = async(req,res) => {
 
         const  token = await user.generateToken();
         res.cookie("token",token , {
-            Domain :  'onrender.com',
+            Domain :  'vercel.com',
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly : true,
