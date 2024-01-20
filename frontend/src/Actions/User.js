@@ -9,7 +9,8 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
         { name,email,password , avatar },
         {
             headers : {
-                'Content-Type' :'application/json',
+                // 'Content-Type' :'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
             toast.success(' Registered Successfully ');
@@ -31,7 +32,8 @@ export const  loginUser = (email,password) => async(dispatch) => {
         {email,password},
         {
                 headers : { 
-                    "Content-Type" : 'application/json' ,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // "Content-Type" : 'application/json' ,
                 }
         });
         console.log('data login -',{data});

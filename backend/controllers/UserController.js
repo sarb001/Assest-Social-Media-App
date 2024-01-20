@@ -71,7 +71,7 @@ exports.Login = async(req,res) => {
 
         const  token = await user.generateToken();
         res.cookie("token",token , {
-            domain :  '.assest-social-media-app.vercel.app',
+            domain: '.assest-social-media-app-backend.vercel.app',
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly : true,
