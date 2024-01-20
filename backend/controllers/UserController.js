@@ -68,10 +68,10 @@ exports.Login = async(req,res) => {
                 message : "Password Incorrect"
             })
         }
-
+q
         const  token = await user.generateToken();
         res.cookie("token",token , {
-            Domain :  '.vercel.app',
+            domain :  '.assest-social-media-app.vercel.app',
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly : true,
