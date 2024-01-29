@@ -66,7 +66,14 @@ export const loaduser = () => async(dispatch) => {
     try {
          dispatch({type:"LoadUserRequest"});
 
-         const { data } = await  axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/myprofile`);
+         const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+
+         const { data } = await  axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/myprofile` , options);
 
          dispatch({type:"LoadUserSuccess", payload : data.user});
 
