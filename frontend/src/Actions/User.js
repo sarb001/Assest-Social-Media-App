@@ -34,7 +34,8 @@ export const  loginUser = (email,password) => async(dispatch) => {
                 headers : { 
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // "Content-Type" : 'application/json' ,
-                }
+                },
+                withCredentials : true
         });
         console.log('data login -',{data});
         toast.success(' Logged In Successfully ');
