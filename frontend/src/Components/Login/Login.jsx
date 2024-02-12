@@ -32,7 +32,7 @@ const Login = () => {
           onChange = {(e) => setPassword(e.target.value)}
         required />
 
-        <button type='submit'   disabled = {loading} > Login </button>
+        <button type='submit'   > Login </button>
       <span>
          <Link to = "/register"> New User </Link>
       </span>
