@@ -94,7 +94,7 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
             withCredentials : true
         }
 
-        const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/followpost` ,options);
+        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/followpost` ,options);
         console.log(' following data -',{data});
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
 
