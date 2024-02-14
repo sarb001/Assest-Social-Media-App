@@ -9,8 +9,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
         { name,email,password , avatar },
         {
             headers : {
-                // 'Content-Type' :'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type' :'application/json',
             }
         })
             toast.success(' Registered Successfully ');
@@ -31,9 +30,8 @@ export const  loginUser = (email,password) => async(dispatch) => {
         const { data } = await  axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/login`, 
         {email,password},
         {
-                headers : { 
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    // "Content-Type" : 'application/json' ,
+                headers : {
+                    "Content-Type" : 'application/json' ,
                 },
                 withCredentials : true
         });
@@ -85,6 +83,7 @@ export const loaduser = () => async(dispatch) => {
 // get Posts of User that Follow logged User 
 
 export const GetFollowingPostRequest = () => async(dispatch) => {
+
     try {
         dispatch({type:"GetFollowingPostRequest"});
         
@@ -96,9 +95,9 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
         }
 
         const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/followpost` ,options);
+        console.log(' following data -',{data});
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
 
-        console.log(' following data -',{data});
 
     } catch (error) {
          dispatch({type:"GetFollowingPostFailure",payload: error.response.data.message})
