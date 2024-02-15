@@ -5,7 +5,6 @@ const { isAuthenticated } = require('../middlewares/auth.js');
 
 const router = express.Router();
 
-
 router.route('/followpost').get(isAuthenticated,getPostofFollowing);
 
 router.route('/post/upload').post(isAuthenticated,CreatePost);
