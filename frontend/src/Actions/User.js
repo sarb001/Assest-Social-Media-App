@@ -20,7 +20,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
             toast.error(' Something Went Wrong ');
             dispatch({type:"RegisterFailure" , payload : error.response.data.message})
         }
-    }
+}
 
 
 export const  loginUser = (email,password) => async(dispatch) => {
