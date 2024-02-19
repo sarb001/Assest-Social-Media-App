@@ -10,7 +10,6 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "proxy" : "https://media-api-vc76.onrender.com",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -24,6 +23,7 @@
     "react-router-dom": "^6.20.0",
     "react-toastify": "^9.1.3"
   },
+  "proxy" : "https://media-api-vc76.onrender.com",
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

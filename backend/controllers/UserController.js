@@ -77,12 +77,11 @@ exports.Login = async(req,res) => {
             sameSite : 'None',
         });
         console.log('cookie set ');
-        res.status(200).json({
+        return res.status(200).json({
             success : true,
             token,
             user
         })
-        console.log('Response set ');
     } catch (error) {
         console.log('error login -',error);
         res.status(500).json({

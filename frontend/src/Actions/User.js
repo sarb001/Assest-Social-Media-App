@@ -27,7 +27,7 @@ export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
-        const { data } = await  axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/login`, 
+        const data  = await  axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/login`, 
         {email,password},
         {
                 headers : {
