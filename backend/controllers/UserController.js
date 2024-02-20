@@ -75,7 +75,6 @@ exports.Login = async(req,res) => {
             httpOnly : true,
             sameSite : 'None',
         });
-        console.log('cookie set ');
         return res.status(200).json({
             success : true,
             token,
