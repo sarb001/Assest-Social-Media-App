@@ -7,24 +7,38 @@ const cloudinary = require('cloudinary');
 exports.Register = async(req,res) => {
     try {
         const {name,email,password,avatar} = req.body;
+        const userexist = await User.findOne({email});
 
-        let user = await User.findOne({email})
-        if(user){
+        if(userexist){
             return res.status(400).json({
                 success : false , 
-                message : " User Already Exists "
+                message : "User Already Exists"
             })
         }
 
-        const mycloud = await cloudinary.v2.uploader.upload(avatar);
+        let mycloud;
+
+        if(!avatar){
+            const defurl = 'https://www.pngitem.com/pimgs/m/516-5167304_transparent-background-white-user-icon-png-png-download.png';
+             mycloud = await cloudinary.v2.uploader.upload(defurl ,{
+                 folder: "posts"
+             });
+
+        }else{
+
+            mycloud = await cloudinary.v2.uploader.upload(avatar ,{
+               folder :"posts"
+            });
+        }
 
         user = await User.create({
             name,
             email,
             password,
-            avatar : { public_id : mycloud.public_id , url : mycloud.secure_url },
+            avatar : { public_id : mycloud.public_id , url : mycloud.secure_url }
         });
         res.status(201).json({ success : true , user });
+
     } catch (error) {
         res.status(500).json({
             success : false,
@@ -41,7 +55,7 @@ exports.Login = async(req,res) => {
         if(!user){
             return res.status(400).json({
                 success : false , 
-                message : " User does not Exist "
+                message : "User does not Exist"
             });
         }
 
@@ -50,17 +64,15 @@ exports.Login = async(req,res) => {
         if(!isMatch){
             return res.status(400).json({
                 success : false,
-                message : " Password Incorrect "
+                message : "Password Incorrect"
             })
         }
 
-        console.log('user in back -',user);
         const  token = await user.generateToken();
-        console.log('token in back -',token);
         res.status(200).cookie("token",token , {
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-            httpOnly : true,
+            httpOnly : false,
             sameSite : 'none'
         }).json({
             success  :true,
@@ -68,7 +80,6 @@ exports.Login = async(req,res) => {
             token       
         });
     } catch (error) {
-        console.log('error inbakend -',error);
         res.status(500).json({
             success : false,
             message : error.message
@@ -78,13 +89,8 @@ exports.Login = async(req,res) => {
 
 exports.Logout = async(req,res) => {
     try {
-        res.status(200).cookie("token",null, {
-            expires : new Date(Date.now()),
-            httpOnly :true
-        }).json({
-            success : false,
-            message  : " Logged Out "
-        });
+        res.clearCookie('token');
+        res.send({  success : true ,message : 'Logged Out' });
     } catch (error) {
         res.status(500).json({
             success :false,
@@ -124,7 +130,7 @@ exports.updateProfile = async(req,res) => {
 
             res.status(200).json({
                 success : true,
-                message: " Profile Updated "
+                message: "Profile Updated"
             })
 
     } catch (error) {
@@ -260,17 +266,31 @@ exports.deleteMyProfile = async(req,res) => {
 exports.MyProfile = async(req,res) => {
 
     try {
-        const user = await User.findById(req.user._id).populate("posts followers following");
-        res.status(200).json({
-            success : true,
-            user,
-        });
+        const user = await User.findById(req.user?._id).populate("posts followers following");
+        
+        if(user){  
+            console.log('sending 200');
+           return res.status(200).json({
+                success : true,
+                user,
+            });
+        }else{
+            
+            console.log('sending 404 ');
+            return res.status(404).json({           // check down
+            success : false,
+            message : " My Profile not Found ",
+            })
+        }
 
     } catch (error) {
-        return res.status(500).json({
-            success : false,
-            message : error.message
-         })
+        
+        console.log('sending 500');
+        // console.log(' profile error - ',error); /// check down
+        // return res.status(500).json({
+        //     success : false,
+        //     message : error.message
+        //  })
     }
 }
 

@@ -8,7 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './Post.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeletePost, GetComments, GetFollowingPostRequest, GetMyPost, GetlikePost, UpdateCaption, loaduser } from '../../Actions/User';
+import { DeletePost, GetComments, GetFollowingPostRequest, GetMyPost , UpdateCaption, loaduser } from '../../Actions/User';
 import User from '../User/User';
 import CommentCard from '../CommentCard/CommentCard';
 
@@ -57,10 +57,10 @@ const Post = ({postImage,
         dispatch(UpdateCaption(captionvalue,postId))
         dispatch(GetMyPost())
     }
-
+    
     const DeleteHandler =  async() => {
         await dispatch(DeletePost(postId));
-        console.log('moved now ');
+        dispatch(GetMyPost())
         dispatch(loaduser());
     }
 
@@ -100,9 +100,9 @@ const Post = ({postImage,
                  </Dialog> 
 
                 <div className="post-header">
-                    <span style = {{width:'50%',height:'100%'}}>
+                    <span style = {{  maxWidth :'100px', minHeight : '50vh',overflow : 'hidden' }}>
                         <img src = {postImage}  alt = "Post"  
-                        style = {{width:'30%',height:'100%',objectFit:'cover'}} />
+                        style = {{width:'100%',height: '50vh' , objectFit:'cover'}} />
                     </span>
                     <div className="postdetails">
                         <Avatar  src= {ownerName} alt= "user" />    

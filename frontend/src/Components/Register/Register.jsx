@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { userRegister } from '../../Actions/User.js';
 import  { useNavigate } from 'react-router-dom' ;
+import { toast } from 'react-toastify';
  
 
 const Register = () => {
@@ -18,23 +19,28 @@ const Register = () => {
         const { loading, error } = useSelector((state) => state.user);
 
         const handleImageChange = (e) => {
-        const file = e.target.files[0];
 
-        const Reader = new FileReader();
-        Reader.readAsDataURL(file);
+          const file = e.target.files[0];
+          console.log('file is -',file);
 
-        Reader.onload = () => {
-          if (Reader.readyState === 2) {
-              setAvatar(Reader.result);
-          }
+            if(!file){
+              alert(' file is empty ')
+            }
+            const Reader = new FileReader();
+          // console.log('Reader  is -',Reader);
+          Reader.readAsDataURL(file);
+          // console.log('reader url is -',Reader.readAsDataURL(file));
+
+          Reader.onload = () => {
+            if (Reader.readyState === 2) {
+                setAvatar(Reader.result);
+            }
+          };
         };
-        };
-
 
         const submitHandler = async(e) => {
           e.preventDefault();
           await dispatch(userRegister(name,email,password,avatar));
-          alert(' Account Registerd ');
           setName('');
           setEmail('');
           setPassword('');
@@ -42,11 +48,11 @@ const Register = () => {
         };
 
   return (
-    <div className="register">
+    <div className="register" style = {{padding:'4%'}}>
       <form className="registerForm" onSubmit={submitHandler}>
-        <Typography variant = "h3" style={{ padding: "2vmax" }}>
-          Social Aap
-        </Typography>
+          <Typography variant = "h3" style={{ padding: "2vmax" }}>
+            Social Aap
+          </Typography>
 
         <Avatar
           src={avatar}

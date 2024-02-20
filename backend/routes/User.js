@@ -4,6 +4,9 @@ const { isAuthenticated } = require('../middlewares/auth');
 
 const router = express.Router();
 
+router.route('/register').get((req,res) => {
+    res.send(' HlloRegster now  ')
+});
 router.route('/register').post(Register);
 
 router.route('/login').post(Login);

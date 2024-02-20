@@ -1,10 +1,10 @@
 
 import { BrowserRouter  as Router, Routes , Route } from 'react-router-dom';
 import Header from './Components/Header/Header';
-import Login from './Components/Login/Login';
+import Login from './Components/Login/Login.jsx';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loaduser } from './Actions/User';
+import { loaduser } from './Actions/User.js';
 import './App.css';
 import Account from './Components/Account/Account';
 import NewPost from './Components/NewPost/NewPost';
@@ -13,6 +13,10 @@ import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
 import UserProfile from './Components/UserProfile/UserProfile';
 import Search from './Components/Search/Search';
 import Home from './Components/Home/Home';
+
+import { ToastContainer  } from  'react-toastify' ;
+
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -39,6 +43,7 @@ function App() {
           <Route path = "search"  element = {isAuthenticated ? <Search  /> : <Login />} />
         </Routes>
     </Router>
+    <ToastContainer />
      </div>
   )
 }

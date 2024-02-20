@@ -7,13 +7,24 @@ const mongoose = require('mongoose');
 
 exports.CreatePost = async (req,res) => {
     try {
-        console.log('req body image- ',req.body.image);
-        
+        console.log('before mycloud ');
         const mycloud = await cloudinary.v2.uploader.upload(req.body.image ,{
             folder : "posts"
         });
-        console.log('public id -',mycloud.public_id);
-        console.log('public id type -',typeof(mycloud.public_id));
+        
+        console.log('after mycloud ');
+        if(mongoose.Types.ObjectId.isValid(req.user._id)){
+            console.log('mongoose owner id -');
+            owner = req.user._id  
+        }else {
+            console.log(' else part here -');
+            return res.status(400).json({
+                success: false,
+                message: "Invalid user IDDDD",
+            });
+        }
+        
+        console.log('after postdata ');
 
         const newPostData = {
             caption : req.body.caption,
@@ -23,7 +34,10 @@ exports.CreatePost = async (req,res) => {
             },
             owner : req.user._id,
         }
+        console.log('new post data - ',newPostData);
         const post = await Post.create(newPostData);        // create post with above data
+      
+        console.log('post created -',post);
 
         console.log('post creatd -',post);
         
@@ -33,28 +47,18 @@ exports.CreatePost = async (req,res) => {
                 message : " Post Doesn't Exist "
             })
         }
-        
-        if(mongoose.Types.ObjectId.isValid(req.user._id)){ 
-            
+
             const user = await User.findById(req.user._id);     // find  user  in 
-            console.log('user created -',user);
             user.posts.push(post._id)   // post pushed to specific logged user account
             await user.save();
 
-        }else {
-            console.log('else part ---');
-            return res.status(400).json({
-                success: false,
-                message: "Invalid user ID",
-              });
-        }
-      
-         return res.status(201).json({
-            success: true,
-            message : "Post Createdd"
-        })
+             return res.status(201).json({
+                success: true,
+                message : "Post Createdd"
+            })
+
     } catch (error) {   
-        console.log('error in post -',error);
+
        return  res.status(500).json({
             success : false,
             message : error.message

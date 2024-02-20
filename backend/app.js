@@ -9,12 +9,6 @@ app.use(express.json({
 }))
 
 
-app.use(cors({
-    origin : '*',
-    credentials : true,
-}));
-
-
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
 
@@ -24,11 +18,15 @@ const post = require('./routes/Post.js');
 const user = require('./routes/User.js');
 
 // Defining route  path 
-app.use('/api/v1' , post);
-app.use('/api/v1' , user);
+app.use('/api' , post);
+app.use('/api' , user);
 
 app.get('/' ,(req,res)  => {
-    res.send('Helllo Backend Here Working Starting Production ');
+    res.send('Helllo Backend Herererer er er er Working Starting Production ');
+})
+
+app.get('/api/v1' ,(req,res)  => {
+    res.send('Helllo Backend V1 vq  1v 1 v1 v1v1v1 ');
 })
 
 

@@ -50,7 +50,7 @@ const UserProfile = () => {
             }
          );
         }
-     },[dispatch,me._id,params.id])
+     },[dispatch,me?._id,params.id])
 
   return (
     <div className="account-container">
@@ -121,7 +121,6 @@ const UserProfile = () => {
                     >
                     <div className="DialogBox">
                         <Typography variant="h4">Followers</Typography>
-
                         {user && user.followers.length > 0 ? (
                         user.followers.map((follower) => (
                             <User
@@ -136,7 +135,7 @@ const UserProfile = () => {
                     You have no followers
                 </Typography>
                 )}
-            </div>
+                    </div>
                 </Dialog>
 
                     {/*  Following Toggle Here */}
@@ -144,24 +143,24 @@ const UserProfile = () => {
                 open={FollowingToggle}
                 onClose={() => setFollowingToggle(!FollowingToggle)}
                 >
-                <div className="DialogBox">
-                    <Typography variant="h4">Following</Typography>
+                    <div className="DialogBox">
+                        <Typography variant="h4">Following</Typography>
 
-                    {user && user.following.length > 0 ? (
-                    user.following.map((follow) => (
-                        <User
-                        key={follow._id}
-                        userId={follow._id}
-                        name={follow.name}
-                        avatar={follow?.avatar?.url}
-                        />
-                    ))
-                    ) : (
-                    <Typography style={{ margin: "2vmax" }}>
-                        You're not following anyone
-                    </Typography>
-                    )}
-                </div>
+                        {user && user.following.length > 0 ? (
+                        user.following.map((follow) => (
+                            <User
+                            key={follow._id}
+                            userId={follow._id}
+                            name={follow.name}
+                            avatar={follow?.avatar?.url}
+                            />
+                        ))
+                        ) : (
+                        <Typography style={{ margin: "2vmax" }}>
+                            You're not following anyone
+                        </Typography>
+                        )}
+                    </div>
                 </Dialog>
 
         </div>
