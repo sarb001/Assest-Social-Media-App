@@ -174,9 +174,11 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
                 }
             })
 
-          dispatch({type:"NewPostSuccess",payload : data.message });
+            toast.success(' New Post Created ');
+            dispatch({type:"NewPostSuccess",payload : data.message });
           
         } catch (error) {   
+            toast.error('Unable to Create Post');
             dispatch({type:"NewPostFailure" ,payload: error.response.data.message });
     }
 }
@@ -193,10 +195,12 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
                 }
             })
 
+            toast.success(' Caption Updated ');
             dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
 
         }catch (error) {
-        dispatch({type:"UpdateCaptionFailure",payload: error.response.data.message});
+            toast.error(' Unable to Update Caption ');
+            dispatch({type:"UpdateCaptionFailure",payload: error.response.data.message});
     }
 }
 
@@ -206,9 +210,12 @@ export const DeletePost = (id) => async(dispatch) => {
         
         const { data } = await axios.delete(`/api/post/${id}` )
 
+        toast.success(' Post Deleted ');
         dispatch({type:"DeletePostSuccess" , payload : data.message });
+
     } catch (error) {
-        
+
+        toast.error(' Unable to Delete Post ');
         dispatch({type:"DeletePostFailure" ,payload: error.response.data.message})
     }
 }

@@ -2,6 +2,7 @@ import { Avatar, Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { GetUpdatedProfile, loaduser } from '../../Actions/User';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateProfile = () => {
 
@@ -11,6 +12,7 @@ const UpdateProfile = () => {
     const [email, setEmail] = useState(user.email);
     const [avatar, setAvatar] = useState();
     const [prevavatar, setprevavatar] = useState(user.avatar.url);
+
     const dispatch = useDispatch();
 
     const handleImageChange = (e) => {
