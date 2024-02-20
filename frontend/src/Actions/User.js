@@ -26,10 +26,10 @@ export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
-        const  data  = await  axios.post(`/api/login`, 
+        const  {data}  = await  axios.post(`/api/login`, 
         {email,password},
         {
-                // withCredentials : true,
+                withCredentials : true,
                 headers : { 
                     "Content-Type" : 'application/json' ,
                 }

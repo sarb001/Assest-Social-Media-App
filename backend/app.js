@@ -9,7 +9,9 @@ app.use(express.json({
 }))
 
 app.use(express.urlencoded({extended : true}));
-app.use(cookieParser());  
+app.use(cookieParser());    
+app.use(cors());
+
 
 const post = require('./routes/Post.js');
 const user = require('./routes/User.js');
@@ -17,6 +19,9 @@ const user = require('./routes/User.js');
 app.use('/api' , post);
 app.use('/api' , user);
 
+app.get('/' , (req,res)   => {
+    res.setHeader('Access-Control-Allow-Credentials', "true");
+})
 
 
 
