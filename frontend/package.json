@@ -24,7 +24,6 @@
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.3"
   },
-  "proxy" : "https://media-api-vc76.onrender.com",
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

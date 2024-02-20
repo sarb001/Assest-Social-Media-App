@@ -10,10 +10,10 @@ export default defineConfig({
   server : {
     proxy : {
       '/api' : {
-       target:"http://localhost:4000",
-       // target:"https://social-media-backend-33gv.onrender.com",
-       changeOrigin : true
-     }
+        target:"https://social-media-api-5d67.onrender.com",
+        changeOrigin : true
+      }
     }
- }
+  }
 })
+//  target:"http://localhost:4000",

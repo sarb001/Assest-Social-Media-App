@@ -101,6 +101,7 @@ exports.Logout = async(req,res) => {
     }
 }
 
+
 exports.updateProfile = async(req,res) => {
     try {
         const { name ,email ,avatar } = req.body;
