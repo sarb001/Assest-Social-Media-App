@@ -69,17 +69,20 @@ exports.Login = async(req,res) => {
         }
 
         const  token = await user.generateToken();
-        res.status(200).cookie("token",token , {
+        res.cookie("token",token , {
             secure  :  true,
             expires  : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-            httpOnly : false,
-            sameSite : 'none'
-        }).json({
-            success  :true,
-            user,
-            token       
+            httpOnly : true,
+            sameSite : 'None',
         });
+        console.log('cookie set ');
+        return res.status(200).json({
+            success : true,
+            token,
+            user
+        })
     } catch (error) {
+        console.log('error login -',error);
         res.status(500).json({
             success : false,
             message : error.message
@@ -110,12 +113,8 @@ exports.updateProfile = async(req,res) => {
         }
 
         const user = await User.findById(req.user._id);
-        if(name){
-            user.name = name;
-        }
-        if(email){
-            user.email = email;
-        }
+        if(name) user.name = name;
+        if(email) user.email = email;
 
         if(avatar){
             await cloudinary.v2.uploader.destroy(user.avatar.public_id);

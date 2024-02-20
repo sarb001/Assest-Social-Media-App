@@ -7,13 +7,4 @@ export default defineConfig({
     outDir: 'dist'
   },
   plugins: [react()],
-  server : {
-     proxy : {
-       '/api' : {
-        target:"http://localhost:4000",
-        // target:"https://social-media-backend-33gv.onrender.com",
-        changeOrigin : true
-      }
-     }
-  }
 })
