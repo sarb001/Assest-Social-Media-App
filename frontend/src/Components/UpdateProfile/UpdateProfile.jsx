@@ -27,7 +27,7 @@ const UpdateProfile = () => {
 
     const submitHandler = async(e) => {
         e.preventDefault();
-        await dispatch(GetUpdatedProfile());
+        await dispatch(GetUpdatedProfile(name,email,avatar));
         alert(' Updated Profile ');
         setName('');
         setEmail('');

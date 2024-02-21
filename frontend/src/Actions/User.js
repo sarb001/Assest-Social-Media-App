@@ -20,7 +20,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
             toast.error(' SignUp Error ');
             dispatch({type:"RegisterFailure" , payload : error.response.data.message})
         }
-    }
+}
 
 
 export const  loginUser = (email,password) => async(dispatch) => {
@@ -64,6 +64,7 @@ export const GetlikePost = (id) => async(dispatch) => {
         dispatch({type:"LikeSuccess",payload : data.message })
 
     } catch (error) {
+        toast.error('Error while Liking Post');
         dispatch({type:"LikeFailure" ,payload: error.response.data.message})
     }
 }
@@ -214,6 +215,10 @@ export const LogoutUser = () => async(dispatch) => {
 }
 
 
+
+
+
+
 export const CreateNewPost = (caption,image) => async(dispatch) => {
     try {
           dispatch({type:"NewPostRequest"});
@@ -232,7 +237,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
             })
 
           dispatch({type:"NewPostSuccess",payload : data.message });
-          
+          toast.success(' New Post Created ');          
         } catch (error) {   
             dispatch({type:"NewPostFailure" ,payload: error.response.data.message });
     }
@@ -252,6 +257,7 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
             })
 
             dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
+            toast.success(' Caption Updated Successfully')
 
         }catch (error) {
         dispatch({type:"UpdateCaptionFailure",payload: error.response.data.message});
@@ -271,8 +277,9 @@ export const DeletePost = (id) => async(dispatch) => {
         const { data } = await axios.delete(`https://social-media-api-5d67.onrender.com/api/post/${id}` ,options)
 
         dispatch({type:"DeletePostSuccess" , payload : data.message });
+        toast.success('Post Deleted Successfully ')
     } catch (error) {
-        
+        toast.error(' Post Not Deleted ')
         dispatch({type:"DeletePostFailure" ,payload: error.response.data.message})
     }
 }
@@ -292,7 +299,9 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
         });  
 
         dispatch({type:"updateProfileSuccess" ,payload : data.message });
+        toast.success('Profile Updated ');
     } catch (error) {
+        toast.error(' Something Went Wrong');
         dispatch({type:"updateProfileFailure",payload: error.response.data.message});
     }
 }
@@ -310,6 +319,7 @@ export const DeleteProfile = () => async(dispatch) => {
         const {data} = await axios.delete(`https://social-media-api-5d67.onrender.com/api/delete/me` , options);
 
         dispatch({type:"DeleteProfileSuccess",payload: data.message });
+        toast.success(' Profile Deleted Successfully ');
 
     } catch (error) {
         dispatch({type:"DeleteProfileRequest" ,payload: error.response.data.message});
