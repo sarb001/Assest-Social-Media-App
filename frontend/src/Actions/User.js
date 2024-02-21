@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
         dispatch({type:"RegisterRequest"});
-        const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/register` , 
+        const {data} = await axios.post(`/api/v1/register` , 
         { name,email,password , avatar },
         {
             headers : {
@@ -27,7 +27,7 @@ export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
-        const { data } = await  axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/login`, 
+        const { data } = await  axios.post(`/api/v1/login`, 
         {email,password},
         {
                 headers : {
@@ -50,7 +50,7 @@ export const GetlikePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"LikeRequest"});
         
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/post/${id}` )
+        const {data} = await axios.get(`/api/v1/post/${id}` )
 
         toast.success(data.message);
         dispatch({type:"LikeSuccess",payload : data.message })
@@ -71,7 +71,7 @@ export const loaduser = () => async(dispatch) => {
             withCredentials : true
         }
 
-         const { data } = await  axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/myprofile` , options);
+         const { data } = await  axios.get(`/api/v1/myprofile` , options);
 
          dispatch({type:"LoadUserSuccess", payload : data.user});
 
@@ -94,7 +94,7 @@ export const GetFollowingPostRequest = () => async(dispatch) => {
             withCredentials : true
         }
 
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/followpost` ,options);
+        const {data} = await axios.get(`/api/v1/followpost` ,options);
         console.log(' following data -',{data});
         dispatch({type:"GetFollowingPostSuccess",payload : data.posts});
 
@@ -115,7 +115,7 @@ export const GetAllUsers = (name = "") => async(dispatch) => {
             withCredentials : true
         }
 
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users?name=${name}`,options);
+        const {data} = await axios.get(`/api/v1/users?name=${name}`,options);
 
         dispatch({type:"GetgetAllUsersSuccess",payload : data.users});
     } catch (error) {
@@ -129,7 +129,7 @@ export const GetMyPost = () => async(dispatch) => {
     try {
         dispatch({type: "GetPostRequest"});
 
-        const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/my/posts` )
+        const { data } = await axios.get(`/api/v1/my/posts` )
 
         dispatch({type: "GetPostSuccess",payload : data.posts})
     } catch (error) {
@@ -141,7 +141,7 @@ export const GetMyPost = () => async(dispatch) => {
 export const GetComments = (id,comment) => async(dispatch) => {
     try {
         dispatch({type:"CommentRequest"}) 
-        const  { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/comment/${id}`, 
+        const  { data } = await axios.put(`/api/v1/posts/comment/${id}`, 
         {
             comment
         },{
@@ -159,7 +159,7 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
         dispatch({type:"DeleteCommentRequest"})
 
-        const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/comment/${id}` ,
+        const { data } = await axios.delete(`/api/v1/posts/comment/${id}` ,
         {
             data : { commentId },
         });
@@ -175,7 +175,7 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
 export const LogoutUser = () => async(dispatch) => {
     try {
         dispatch({type:"LogOutRequest"});
-        await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/logout`);
+        await axios.get(`/api/v1/logout`);
 
         toast.success(' LogOut Successfully ');
         dispatch({type:"LogOutSuccess"})
@@ -192,7 +192,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
           dispatch({type:"NewPostRequest"});
           console.log('captionfront -',caption);
           console.log(' image front -',image);
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/post/upload`, 
+            const { data } = await axios.post(`/api/v1/post/upload`, 
             {
                 caption , 
                 image
@@ -214,7 +214,7 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
     try {
             dispatch({type:"UpdateCaptionRequest"});
 
-            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/v1/post/${id}` ,{
+            const { data } = await axios.put(`/api/v1/post/${id}` ,{
                 caption
             },{
                 headers: {
@@ -233,7 +233,7 @@ export const DeletePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"DeletePostRequest"});
         
-        const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/post/${id}` )
+        const { data } = await axios.delete(`/api/v1/post/${id}` )
 
         dispatch({type:"DeletePostSuccess" , payload : data.message });
     } catch (error) {
@@ -247,7 +247,7 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
     try {
         dispatch({type:"updateProfileRequest"});
 
-        const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/v1/update/profile` ,
+        const { data } = await axios.put(`/api/v1/update/profile` ,
         { name,email,avatar },
         {
                 headers : {
@@ -266,7 +266,7 @@ export const DeleteProfile = () => async(dispatch) => {
     try {
         dispatch({type:"DeleteProfileRequest"});
 
-        const {data} = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/delete/me` );
+        const {data} = await axios.delete(`/api/v1/delete/me` );
 
         dispatch({type:"DeleteProfileSuccess",payload: data.message });
 
@@ -279,7 +279,7 @@ export const DeleteProfile = () => async(dispatch) => {
 export const GetUserProfile = (id) => async(dispatch) => {
     try {
          dispatch({type:"GetUserProfileRequest"});
-         const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/${id}` , )
+         const {data} = await axios.get(`/api/v1/user/${id}` , )
 
          dispatch({type:"GetUserProfileSuccess" , payload : data.user});
 
@@ -291,7 +291,7 @@ export const GetUserProfile = (id) => async(dispatch) => {
 export const GetUserPost = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"GetUserPostRequest"});
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/userposts/${id}`)
+        const {data} = await axios.get(`/api/v1/userposts/${id}`)
 
         dispatch({type:"GetUserPostSuccess" , payload : data.posts});
        } catch (error) {
@@ -303,7 +303,7 @@ export const GetUserPost = (id) =>  async(dispatch) => {
 export const FollowandUnfollowUser = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"FollowandUnfollowRequest"});
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/follow/${id}`)
+        const {data} = await axios.get(`/api/v1/follow/${id}`)
 
         dispatch({type:"FollowandUnfollowSuccess" , payload : data.message});
        } catch (error) {

@@ -6,5 +6,10 @@ export default defineConfig({
   build :{
     outDir: 'dist'
   },
+  server: {
+    proxy: {
+      '/api': 'https://social-media-api-5d67.onrender.com/',
+    },
+  },
   plugins: [react()],
 })
