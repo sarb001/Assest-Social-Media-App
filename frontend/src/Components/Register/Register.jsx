@@ -90,7 +90,7 @@ const Register = () => {
           <Typography>Already Signed Up? Login Now</Typography>
         </Link>
 
-        <Button disabled={loading} variant='contained' type="submit">
+        <Button variant='contained' type="submit">
           Sign Up
         </Button>
 
