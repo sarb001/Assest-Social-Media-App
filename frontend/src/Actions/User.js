@@ -52,8 +52,13 @@ export const  loginUser = (email,password) => async(dispatch) => {
 export const GetlikePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"LikeRequest"});
-        
-        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/post/${id}` )
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/post/${id}` , options )
 
         toast.success(data.message);
         dispatch({type:"LikeSuccess",payload : data.message })
@@ -132,7 +137,14 @@ export const GetMyPost = () => async(dispatch) => {
     try {
         dispatch({type: "GetPostRequest"});
 
-        const { data } = await axios.get(`https://social-media-api-5d67.onrender.com/api/my/posts` )
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+
+        const { data } = await axios.get(`https://social-media-api-5d67.onrender.com/api/my/posts` , options)
 
         dispatch({type: "GetPostSuccess",payload : data.posts})
     } catch (error) {
@@ -150,7 +162,8 @@ export const GetComments = (id,comment) => async(dispatch) => {
         },{
             headers : {
                 "Content-Type" : 'application/json',
-            }
+            },
+            withCredentials:true
         })
         dispatch({type:"CommentSuccess",payload: data.message}); 
     } catch (error) {
@@ -161,11 +174,16 @@ export const GetComments = (id,comment) => async(dispatch) => {
 export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
         dispatch({type:"DeleteCommentRequest"})
-
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
         const { data } = await axios.delete(`https://social-media-api-5d67.onrender.com/api/posts/comment/${id}` ,
         {
             data : { commentId },
-        });
+        },options);
         
         toast.success(' Comment Deleted ');
         dispatch({type:"DeleteCommentSuccess",payload:data.message});
@@ -178,7 +196,13 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
 export const LogoutUser = () => async(dispatch) => {
     try {
         dispatch({type:"LogOutRequest"});
-        await axios.get(`https://social-media-api-5d67.onrender.com/api/logout`);
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        await axios.get(`https://social-media-api-5d67.onrender.com/api/logout` ,options);
 
         toast.success(' LogOut Successfully ');
         dispatch({type:"LogOutSuccess"})
@@ -203,7 +227,8 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
             {
                 headers : {
                     "Content-Type" : "application/json",
-                }
+                },
+                withCredentials : true
             })
 
           dispatch({type:"NewPostSuccess",payload : data.message });
@@ -222,7 +247,8 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
             },{
                 headers: {
                     'Content-Type' : 'application/json'
-                }
+                },
+                withCredentials : true
             })
 
             dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
@@ -236,7 +262,13 @@ export const DeletePost = (id) => async(dispatch) => {
     try {
         dispatch({type:"DeletePostRequest"});
         
-        const { data } = await axios.delete(`https://social-media-api-5d67.onrender.com/api/post/${id}` )
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        } 
+        const { data } = await axios.delete(`https://social-media-api-5d67.onrender.com/api/post/${id}` ,options)
 
         dispatch({type:"DeletePostSuccess" , payload : data.message });
     } catch (error) {
@@ -255,7 +287,8 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
         {
                 headers : {
                     'Content-Type' : 'application/json'
-                } 
+                },
+                withCredentials: true 
         });  
 
         dispatch({type:"updateProfileSuccess" ,payload : data.message });
@@ -268,8 +301,13 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
 export const DeleteProfile = () => async(dispatch) => {
     try {
         dispatch({type:"DeleteProfileRequest"});
-
-        const {data} = await axios.delete(`https://social-media-api-5d67.onrender.com/api/delete/me` );
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        const {data} = await axios.delete(`https://social-media-api-5d67.onrender.com/api/delete/me` , options);
 
         dispatch({type:"DeleteProfileSuccess",payload: data.message });
 
@@ -282,7 +320,13 @@ export const DeleteProfile = () => async(dispatch) => {
 export const GetUserProfile = (id) => async(dispatch) => {
     try {
          dispatch({type:"GetUserProfileRequest"});
-         const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/user/${id}` , )
+         const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+         const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/user/${id}` , options)
 
          dispatch({type:"GetUserProfileSuccess" , payload : data.user});
 
@@ -294,7 +338,13 @@ export const GetUserProfile = (id) => async(dispatch) => {
 export const GetUserPost = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"GetUserPostRequest"});
-        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/userposts/${id}`)
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/userposts/${id}`  ,options)
 
         dispatch({type:"GetUserPostSuccess" , payload : data.posts});
        } catch (error) {
@@ -306,7 +356,13 @@ export const GetUserPost = (id) =>  async(dispatch) => {
 export const FollowandUnfollowUser = (id) =>  async(dispatch) => {
     try {
         dispatch({type:"FollowandUnfollowRequest"});
-        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/follow/${id}`)
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/follow/${id}` ,options)
 
         dispatch({type:"FollowandUnfollowSuccess" , payload : data.message});
        } catch (error) {
