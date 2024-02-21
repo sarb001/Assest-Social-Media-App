@@ -27,7 +27,7 @@ export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
          console.log('data started  -');
-        const { data } = await  axios.post(`/api/login`, 
+        const  data  = await  axios.post(`/api/login`, 
         {email,password},
         {
                 headers : {
@@ -35,6 +35,8 @@ export const  loginUser = (email,password) => async(dispatch) => {
                 },
                 withCredentials : true
         });
+
+        console.log('data is -',data);
 
         if (data && data.user) {
             toast.success('Logged In Successfully');
