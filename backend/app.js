@@ -22,8 +22,8 @@ const post = require('./routes/Post.js');
 const user = require('./routes/User.js');
 
 // Defining route  path 
-app.use('/api/v1' , post);
-app.use('/api/v1' , user);
+app.use('/api' , post);
+app.use('/api' , user);
 
 
 
