@@ -38,13 +38,9 @@ export const  loginUser = (email,password) => async(dispatch) => {
 
         console.log('data is -',data);
 
-        if (data && data.user) {
-            toast.success('Logged In Successfully');
-            dispatch({type: "LoginSuccess", payload: data.user});
-        } else {
-            throw new Error('No data available');
-        }
-
+        toast.success('Logged In Successfully');
+        dispatch({type: "LoginSuccess", payload: data.user});
+       
     } catch (error) {
         console.log('error login -',error);
         toast.error(' Login Error ');
