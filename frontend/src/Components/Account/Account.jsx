@@ -48,7 +48,7 @@ const Account = () => {
                             comments = {post.comments}
                             ownerName = {post.owner.name}
                             ownerImage = {post.owner.avatar.url}
-                            ownerId= {post.owner._id}
+                            ownerId= {post?.owner?._id}
                         />
                         ))
                     ) : (
@@ -57,26 +57,26 @@ const Account = () => {
                 </div>
 
                 <div className="accountright">
-                    <Avatar src = {user.avatar.url ? user.avatar.url : <AccountCircleIcon />} />
-                    <Typography variant='h5'> {user.name} </Typography>
+                    <Avatar src = {user?.avatar?.url ? user?.avatar?.url : <AccountCircleIcon />} />
+                    <Typography variant='h5'> {user?.name} </Typography>
                     
                     <div>
                         <button onClick={() => setFollowerToggle(!FollowerToggle)}> 
                             <Typography> Followers </Typography>
                         </button>
-                            <Typography> {user.followers.length} </Typography>
+                            <Typography> {user?.followers?.length} </Typography>
                     </div>
 
                     <div>
                         <button onClick={() => setFollowingToggle(!FollowingToggle)}> 
                             <Typography> Following </Typography>
                         </button>
-                            <Typography> {user.following.length} </Typography>
+                            <Typography> {user?.following?.length} </Typography>
                     </div>
 
                     <div>
                         <Typography> Posts </Typography>
-                        <Typography> {user.posts.length} </Typography>
+                        <Typography> {user?.posts?.length} </Typography>
                     </div>
 
                     <Button variant='contained' 
@@ -97,13 +97,13 @@ const Account = () => {
                             <div className="DialogBox">
                                 <Typography variant="h4">Followers</Typography>
 
-                                {user && user.followers.length > 0 ? (
+                                {user && user?.followers?.length > 0 ? (
                                 user.followers.map((follower) => (
                                     <User
                                     key={follower._id}
                                     userId={follower._id}
                                     name={follower.name}
-                                    avatar={follower.avatar?.url}
+                                    avatar={follower?.avatar?.url}
                                     />
                                 ))
                         ) : (
@@ -122,8 +122,8 @@ const Account = () => {
                         <div className="DialogBox">
                             <Typography variant="h4">Following</Typography>
 
-                            {user && user.following.length > 0 ? (
-                            user.following.map((follow) => (
+                            {user && user?.following?.length > 0 ? (
+                            user?.following.map((follow) => (
                                 <User
                                 key={follow._id}
                                 userId={follow._id}
