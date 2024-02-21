@@ -222,8 +222,6 @@ export const LogoutUser = () => async(dispatch) => {
 export const CreateNewPost = (caption,image) => async(dispatch) => {
     try {
           dispatch({type:"NewPostRequest"});
-          console.log('captionfront -',caption);
-          console.log(' image front -',image);
             const { data } = await axios.post(`https://social-media-api-5d67.onrender.com/api/post/upload`, 
             {
                 caption , 
@@ -231,7 +229,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
             },
             {
                 headers : {
-                    "Content-Type" : "application/json",
+                    "Content-Type" : "multipart/form-data",
                 },
                 withCredentials : true
             })
@@ -264,7 +262,7 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
     }
 }
 
-export const DeletePost = (id) => async(dispatch) => {
+export const DeletePost = (id) => async(dispatch) => {                              
     try {
         dispatch({type:"DeletePostRequest"});
         
