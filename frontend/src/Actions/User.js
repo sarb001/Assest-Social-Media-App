@@ -17,7 +17,7 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
 
         } catch (error) {
             
-            toast.error(' Something Went Wrong ');
+            toast.error(' SignUp Error ');
             dispatch({type:"RegisterFailure" , payload : error.response.data.message})
         }
     }
@@ -35,15 +35,17 @@ export const  loginUser = (email,password) => async(dispatch) => {
                 },
                 withCredentials : true
         });
-        
-        if(data != ''){
-            console.log('data login -',{data});
-            toast.success(' Logged In Successfully ');
-            dispatch({type:"LoginSuccess",payload: data.user})
+
+        if (data && data.user) {
+            toast.success('Logged In Successfully');
+            dispatch({type: "LoginSuccess", payload: data.user});
+        } else {
+            throw new Error('No data available');
         }
 
     } catch (error) {
         console.log('error login -',error);
+        toast.error(' Login Error ');
         dispatch({type:"LoginFailure",payload: error.response.data.message})
     }
 }
