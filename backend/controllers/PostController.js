@@ -10,6 +10,9 @@ exports.CreatePost = async (req,res) => {
         console.log('before mycloud ');
         const mycloud = await cloudinary.v2.uploader.upload(req.body.image ,{
             folder : "posts"
+        },(err,res) => {
+            console.log('error -',err);
+            console.log('result -',res);
         });
         
         console.log('after mycloud ');
