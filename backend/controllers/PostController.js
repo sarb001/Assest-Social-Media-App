@@ -12,10 +12,15 @@ exports.CreatePost = async (req,res) => {
             folder : "posts"
         });
         
-        console.log('after mycloud ');
-        if(mongoose.Types.ObjectId.isValid(req.user._id)){
-            console.log('mongoose owner id -');
+        console.log('after mycloud ',mycloud);
+        console.log('requested user -',req?.user);
+
+        console.log('requested user id -',req?.user._id);
+
+        if(mongoose.isValidObjectId(req.user._id)){
             owner = req.user._id  
+            console.log(' owner --',owner);
+
         }else {
             console.log(' else part here -');
             return res.status(400).json({
@@ -24,7 +29,7 @@ exports.CreatePost = async (req,res) => {
             });
         }
         
-        console.log('after postdata ');
+        console.log('after if else loop');
 
         const newPostData = {
             caption : req.body.caption,
@@ -38,8 +43,6 @@ exports.CreatePost = async (req,res) => {
         const post = await Post.create(newPostData);        // create post with above data
       
         console.log('post created -',post);
-
-        console.log('post creatd -',post);
         
         if(!post){
             return res.status(500).json({
@@ -58,7 +61,7 @@ exports.CreatePost = async (req,res) => {
             })
 
     } catch (error) {   
-
+        console.log('error -',error);
        return  res.status(500).json({
             success : false,
             message : error.message
