@@ -222,7 +222,7 @@ export const LogoutUser = () => async(dispatch) => {
 export const CreateNewPost = (caption,image) => async(dispatch) => {
     try {
           dispatch({type:"NewPostRequest"});
-            const { data } = await axios.post(`https://social-media-api-5d67.onrender.com/api/mypost/upload`, 
+            const { data } = await axios.post(`https://social-media-api-5d67.onrender.com/api/post/upload`, 
             {
                 caption , 
                 image

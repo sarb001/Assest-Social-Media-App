@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.route('/followpost').get(isAuthenticated,getPostofFollowing);
 
-router.route('/mypost/upload').post(isAuthenticated,CreatePost);
+router.route('/post/upload').post(isAuthenticated,CreatePost);
 
 
 // :id -  specific post id should be given 
