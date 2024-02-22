@@ -53,9 +53,9 @@ const Post = ({postImage,
     }
 
     const updateCaptionHandler = async(e) => {
-        e.preventDefault();
-        dispatch(UpdateCaption(captionvalue,postId))
-        dispatch(GetMyPost())
+         e.preventDefault();
+         dispatch(UpdateCaption(captionvalue,postId))
+         dispatch(GetMyPost())
     }
     
     const DeleteHandler =  async() => {

@@ -222,17 +222,18 @@ export const LogoutUser = () => async(dispatch) => {
 export const CreateNewPost = (caption,image) => async(dispatch) => {
     try {
           dispatch({type:"NewPostRequest"});
+          const options = {
+            headers : {
+                'Content-Type' : "multipart/form-data",
+            },
+            withCredentials : true
+            }
+
             const { data } = await axios.post(`https://social-media-api-5d67.onrender.com/api/post/upload`, 
             {
                 caption , 
                 image
-            },
-            {
-                headers : {
-                    "Content-Type" : "multipart/form-data",
-                },
-                withCredentials : true
-            })
+            },options)
 
           dispatch({type:"NewPostSuccess",payload : data.message });
           toast.success(' New Post Created ');          
@@ -244,15 +245,16 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
 export const UpdateCaption = (caption,id) => async(dispatch) => {
     try {
             dispatch({type:"UpdateCaptionRequest"});
-
-            const { data } = await axios.put(`https://social-media-api-5d67.onrender.com/api/post/${id}` ,{
-                caption
-            },{
-                headers: {
-                    'Content-Type' : 'application/json'
+            const options = {
+                headers : {
+                    'Content-Type' : "multipart/form-data",
                 },
                 withCredentials : true
-            })
+                }
+                
+            const { data } = await axios.put(`https://social-media-api-5d67.onrender.com/api/post/${id}` ,{
+                caption
+            },options)
 
             dispatch({type:"UpdateCaptionSuccess",payload : data.message  });
             toast.success(' Caption Updated Successfully')
