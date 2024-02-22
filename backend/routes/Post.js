@@ -15,7 +15,7 @@ router.route('/post/:id').delete(isAuthenticated,deletePost);
 
 router.route('/post/:id').put(isAuthenticated,updateCaption);
 
-router.route('/post/upload').post(isAuthenticated,CreatePost);
+router.route('/upload').post(isAuthenticated,CreatePost);
 // :id Specific post id to Comment
 router.route('/posts/comment/:id').put(isAuthenticated,commentonPost);
 
