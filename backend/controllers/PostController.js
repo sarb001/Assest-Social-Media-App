@@ -13,9 +13,10 @@ exports.CreatePost = async (req,res) => {
         });
         
         console.log('after mycloud ');
-        if(mongoose.Types.ObjectId.isValid(req.user._id)){
-            console.log('mongoose owner id -');
+        
+        if(mongoose.isValidObjectId(req.user._id)){
             owner = req.user._id  
+            console.log(' owner --',owner);
         }else {
             console.log(' else part here -');
             return res.status(400).json({
