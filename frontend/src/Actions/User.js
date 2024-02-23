@@ -162,6 +162,8 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
           dispatch({type:"NewPostRequest"});
           console.log('captionfront -',caption);
           console.log(' image front -',image);
+
+          
             const { data } = await axios.post(`/api/post/upload`, 
             {
                 caption , 
@@ -169,7 +171,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
             },
             {
                 headers : {
-                    "Content-Type" : "application/json",
+                    "Content-Type" : "multipart/form-data",
                 }
             })
 

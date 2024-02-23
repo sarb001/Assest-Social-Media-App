@@ -49,6 +49,7 @@ exports.Register = async(req,res) => {
 
 exports.Login = async(req,res) => {
     try {
+         console.log('req uested body login -',req.body);
         const { email , password } = req.body;
         const user = await User.findOne({email}).select("+password");     // find account with email 
 

@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 exports.CreatePost = async (req,res) => {
     try {
         
-        console.log('before mycloud ');
+        // console.log('before mycloud body ',req.body);
         console.log('requested img2-',typeof(req.body.image));
         const imagebase64 = req.body.image;
 
