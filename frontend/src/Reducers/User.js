@@ -219,6 +219,8 @@ export const likePost = createReducer(initialState, {
     }
 })
 
+
+
 export const CommentPost = createReducer(initialState , {
     CommentRequest: (state) => {
         state.loading = true;
@@ -246,6 +248,9 @@ export const DeleteComment = createReducer(initialState, {
         state.error = action.payload; 
     }
 })
+
+
+
 
 export const GetAllMyPost = createReducer(initialState , {
     GetPostRequest: (state) => {

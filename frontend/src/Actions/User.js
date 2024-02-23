@@ -49,25 +49,27 @@ export const  loginUser = (email,password) => async(dispatch) => {
 }
 
 
-export const GetlikePost = (id) => async(dispatch) => {
+export const LogoutUser = () => async(dispatch) => {
     try {
-        dispatch({type:"LikeRequest"});
+        dispatch({type:"LogOutRequest"});
         const options = {
             headers : {
                 'Content-Type' : 'application/json',
             },
             withCredentials : true
         }
-        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/post/${id}` , options )
+        await axios.get(`https://social-media-api-5d67.onrender.com/api/logout` ,options);
 
-        toast.success(data.message);
-        dispatch({type:"LikeSuccess",payload : data.message })
-
+        toast.success(' LogOut Successfully ');
+        dispatch({type:"LogOutSuccess"})
     } catch (error) {
-        toast.error('Error while Liking Post');
-        dispatch({type:"LikeFailure" ,payload: error.response.data.message})
+
+        dispatch({type:"LogOutFailure",payload: error.response.data.message})
+
     }
 }
+
+
 
 export const loaduser = () => async(dispatch) => {
     try {
@@ -89,6 +91,30 @@ export const loaduser = () => async(dispatch) => {
         dispatch({type:"LoadUserFailure",payload: error.response.data.message})
     }
 }
+
+
+
+
+export const GetlikePost = (id) => async(dispatch) => {
+    try {
+        dispatch({type:"LikeRequest"});
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/post/${id}` , options )
+
+        toast.success(data.message);
+        dispatch({type:"LikeSuccess",payload : data.message })
+
+    } catch (error) {
+        toast.error('Error while Liking Post');
+        dispatch({type:"LikeFailure" ,payload: error.response.data.message})
+    }
+}
+
 // get Posts of User that Follow logged User 
 
 export const GetFollowingPostRequest = () => async(dispatch) => {
@@ -154,6 +180,8 @@ export const GetMyPost = () => async(dispatch) => {
 }
 
 
+
+
 export const GetComments = (id,comment) => async(dispatch) => {
     try {
         dispatch({type:"CommentRequest"}) 
@@ -166,6 +194,7 @@ export const GetComments = (id,comment) => async(dispatch) => {
             },
             withCredentials:true
         })
+        toast.success(' Comment ADDED ');
         dispatch({type:"CommentSuccess",payload: data.message}); 
     } catch (error) {
         dispatch({type:"CommentFailure",payload: error.response.data.message}) 
@@ -194,28 +223,6 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
 }
 
 
-export const LogoutUser = () => async(dispatch) => {
-    try {
-        dispatch({type:"LogOutRequest"});
-        const options = {
-            headers : {
-                'Content-Type' : 'application/json',
-            },
-            withCredentials : true
-        }
-        await axios.get(`https://social-media-api-5d67.onrender.com/api/logout` ,options);
-
-        toast.success(' LogOut Successfully ');
-        dispatch({type:"LogOutSuccess"})
-    } catch (error) {
-
-        dispatch({type:"LogOutFailure",payload: error.response.data.message})
-
-    }
-}
-
-
-
 
 
 
@@ -242,6 +249,9 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
     }
 }
 
+
+
+
 export const UpdateCaption = (caption,id) => async(dispatch) => {
     try {
             dispatch({type:"UpdateCaptionRequest"});
@@ -264,6 +274,9 @@ export const UpdateCaption = (caption,id) => async(dispatch) => {
     }
 }
 
+
+
+
 export const DeletePost = (id) => async(dispatch) => {                              
     try {
         dispatch({type:"DeletePostRequest"});
@@ -284,7 +297,6 @@ export const DeletePost = (id) => async(dispatch) => {
     }
 }
 
-
 export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
     try {
         dispatch({type:"updateProfileRequest"});
@@ -293,7 +305,7 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
         { name,email,avatar },
         {
                 headers : {
-                    'Content-Type' : 'application/json'
+                    'Content-Type' : 'multipart/form-data'
                 },
                 withCredentials: true 
         });  
