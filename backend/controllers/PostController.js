@@ -8,7 +8,9 @@ const mongoose = require('mongoose');
 exports.CreatePost = async (req,res) => {
     try {
         console.log('before mycloud ');
-        const mycloud = await cloudinary.v2.uploader.upload(req.body.image ,{
+        console.log('requestyed img2-',typeof(req.body.image));
+        const imagebase64 = req.body.image.toString('base64');
+        const mycloud = await cloudinary.v2.uploader.upload(imagebase64 ,{
             folder : "posts"
         },(err,res) => {
             console.log('error -',err);
