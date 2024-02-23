@@ -15,7 +15,9 @@ const NewPost = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        console.log('file is -',file);
         const Reader = new FileReader();
+        console.log('Reader  is -',Reader);
         Reader.onload = () => {
             if(Reader.readyState === 2){
                 setImage(Reader.result);
