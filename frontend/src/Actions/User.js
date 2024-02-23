@@ -23,6 +23,33 @@ export const userRegister = (name,email,password,avatar) => async(dispatch) => {
 }
 
 
+export const CreateNewPost = (caption,image) => async(dispatch) => {
+    try {
+          dispatch({type:"NewPostRequest"});
+          console.log('inActions  cap - ',caption);
+          console.log('inActions  image -',image);
+
+            const { data } = await axios.post(`https://social-media-api-5d67.onrender.com/api/post/upload`, 
+            {
+                caption , 
+                image
+            },{
+                headers : {
+                    'Content-Type' : "multipart/form-data",
+                },
+                withCredentials : true
+            })
+
+          console.log('data in frontend- ',data);
+          dispatch({type:"NewPostSuccess",payload : data.message });
+          toast.success(' New Post Created ');          
+        } catch (error) {   
+            dispatch({type:"NewPostFailure" ,payload: error.response.data.message });
+    }
+}
+
+
+
 export const  loginUser = (email,password) => async(dispatch) => {
     try {
          dispatch({type:"LoginRequest"});
@@ -219,34 +246,6 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
         dispatch({type:"DeleteCommentSuccess",payload:data.message});
     } catch (error) {
         dispatch({type:"DeleteCommentFailure",payload: error.response.data.message}) 
-    }
-}
-
-
-
-
-
-export const CreateNewPost = (caption,image) => async(dispatch) => {
-    try {
-          dispatch({type:"NewPostRequest"});
-          const options = {
-            headers : {
-                'Content-Type' : "multipart/form-data",
-            },
-            withCredentials : true
-            }
-
-            const { data } = await axios.post(`https://social-media-api-5d67.onrender.com/api/post/upload`, 
-            {
-                caption , 
-                image
-            },options)
-
-          console.log('data in frontend- ',data);
-          dispatch({type:"NewPostSuccess",payload : data.message });
-          toast.success(' New Post Created ');          
-        } catch (error) {   
-            dispatch({type:"NewPostFailure" ,payload: error.response.data.message });
     }
 }
 

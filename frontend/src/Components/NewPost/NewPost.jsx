@@ -20,9 +20,11 @@ const NewPost = () => {
             }
         }
         Reader.readAsDataURL(file);
+        console.log('image clicked');
     }
 
     const submitHandler = async(e) => {
+        console.log('clicked new post');
         e.preventDefault();
         await dispatch(CreateNewPost(caption,image));
         setImage('');
