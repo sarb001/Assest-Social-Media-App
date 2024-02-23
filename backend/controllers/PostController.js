@@ -66,8 +66,8 @@ exports.CreatePost = async (req,res) => {
                 message : "Post Createdd"
             })
 
-    } catch (error) {   
-
+    } catch (error) {       
+        console.log('error post-',error);
        return  res.status(500).json({
             success : false,
             message : error.message
