@@ -15,6 +15,7 @@ import Search from './Components/Search/Search';
 import Home from './Components/Home/Home';
 import { ToastContainer , toast } from 'react-toastify' ;
 import 'react-toastify/dist/ReactToastify.css';
+import NotFound from './Components/NotFound/NotFound';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path = "/update/profile"  element = {isAuthenticated ? <UpdateProfile  /> : <Login />} />
           <Route path = "/user/:id"  element = {isAuthenticated ? <UserProfile  /> : <Login />} />
           <Route path = "search"    element = {isAuthenticated ? <Search  /> : <Login />} />
+          <Route path = "*"    element = {isAuthenticated ? <NotFound  /> : <Login />} />
         </Routes>
     </Router>
     <ToastContainer />

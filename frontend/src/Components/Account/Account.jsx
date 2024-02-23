@@ -40,10 +40,10 @@ const Account = () => {
                     {posts  && posts?.length  > 0  ? (
                         posts.map((post) => (
                             <Post
-                            key = {post._id}
-                            postId = {post._id}
-                            caption = {post.caption}
-                            postImage = {post.image.url}
+                            key = {post?._id}
+                            postId = {post?._id}
+                            caption = {post?.caption}
+                            postImage = {post?.image?.url}
                             likes = {post.likes}
                             comments = {post.comments}
                             ownerName = {post.owner.name}
