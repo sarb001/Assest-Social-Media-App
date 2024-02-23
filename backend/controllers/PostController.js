@@ -9,7 +9,7 @@ exports.CreatePost = async (req,res) => {
     try {
         
         console.log('before mycloud ');
-        console.log('requestyed img2-',typeof(req.body.image));
+        console.log('requested img2-',typeof(req.body.image));
         const imagebase64 = req.body.image;
 
         const mycloud = await cloudinary.v2.uploader.upload(imagebase64 ,{
@@ -60,6 +60,7 @@ exports.CreatePost = async (req,res) => {
             await user.save();
 
              return res.status(201).json({
+                post,
                 success: true,
                 message : "Post Createdd"
             })

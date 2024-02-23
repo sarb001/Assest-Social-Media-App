@@ -174,6 +174,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
             })
 
             toast.success(' New Post Created ');
+            console.log('data  in post- ',data);
             dispatch({type:"NewPostSuccess",payload : data.message });
           
         } catch (error) {   
