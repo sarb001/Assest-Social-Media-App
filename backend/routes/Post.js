@@ -9,6 +9,8 @@ router.route('/followpost').get(isAuthenticated,getPostofFollowing);
 
 router.route('/post/upload').post(isAuthenticated,CreatePost);
 
+
+
 // :id -  specific post id should be given 
 router.route('/post/:id').get(isAuthenticated,LikeandUnlikePost);
 
