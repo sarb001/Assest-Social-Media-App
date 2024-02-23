@@ -242,6 +242,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
                 image
             },options)
 
+          console.log('data in frontend- ',data);
           dispatch({type:"NewPostSuccess",payload : data.message });
           toast.success(' New Post Created ');          
         } catch (error) {   
