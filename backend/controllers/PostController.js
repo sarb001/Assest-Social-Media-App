@@ -17,12 +17,10 @@ exports.CreatePost = async (req,res) => {
 
         const mycloud = await cloudinary.v2.uploader.upload(imagebase64 ,{
             folder : "posts"
-        },(err,res) => {
-            console.log('error -',err);
-            console.log('result -',res);
         });
         
-        console.log('after mycloud ');
+        console.log('after mycloud ' ,mycloud);
+        console.log('after mycloud 22' ,mycloud);
         
         if(mongoose.isValidObjectId(req.user._id)){
             owner = req.user._id  
