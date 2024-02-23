@@ -35,7 +35,7 @@ export const CreateNewPost = (caption,image) => async(dispatch) => {
                 image
             },{
                 headers : {
-                    'Content-Type' : "multipart/form-data",
+                    'Content-Type' : "application/x-www-form-urlencoded",
                 },
                 withCredentials : true
             })
