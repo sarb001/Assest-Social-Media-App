@@ -95,6 +95,28 @@ export const GetAllUsers = (name = "") => async(dispatch) => {
 
 
 
+export const GetlikePost = (id) => async(dispatch) => {
+    try {
+        dispatch({type:"LikeRequest"});
+        const options = {
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            withCredentials : true
+        }
+        const {data} = await axios.get(`https://social-media-api-5d67.onrender.com/api/post/${id}` , options )
+
+        toast.success(data.message);
+        dispatch({type:"LikeSuccess",payload : data.message })
+
+    } catch (error) {
+        toast.error('Error while Liking Post');
+        dispatch({type:"LikeFailure" ,payload: error.response.data.message})
+    }
+}
+
+
+
 export const GetMyPost = () => async(dispatch) => {
     try {
         dispatch({type: "GetPostRequest"});
