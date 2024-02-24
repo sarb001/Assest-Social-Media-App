@@ -48,8 +48,8 @@ const Post = ({postImage,
     const addCommentHandler = async(e) => {
         e.preventDefault();
         await dispatch(GetComments(postId,commentvalue));
-        setcommentvalue('');
         dispatch(GetFollowingPostRequest());            // update all Data 
+        setcommentvalue('');
     }
 
     const updateCaptionHandler = async(e) => {
@@ -73,7 +73,7 @@ const Post = ({postImage,
                 setLiked(true);
             }
         })
-    },[likes,user?._id])
+    },[likes,comments,user?._id])
 
 
   return (

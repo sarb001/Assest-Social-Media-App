@@ -230,7 +230,10 @@ export const GetComments = (id,comment) => async(dispatch) => {
 
 export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
-        dispatch({type:"DeleteCommentRequest"})
+        dispatch({type:"DeleteCommentRequest"});
+        console.log('comment id- ',commentId);
+        console.log(' id here- ',id);
+
         const options = {
             headers : {
                 'Content-Type' : 'application/json',
@@ -242,9 +245,11 @@ export const GetDeleteComment = (id,commentId) => async(dispatch) => {
             data : { commentId },
         },options);
         
+        console.log('comment data -',data);
         toast.success(' Comment Deleted ');
         dispatch({type:"DeleteCommentSuccess",payload:data.message});
     } catch (error) {
+        console.log('error -,error');
         dispatch({type:"DeleteCommentFailure",payload: error.response.data.message}) 
     }
 }
