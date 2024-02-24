@@ -64,7 +64,6 @@ const Post = ({postImage,
         dispatch(loaduser());
     }
 
-
     // For checking logged liked user === logged user
     // So 
     useEffect(() => {

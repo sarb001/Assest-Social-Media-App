@@ -1,5 +1,5 @@
 import axios from "axios"
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 export const userRegister = (name,email,password,avatar) => async(dispatch) => {
     try {
@@ -58,8 +58,9 @@ export const loaduser = () => async(dispatch) => {
         dispatch({type:"LoadUserFailure",payload: error.response.data.message})
     }
 }
-// get Posts of User that Follow logged User 
 
+
+// get Posts of User that Follow logged User 
 export const GetFollowingPostRequest = () => async(dispatch) => {
 
     try {
@@ -140,12 +141,15 @@ export const GetComments = (id,comment) => async(dispatch) => {
             headers : {
                 "Content-Type" : 'application/json',
             }
-        })
+        });
+        console.log('all comments- ',data);
         dispatch({type:"CommentSuccess",payload: data.message}); 
     } catch (error) {
         dispatch({type:"CommentFailure",payload: error.response.data.message}) 
     }
 }
+
+
 
 export const GetDeleteComment = (id,commentId) => async(dispatch) => {
     try {
@@ -245,6 +249,8 @@ export const DeletePost = (id) => async(dispatch) => {
 }
 
 
+
+
 export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
     try {
         dispatch({type:"updateProfileRequest"});
@@ -262,6 +268,9 @@ export const GetUpdatedProfile = (name,email,avatar) =>  async(dispatch) => {
         dispatch({type:"updateProfileFailure",payload: error.response.data.message});
     }
 }
+
+
+
 
 
 export const DeleteProfile = () => async(dispatch) => {

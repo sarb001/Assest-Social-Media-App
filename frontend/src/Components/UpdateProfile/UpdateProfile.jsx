@@ -10,8 +10,8 @@ const UpdateProfile = () => {
 
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
-    const [avatar, setAvatar] = useState();
     const [prevavatar, setprevavatar] = useState(user.avatar.url);
+    const [avatar, setAvatar] = useState(prevavatar);
 
     const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const UpdateProfile = () => {
 
     const submitHandler = async(e) => {
         e.preventDefault();
-        await dispatch(GetUpdatedProfile());
+        await dispatch(GetUpdatedProfile(name,email,avatar));
         alert(' Updated Profile ');
         setName('');
         setEmail('');
@@ -46,7 +46,7 @@ const UpdateProfile = () => {
         </Typography>
 
         <Avatar
-          src={prevavatar}
+          src={avatar}
           alt="User"
           sx={{ height: "10vmax", width: "10vmax" }}
         />
