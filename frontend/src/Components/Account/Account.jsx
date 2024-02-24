@@ -40,15 +40,15 @@ const Account = () => {
                     {posts  && posts?.length  > 0  ? (
                         posts.map((post) => (
                             <Post
-                            key = {post._id}
-                            postId = {post._id}
-                            caption = {post.caption}
-                            postImage = {post.image.url}
-                            likes = {post.likes}
-                            comments = {post.comments}
-                            ownerName = {post.owner.name}
-                            ownerImage = {post.owner.avatar.url}
-                            ownerId= {post.owner._id}
+                            key = {post?._id}
+                            postId = {post?._id}
+                            caption = {post?.caption}
+                            postImage = {post?.image?.url}
+                            likes = {post?.likes}
+                            comments = {post?.comments}
+                            ownerName = {post?.owner?.name}
+                            ownerImage = {post?.owner?.avatar?.url}
+                            ownerId= {post?.owner?._id}
                         />
                         ))
                     ) : (
@@ -97,13 +97,13 @@ const Account = () => {
                             <div className="DialogBox">
                                 <Typography variant="h4">Followers</Typography>
 
-                                {user && user.followers.length > 0 ? (
-                                user.followers.map((follower) => (
+                                {user && user?.followers?.length > 0 ? (
+                                user?.followers?.map((follower) => (
                                     <User
-                                    key={follower._id}
-                                    userId={follower._id}
-                                    name={follower.name}
-                                    avatar={follower.avatar?.url}
+                                    key={follower?._id}
+                                    userId={follower?._id}
+                                    name={follower?.name}
+                                    avatar={follower?.avatar?.url}
                                     />
                                 ))
                         ) : (
@@ -122,12 +122,12 @@ const Account = () => {
                         <div className="DialogBox">
                             <Typography variant="h4">Following</Typography>
 
-                            {user && user.following.length > 0 ? (
-                            user.following.map((follow) => (
+                            {user && user?.following?.length > 0 ? (
+                            user?.following?.map((follow) => (
                                 <User
-                                key={follow._id}
-                                userId={follow._id}
-                                name={follow.name}
+                                key={follow?._id}
+                                userId={follow?._id}
+                                name={follow?.name}
                                 avatar={follow?.avatar?.url}
                                 />
                             ))
