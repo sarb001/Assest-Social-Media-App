@@ -2,12 +2,14 @@ import { Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { CreateNewPost, loaduser } from '../../Actions/User';
+import { useNavigate } from 'react-router-dom';
 
 const NewPost = () => {
 
     const [caption,setCaption] = useState('');
     const [image,setImage] = useState(null);
     const dispatch = useDispatch();
+    const navigate =  useNavigate();
 
     const { loading, user , error } = useSelector((state) => state.user);
 
@@ -29,6 +31,7 @@ const NewPost = () => {
         await dispatch(CreateNewPost(caption,image));
         setImage('');
         setCaption('');
+        navigate('/');
         dispatch(loaduser());
     }
     

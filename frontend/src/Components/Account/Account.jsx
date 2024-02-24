@@ -44,10 +44,10 @@ const Account = () => {
                             postId = {post?._id}
                             caption = {post?.caption}
                             postImage = {post?.image?.url}
-                            likes = {post.likes}
-                            comments = {post.comments}
-                            ownerName = {post.owner.name}
-                            ownerImage = {post.owner.avatar.url}
+                            likes = {post?.likes}
+                            comments = {post?.comments}
+                            ownerName = {post?.owner?.name}
+                            ownerImage = {post?.owner?.avatar?.url}
                             ownerId= {post?.owner?._id}
                         />
                         ))
@@ -100,9 +100,9 @@ const Account = () => {
                                 {user && user?.followers?.length > 0 ? (
                                 user.followers.map((follower) => (
                                     <User
-                                    key={follower._id}
-                                    userId={follower._id}
-                                    name={follower.name}
+                                    key={follower?._id}
+                                    userId={follower?._id}
+                                    name={follower?.name}
                                     avatar={follower?.avatar?.url}
                                     />
                                 ))
@@ -125,9 +125,9 @@ const Account = () => {
                             {user && user?.following?.length > 0 ? (
                             user?.following.map((follow) => (
                                 <User
-                                key={follow._id}
-                                userId={follow._id}
-                                name={follow.name}
+                                key={follow?._id}
+                                userId={follow?._id}
+                                name={follow?.name}
                                 avatar={follow?.avatar?.url}
                                 />
                             ))
