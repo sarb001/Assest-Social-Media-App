@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 
 exports.CreatePost = async (req,res) => {
     try {
-        console.log('requestyed img2-',typeof(req.body.image));
 
         const imagebase64 = req.body.image;
 
@@ -15,21 +14,14 @@ exports.CreatePost = async (req,res) => {
             folder : "posts"
         });
         
-        console.log('after mycloud ' ,mycloud);
-        console.log('after mycloud 22' ,mycloud);
-        
         if(mongoose.isValidObjectId(req.user._id)){
             owner = req.user._id  
-            console.log(' owner --',owner);
         }else {
-            console.log(' else part here -');
             return res.status(400).json({
                 success: false,
                 message: "Invalid user IDDDD",
             });
         }
-        
-        console.log('after postdata ');
 
         const newPostData = {
             caption : req.body.caption,
@@ -39,12 +31,8 @@ exports.CreatePost = async (req,res) => {
             },
             owner : req.user._id,
         }
-        console.log('new post data - ',newPostData);
         const post = await Post.create(newPostData);        // create post with above data
       
-        console.log('post created -',post);
-
-        
         if(!post){
             return res.status(500).json({
                 success: false,
@@ -56,14 +44,14 @@ exports.CreatePost = async (req,res) => {
             user.posts.push(post._id)   // post pushed to specific logged user account
             await user.save();
 
-            console.log('POST CREATED');
              return res.status(201).json({
                 post,
                 success: true,
                 message : "Post Createdd"
-            })
+            });
+
+        
     } catch (error) {       
-        console.log('error post-',error);
        return  res.status(500).json({
             success : false,
             message : error.message
@@ -82,9 +70,9 @@ exports.LikeandUnlikePost = async(req,res) =>{
         const post = await Post.findById(req.params.id);
 
         if(!post){
-            return res.status(404).json({
-            success : false,
-            message : " Post not Found ",
+                return res.status(404).json({
+                success : false,
+                message : " Post not Found ",
             })
         }
 
